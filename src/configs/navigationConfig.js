@@ -14,6 +14,14 @@ const navigationConfig = [
         icon: <Icon.Circle size={12} />,
         permissions: ["admin", "editor"],
         navLink: "/dashboard"
+      },
+      {
+        id: "buyPackages",
+        title: "Купить пакеты",
+        type: "item",
+        icon: <Icon.ShoppingCart size={12} />,
+        permissions: ["admin", "editor"],
+        navLink: "/buyPackages"
       }
     ]
   },
