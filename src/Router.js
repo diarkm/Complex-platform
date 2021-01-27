@@ -14,6 +14,7 @@ import partnership from "./views/pages/MyPages/Partnership"
 import reports from "./views/pages/MyPages/analyze"
 import referrals from "./views/pages/MyPages/ReferralsPage"
 import wallet from "./views/pages/MyPages/Wallet"
+import buyPackages from "./views/pages/MyPages/buyPackage"
 import { ContextLayout } from "./utility/context/Layout"
 
 // Route-based code splitting
@@ -228,6 +229,7 @@ class AppRouter extends React.Component {
           <AppRoute exact path="/partner" component={partnership} />
           <AppRoute exact path="/reports" component={reports} />
           <AppRoute exact path="/referrals" component={referrals} />
+          <AppRoute exact path="/buyPackages" component={buyPackages} />
           <AppRoute exact path="/wallet" component={wallet} />
           <AppRoute
             path="/forgot-password"
@@ -238,6 +240,10 @@ class AppRouter extends React.Component {
             path="/reset-password"
             component={resetPassword}
             fullLayout
+          />
+          <AppRoute
+            path="/settings"
+            component={accountSettings}
           />
 
           <AppRoute exact path="/ecom" component={ecom} />
@@ -357,10 +363,6 @@ class AppRouter extends React.Component {
             component={knowledgeBaseQuestion}
           />
           <AppRoute path="/pages/search" component={search} />
-          <AppRoute
-            path="/pages/account-settings"
-            component={accountSettings}
-          />
           <AppRoute path="/pages/invoice" component={invoice} />
           <AppRoute
             path="/misc/coming-soon"

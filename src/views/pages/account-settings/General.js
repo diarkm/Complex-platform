@@ -44,34 +44,46 @@ class General extends React.Component {
                 color="primary"
                 outline
               >
-                Upload Photo
+                Загрузить
                 <Input type="file" name="file" id="uploadImg" hidden />
               </Button.Ripple>
-              <Button.Ripple color="flat-danger">Remove</Button.Ripple>
+              <Button.Ripple color="flat-danger">Удалить</Button.Ripple>
             </div>
             <p className="text-muted mt-50">
-              <small>Allowed JPG, GIF or PNG. Max size of 800kB</small>
+              <small>Разрешается JPG, GIF или PNG. Максимальный размер: 1мб</small>
             </p>
           </Media>
         </Media>
         <Form className="mt-2" onSubmit={e => e.preventDefault()}>
           <Row>
-            <Col sm="12">
+            <Col lg="6" md="6" sm="12">
               <FormGroup>
-                <Label for="userName">Username</Label>
+                <Label for="userName">Логин</Label>
                 <Input id="userName" defaultValue="johny_01" />
               </FormGroup>
             </Col>
-            <Col sm="12">
+            <Col lg="6" md="6" sm="12">
               <FormGroup>
-                <Label for="name">Name</Label>
-                <Input id="name" defaultValue="John Doe" />
+                <Label for="email">Почта</Label>
+                <Input id="email" defaultValue="john@admin.com" />
               </FormGroup>
             </Col>
-            <Col sm="12">
+            <Col lg="6" md="6" sm="12">
               <FormGroup>
-                <Label for="email">Email</Label>
-                <Input id="email" defaultValue="john@admin.com" />
+                <Label for="name">Имя</Label>
+                <Input id="name" defaultValue="John" />
+              </FormGroup>
+            </Col>
+            <Col lg="6" md="6" sm="12">
+              <FormGroup>
+                <Label for="lastName">Фамилия</Label>
+                <Input id="lastName" defaultValue="Doe" />
+              </FormGroup>
+            </Col>
+            <Col lg="6" md="6" sm="12">
+              <FormGroup>
+                <Label for="tel">Телефон</Label>
+                <Input id="tel" defaultValue="+7 777 777 7777" />
               </FormGroup>
             </Col>
             <Col sm="12">
@@ -82,26 +94,17 @@ class General extends React.Component {
                 toggle={this.dismissAlert}
               >
                 <p className="mb-0">
-                  Your email is not confirmed. Please check your inbox.
-                  <span className="text-primary"> Resend Confirmation</span>
+                  Ваша почта не подтверждена. Мы выслали вам код с дальнейшей инстукцией по активации.<br></br>
+                  <span className="text-primary"> Отправить код повторно</span>
                 </p>
               </Alert>
             </Col>
-            <Col sm="12">
-              <FormGroup>
-                <Label for="company">Company</Label>
-                <Input
-                  id="company"
-                  defaultValue="SnowMash Technologies Pvt Ltd"
-                />
-              </FormGroup>
-            </Col>
             <Col className="d-flex justify-content-start flex-wrap" sm="12">
               <Button.Ripple className="mr-50" type="submit" color="primary">
-                Save Changes
+                Сохранить изменения
               </Button.Ripple>
               <Button.Ripple type="submit" color="danger">
-                Cancel
+                Отмена
               </Button.Ripple>
             </Col>
           </Row>
