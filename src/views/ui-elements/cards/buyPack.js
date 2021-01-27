@@ -1,7 +1,7 @@
 import React from "react"
-import { Col, Row, Input, Card, CardBody, Button } from "reactstrap"
+import { Col, Row, Card, CardBody } from "reactstrap"
+import { ContextLayout } from "../../utility/context/Layout"
 import Slider from "rc-slider"
-
 
 class buyPack extends React.Component {
     
@@ -20,17 +20,19 @@ class buyPack extends React.Component {
           <div className="text-center">
             <h4>Вложить в депозит</h4>
             <p>Выберите на какую сумму вы хотите приобрести пакет и приобретаемое количество</p>
-            <Row className="justify-align-center">
-              <Col>
-                <Slider
+            <ContextLayout.Consumer>
+            {context => (
+              <Row className="justify-align-center">
+                <Col>
+                  <Slider
                     min={20}
                     defaultValue={20}
                     marks={{ 20: 20, 40: 40, 60: 60, 100: 100 }}
                     step={null}
-                    onChange={this.onSliderChange}
-                />
-              </Col>
-            </Row>
+                  />
+                </Col>
+              </Row>)}
+              </ContextLayout.Consumer>
           </div>
         </CardBody>
       </Card>
