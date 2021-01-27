@@ -58,7 +58,7 @@ class LoginJWT extends React.Component {
                 onChange={this.handleRemember}
               />
               <div className="float-right">
-                <Link to="/pages/forgot-password">Забыли пароль?</Link>
+                <Link to="/forgot-password">Забыли пароль?</Link>
               </div>
             </FormGroup>
             <div className="d-flex justify-content-between">

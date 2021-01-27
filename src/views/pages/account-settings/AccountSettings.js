@@ -48,11 +48,6 @@ class AccountSettings extends React.Component {
     let {windowWidth} = this.state
     return (
       <React.Fragment>
-        <Breadcrumbs
-          breadCrumbTitle="Account Settings"
-          breadCrumbParent="Pages"
-          breadCrumbActive="Account Settings"
-        />
         <div className={`${windowWidth >= 769 ? "nav-vertical" : "account-setting-wrapper"}`}>
           <Nav className="account-settings-tab nav-left mr-0 mr-sm-3" tabs>
             <NavItem>
@@ -65,7 +60,7 @@ class AccountSettings extends React.Component {
                 }}
               >
                 <Settings size={16} />
-                <span className="d-md-inline-block d-none align-middle ml-1">General</span>
+                <span className="d-md-inline-block d-none align-middle ml-1">Основное</span>
               </NavLink>
             </NavItem>
             <NavItem>
@@ -78,7 +73,7 @@ class AccountSettings extends React.Component {
                 }}
               >
                 <Lock size={16} />
-                <span className="d-md-inline-block d-none align-middle ml-1">Change Password</span>
+                <span className="d-md-inline-block d-none align-middle ml-1">Поменять пароль</span>
               </NavLink>
             </NavItem>
             <NavItem>
@@ -91,46 +86,7 @@ class AccountSettings extends React.Component {
                 }}
               >
                 <Info size={16} />
-                <span className="d-md-inline-block d-none align-middle ml-1">Info</span>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                className={classnames({
-                  active: this.state.activeTab === "4"
-                })}
-                onClick={() => {
-                  this.toggle("4")
-                }}
-              >
-                <Instagram size={16} />
-                <span className="d-md-inline-block d-none align-middle ml-1">Social Links</span>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                className={classnames({
-                  active: this.state.activeTab === "5"
-                })}
-                onClick={() => {
-                  this.toggle("5")
-                }}
-              >
-                <Link size={16} />
-                <span className="d-md-inline-block d-none align-middle ml-1">Connections</span>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                className={classnames({
-                  active: this.state.activeTab === "6"
-                })}
-                onClick={() => {
-                  this.toggle("6")
-                }}
-              >
-                <Bell size={16} />
-                <span className="d-md-inline-block d-none align-middle ml-1">Notifications</span>
+                <span className="d-md-inline-block d-none align-middle ml-1">Дополнительно</span>
               </NavLink>
             </NavItem>
           </Nav>
@@ -145,15 +101,6 @@ class AccountSettings extends React.Component {
                 </TabPane>
                 <TabPane tabId="3">
                   <InfoTab />
-                </TabPane>
-                <TabPane tabId="4">
-                  <SocialLinks />
-                </TabPane>
-                <TabPane tabId="5">
-                  <Connection />
-                </TabPane>
-                <TabPane tabId="6">
-                  <Notifications />
                 </TabPane>
               </TabContent>
             </CardBody>

@@ -229,6 +229,16 @@ class AppRouter extends React.Component {
           <AppRoute exact path="/reports" component={reports} />
           <AppRoute exact path="/referrals" component={referrals} />
           <AppRoute exact path="/wallet" component={wallet} />
+          <AppRoute
+            path="/forgot-password"
+            component={forgotPassword}
+            fullLayout
+          />
+          <AppRoute
+            path="/reset-password"
+            component={resetPassword}
+            fullLayout
+          />
 
           <AppRoute exact path="/ecom" component={ecom} />
           <AppRoute exact path="/analytic" component={analytic} />
@@ -359,18 +369,8 @@ class AppRouter extends React.Component {
           />
           <AppRoute path="/misc/error/404" component={error404} fullLayout />
           <AppRoute
-            path="/pages/forgot-password"
-            component={forgotPassword}
-            fullLayout
-          />
-          <AppRoute
             path="/pages/lock-screen"
             component={lockScreen}
-            fullLayout
-          />
-          <AppRoute
-            path="/pages/reset-password"
-            component={resetPassword}
             fullLayout
           />
           <AppRoute path="/misc/error/500" component={error500} fullLayout />

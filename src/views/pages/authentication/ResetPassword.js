@@ -39,34 +39,29 @@ class ResetPassword extends React.Component {
                 <Card className="rounded-0 mb-0 px-2 py-50">
                   <CardHeader className="pb-1 pt-1">
                     <CardTitle>
-                      <h4 className="mb-0">Reset Password</h4>
+                      <h4 className="mb-0">Восстановить пароль</h4>
                     </CardTitle>
                   </CardHeader>
                   <p className="px-2 auth-title">
-                    Please enter your email address and new password to
-                    continue.
+                    Ваш новый пароль должен отличаться от предыдущих
                   </p>
                   <CardBody className="pt-1">
                     <Form>
                       <FormGroup className="form-label-group">
-                        <Input type="email" placeholder="Email" required />
-                        <Label>Email</Label>
+                        <Input
+                          type="password"
+                          placeholder="Пароль"
+                          required
+                        />
+                        <Label>Пароль</Label>
                       </FormGroup>
                       <FormGroup className="form-label-group">
                         <Input
                           type="password"
-                          placeholder="Password"
+                          placeholder="Подтвердите пароль"
                           required
                         />
-                        <Label>Password</Label>
-                      </FormGroup>
-                      <FormGroup className="form-label-group">
-                        <Input
-                          type="password"
-                          placeholder="Confirm Password"
-                          required
-                        />
-                        <Label>Confirm Password</Label>
+                        <Label>Подтвердите пароль</Label>
                       </FormGroup>
                       <div className="d-flex justify-content-between flex-wrap flex-sm-row flex-column">
                         <Button.Ripple
@@ -76,19 +71,22 @@ class ResetPassword extends React.Component {
                           outline
                           onClick={e => {
                             e.preventDefault()
-                            history.push("/pages/login")
+                            history.push("/")
                           }}
                         >
-                          Go Back to Login
+                          Назад
                         </Button.Ripple>
                         <Button.Ripple
                           block
                           color="primary"
                           type="submit"
                           className="btn-block mt-1 mt-sm-0"
-                          onClick={e => e.preventDefault()}
+                          onClick={e => 
+                            {e.preventDefault()
+                            history.push("/")
+                          }}
                         >
-                          Reset
+                          Изменить пароль
                         </Button.Ripple>
                       </div>
                     </Form>

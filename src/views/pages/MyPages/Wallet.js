@@ -1,8 +1,9 @@
 import React from 'react'
 import { Row, Col, Button } from 'reactstrap'
-import Funds from "../../ui-elements/cards/analytics/Funds"
+import FundsWallet from "../../ui-elements/cards/analytics/FundsWallet"
 import SuberscribersGained from "../../ui-elements/cards/statistics/SubscriberGained"
 import TreeView from "../../../extensions/treeview/TreeView"
+import DataTableTransaction from "../../tables/data-tables/DataTableTransaction"
 
 let $primary = "#7367F0",
   $danger = "#EA5455",
@@ -16,9 +17,12 @@ class Wallet extends React.Component {
     render(){
         return (
         <React.Fragment>
-            <Row>
-                <Col>
-                    <Funds />
+            <Row className="match-height">
+                <Col lg="4" md="4" sm="12">
+                    <FundsWallet />
+                </Col>
+                <Col lg="8" md="8" sm="12">
+                    <DataTableTransaction />
                 </Col>
             </Row>
             <Row>

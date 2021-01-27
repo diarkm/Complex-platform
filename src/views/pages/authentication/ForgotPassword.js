@@ -39,27 +39,26 @@ class ForgotPassword extends React.Component {
                 <Card className="rounded-0 mb-0 px-2 py-1">
                   <CardHeader className="pb-1">
                     <CardTitle>
-                      <h4 className="mb-0">Recover your password</h4>
+                      <h4 className="mb-0">Забыли пароль?</h4>
                     </CardTitle>
                   </CardHeader>
                   <p className="px-2 auth-title">
-                    Please enter your email address and we'll send you
-                    instructions on how to reset your password.
+                    Введите свою почту и мы вышлем вам письмо с дальнейшими инструкциями
                   </p>
                   <CardBody className="pt-1 pb-0">
                     <Form>
                       <FormGroup className="form-label-group">
                         <Input type="text" placeholder="Email" required />
-                        <Label>Email</Label>
+                        <Label>Почта</Label>
                       </FormGroup>
                       <div className="float-md-left d-block mb-1">
                         <Button.Ripple
                           color="primary"
                           outline
                           className="px-75 btn-block"
-                          onClick={() => history.push("/pages/login")}
+                          onClick={() => history.push("/")}
                         >
-                          Back to Login
+                          Назад
                         </Button.Ripple>
                       </div>
                       <div className="float-md-right d-block mb-1">
@@ -72,7 +71,7 @@ class ForgotPassword extends React.Component {
                             history.push("/")
                           }}
                         >
-                          Recover Password
+                          Восстановить пароль
                         </Button.Ripple>
                       </div>
                     </Form>
