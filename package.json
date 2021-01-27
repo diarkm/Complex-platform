@@ -97,7 +97,7 @@
   "devDependencies": {
     "node-sass": "^4.14.1",
     "react-app-rewire-postcss": "^3.0.2",
-    "react-app-rewired": "^2.1.5"
+    "react-app-rewired": "^2.1.8"
   },
   "browserslist": {
     "production": [
