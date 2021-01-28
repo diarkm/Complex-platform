@@ -76,15 +76,15 @@ const navigationConfig = [
     icon: <Icon.User size={20} />,
     permissions: ["admin", "editor"],
     navLink: "/settings"
-  },
-  {
+  }
+  /*{
     id: "quit",
     title: "Выход",
     type: "item",
     icon: <Icon.Power size={20} />,
     permissions: ["admin", "editor"],
     navLink: "/quit"
-  }
+  }*/
 ]
 
 export default navigationConfig

@@ -27,6 +27,11 @@ const handleNavigation = (e, path) => {
 
 const UserDropdown = props => {
   const { logout, isAuthenticated } = useAuth0()
+
+  const exit = () => {
+    localStorage.removeItem('token');
+    history.push('/');
+  }
   return (
     <DropdownMenu right>
       <DropdownItem
@@ -61,7 +66,7 @@ const UserDropdown = props => {
         }}
       >
         <Icon.Power size={14} className="mr-50" />
-        <span className="align-middle">Выйти</span>
+        <span className="align-middle" onClick={exit}>Выйти</span>
       </DropdownItem>
     </DropdownMenu>
   )
