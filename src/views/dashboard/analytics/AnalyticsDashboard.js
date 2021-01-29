@@ -16,6 +16,8 @@ import "../../../assets/scss/pages/dashboard-analytics.scss"
 import avatarImg from "../../../assets/img/portrait/small/avatar-s-11.jpg"
 import sponsorImg from "../../../assets/img/portrait/small/avatar-s-12.jpg"
 import ReferralLink from "../../ui-elements/cards/ReferralLink"
+import axios from 'axios';
+import TokenStorage from '../../../api/tokenStorage';
 
 let $primary = "#7367F0",
   $danger = "#EA5455",
@@ -30,7 +32,23 @@ let $primary = "#7367F0",
   $white = "#fff"
 
 class AnalyticsDashboard extends React.Component {
-  
+
+  storage = new TokenStorage()
+
+  state = {
+    user: null
+  }
+
+  async componentDidMount() {
+    let response = await axios.get('http://79.143.31.221/user/', {
+      headers: {
+        'Authorization': this.storage.get()
+      }
+    })
+
+    this.setState({user: response.data.user});
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -106,7 +124,7 @@ class AnalyticsDashboard extends React.Component {
                 <h4>Информация о пользователе</h4>
               </CardHeader>
               <div className="text-center pt-0 my-auto">
-                  <h5>John Doe</h5>
+                  <h5>{this.state.user.firstName} {this.state.user.lastName}</h5>
                   <p>INVESTOR GIQ-S</p>
                   <div className="avatar mr-1 avatar-x3">
                     <img src={avatarImg} alt="avatarImg" />
