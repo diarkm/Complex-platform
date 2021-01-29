@@ -131,7 +131,9 @@ class SideMenuContent extends React.Component {
           <li
             className="navigation-header"
             key={`group-header-${item.groupTitle}`}>
-            <span>{item.groupTitle}</span>
+            <span>
+              <FormattedMessage id={item.groupTitle}/>
+            </span>
           </li>
         )
       }

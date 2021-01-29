@@ -2,7 +2,7 @@
   "name": "giq-group",
   "version": "1.0.0",
   "private": true,
-  "proxy": "http://79.143.31.221/",
+  "proxy": "http://back.giq-group.com/public/",
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.6.3",
     "ag-grid-community": "^22.1.1",

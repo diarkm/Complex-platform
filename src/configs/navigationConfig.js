@@ -17,7 +17,7 @@ const navigationConfig = [
       },
       {
         id: "buyPackages",
-        title: "Купить пакеты",
+        title: "Пополнить счет",
         type: "item",
         icon: <Icon.ShoppingCart size={12} />,
         permissions: ["admin", "editor"],

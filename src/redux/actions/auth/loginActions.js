@@ -126,7 +126,7 @@ export const loginWithTwitter = () => {
 
 let accessToken = ''
 
-const apiURL = 'http://79.143.31.221'
+const apiURL = 'http://back.giq-group.com/public'
 
 const authAxios = axios.create({
   baseURL: apiURL,
