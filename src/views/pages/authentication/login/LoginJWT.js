@@ -9,6 +9,8 @@ import { history } from "../../../../history"
 import axios from 'axios';
 import TokenStorage from '../../../../api/tokenStorage';
 
+const apiURL = 'http://cabinet.giq-group.com/back/public'
+
 class LoginJWT extends React.Component {
   storage = new TokenStorage()
 
@@ -34,7 +36,7 @@ class LoginJWT extends React.Component {
 
   auth = async () => {
     try {
-      const response = await axios.post('http://79.143.31.221/user/login', {
+      const response = await axios.post(apiURL + '/user/login', {
         login: this.state.login,
         password: this.state.password,
         remember: this.remember
@@ -63,7 +65,7 @@ class LoginJWT extends React.Component {
 
   googleAuth = async () => {
     try {
-      const response = await axios.post('http://79.143.31.221/user/login/2fa', {
+      const response = await axios.post(apiURL + '/user/login/2fa', {
         token: this.state.googleAuth.token,
         code: this.state.code
       });

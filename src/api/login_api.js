@@ -1,5 +1,7 @@
 import { Component } from "react";
 
+const apiURL = 'http://cabinet.giq-group.com/back/public'
+
 export default class PostLogin extends Component{
     constructor(props){
         super(props);
@@ -11,7 +13,7 @@ export default class PostLogin extends Component{
     }
 
     componentDidMount(){
-        fetch("http://79.143.31.221/user/login")
+        fetch(apiURL + "/user/login")
         .then(res => res.json())
         .then(
             (result) => {

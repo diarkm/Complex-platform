@@ -39,7 +39,7 @@ function getColor(stat){
   } else if(stat.status === 'в обработке'){
     return "warning"
   } else {
-    return "danger"
+    return "primary"
   }
 }
 
@@ -238,15 +238,11 @@ class DataTableCustom extends React.Component {
     if (value.length) {
       filteredData = data.filter(item => {
         let startsWithCondition =
-          item.name.toLowerCase().startsWith(value.toLowerCase()) ||
           item.date.toLowerCase().startsWith(value.toLowerCase()) ||
-          item.email.toLowerCase().startsWith(value.toLowerCase()) ||
           item.revenue.toLowerCase().startsWith(value.toLowerCase()) ||
           item.status.toLowerCase().startsWith(value.toLowerCase())
         let includesCondition =
-          item.name.toLowerCase().includes(value.toLowerCase()) ||
           item.date.toLowerCase().includes(value.toLowerCase()) ||
-          item.email.toLowerCase().includes(value.toLowerCase()) ||
           item.revenue.toLowerCase().includes(value.toLowerCase()) ||
           item.status.toLowerCase().includes(value.toLowerCase())
 

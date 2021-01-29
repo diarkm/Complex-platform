@@ -12,6 +12,8 @@ if (!firebase.apps.length) {
 
 let firebaseAuth = firebase.auth()
 
+const apiURL = 'http://cabinet.giq-group.com/back/public'
+
 export const signupWithFirebase = (email, password, name) => {
   return dispatch => {
     let userEmail = null,
@@ -67,7 +69,7 @@ export const signupForm = (
   return dispatch => {
     if(password == confirmPass) {
       axios
-        .post("http://79.143.31.221/user/signup", {
+        .post(apiURL + "/user/signup", {
           login: login,
           firstName: firstName,
           lastName: lastName,
