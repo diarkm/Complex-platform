@@ -2,6 +2,7 @@ import React from "react"
 import { Row, Col, Card, CardHeader, Button } from "reactstrap"
 import SalesCard from "./SalesCard"
 import RevenueGenerated from "../../ui-elements/cards/statistics/RevenueGenerated"
+import RevenueLastMonth from "../../ui-elements/cards/statistics/RevenueLastMonth"
 import SuberscribersGained from "../../ui-elements/cards/statistics/SubscriberGained"
 import Orders from "../../ui-elements/cards/statistics/OrdersReceived"
 import UserCards from "../../../components/@vuexy/statisticsCard/UserCards"
@@ -29,9 +30,7 @@ let $primary = "#7367F0",
   $white = "#fff"
 
 class AnalyticsDashboard extends React.Component {
-
   
-
   render() {
     return (
       <React.Fragment>
@@ -82,14 +81,14 @@ class AnalyticsDashboard extends React.Component {
           </Col>
         </Row>
         <Row className="match-height">
-          <Col lg="6" md="12" sm="12">
+          <Col lg="8" md="12" sm="12">
             <Statistics />
           </Col>
-          <Col lg="3" md="6" sm="12">
+          <Col lg="2" md="6" sm="12">
             <Orders />
           </Col>
-          <Col lg="3" md="6" sm="12">
-            <RevenueGenerated />
+          <Col lg="2" md="6" sm="12">
+            <RevenueLastMonth />
           </Col>
         </Row>
         <Row className="match-height">

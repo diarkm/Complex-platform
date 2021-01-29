@@ -3,6 +3,7 @@ import { Row, Col, Button } from 'reactstrap'
 import ReferralLink from "../../ui-elements/cards/ReferralLink"
 import SuberscribersGained from "../../ui-elements/cards/statistics/SubscriberGained"
 import TreeView from "../../../extensions/treeview/TreeView"
+import sponsorImg from "../../../assets/img/portrait/small/avatar-s-12.jpg"
 
 let $primary = "#7367F0",
   $danger = "#EA5455",

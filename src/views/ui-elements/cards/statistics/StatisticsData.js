@@ -49,8 +49,8 @@ export const subscribersGained = {
 
 export const subscribersGainedSeries = [
   {
-    name: "Subscribers",
-    data: [28, 40, 36, 52, 38, 60, 55]
+    name: "Доход сети",
+    data: [2800, 4000, 3600, 5200, 3800, 6000, 5500]
   }
 ]
 

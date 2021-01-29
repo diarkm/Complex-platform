@@ -37,7 +37,7 @@ const UserDropdown = props => {
       <DropdownItem
         tag="a"
         href="#"
-        onClick={e => handleNavigation(e, "/pages/profile")}
+        onClick={e => handleNavigation(e, "/settings")}
       >
         <Icon.User size={14} className="mr-50" />
         <span className="align-middle">Настройки</span>

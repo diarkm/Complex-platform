@@ -104,7 +104,7 @@ class ClientRetention extends React.Component {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Отчет за последнее время</CardTitle>
+          <CardTitle>Отчет за год</CardTitle>
         </CardHeader>
         <CardBody>
           <Chart
