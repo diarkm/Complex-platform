@@ -2,6 +2,7 @@ import React from "react"
 import { Row, Col, Card, CardHeader, Button } from "reactstrap"
 import SalesCard from "./SalesCard"
 import RevenueGenerated from "../../ui-elements/cards/statistics/RevenueGenerated"
+import RevenueLastMonth from "../../ui-elements/cards/statistics/RevenueLastMonth"
 import SuberscribersGained from "../../ui-elements/cards/statistics/SubscriberGained"
 import Orders from "../../ui-elements/cards/statistics/OrdersReceived"
 import UserCards from "../../../components/@vuexy/statisticsCard/UserCards"
@@ -15,6 +16,8 @@ import "../../../assets/scss/pages/dashboard-analytics.scss"
 import avatarImg from "../../../assets/img/portrait/small/avatar-s-11.jpg"
 import sponsorImg from "../../../assets/img/portrait/small/avatar-s-12.jpg"
 import ReferralLink from "../../ui-elements/cards/ReferralLink"
+import axios from 'axios';
+import TokenStorage from '../../../api/tokenStorage';
 
 const apiURL = 'https://cabinet.giq-group.com/back/public'
 
@@ -98,14 +101,14 @@ class AnalyticsDashboard extends React.Component {
           </Col>
         </Row>
         <Row className="match-height">
-          <Col lg="6" md="12" sm="12">
+          <Col lg="8" md="12" sm="12">
             <Statistics />
           </Col>
-          <Col lg="3" md="6" sm="12">
+          <Col lg="2" md="6" sm="12">
             <Orders />
           </Col>
-          <Col lg="3" md="6" sm="12">
-            <RevenueGenerated />
+          <Col lg="2" md="6" sm="12">
+            <RevenueLastMonth />
           </Col>
         </Row>
         <Row className="match-height">
@@ -123,7 +126,7 @@ class AnalyticsDashboard extends React.Component {
                 <h4>Информация о пользователе</h4>
               </CardHeader>
               <div className="text-center pt-0 my-auto">
-                  <h5>John Doe</h5>
+                  <h5>{this.state.user.firstName} {this.state.user.lastName}</h5>
                   <p>INVESTOR GIQ-S</p>
                   <div className="avatar mr-1 avatar-x3">
                     <img src={avatarImg} alt="avatarImg" />

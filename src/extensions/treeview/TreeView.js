@@ -12,7 +12,7 @@ import { Treebeard, decorators } from "react-treebeard"
 import Prism from "prismjs"
 import { connect } from "react-redux"
 import * as filters from "./Filter"
-import { data } from "./Data"
+import avatarImg from "../../assets/img/portrait/small/avatar-s-11.jpg"
 import { styleLight, styleDark } from "./Styles"
 const Loading = props => {
   return (
@@ -22,8 +22,48 @@ const Loading = props => {
   )
 }
 
+const CustomHeader = ({ node, style, prefix }) =>
+  <div style={style.base}>
+    <div style={{ ...style.title, display: "flex" }}>
+      <img className="mr-1 rounded-circle" src={avatarImg} width="32" height="32"></img> {`${node.name}`}
+    </div>
+  </div>;
+
+const data = {
+  name: 'John Doe',
+  toggled: true,
+  children: [
+      {
+          name: 'Diana Doe',
+          children: [
+              { name: 'Adam Smith' },
+              { name: 'Ariana Bloomberg' }
+          ]
+      },
+      {
+          name: 'Max Marchenko',
+          children: [
+            { name: 'Anna Smith' },
+            { name: 'Sam Polsen' }
+          ]
+      },
+      {
+          name: 'Diar Kundakbaev',
+          children: [
+              {
+                  name: 'Rustem Kozhabayev',
+                  children: [
+                      { name: 'Daulet Ersainov' },
+                      { name: 'Richard Winston' }
+                  ]
+              }
+          ]
+      }
+  ]
+}
+
 class TreeView extends React.Component {
-  state = {
+  state={
     data
   }
 
@@ -58,6 +98,7 @@ class TreeView extends React.Component {
   render() {
     const { data, cursor } = this.state
     decorators.Loading = Loading
+    decorators.Header = CustomHeader
 
     return (
       <React.Fragment>

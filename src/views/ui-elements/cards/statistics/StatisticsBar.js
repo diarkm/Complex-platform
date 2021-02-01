@@ -33,7 +33,7 @@ class StatisticsBar extends React.Component {
               iconBg="primary"
               icon={<Activity className="primary" size={22} />}
               stat="+$34"
-              statTitle="Бонусы"
+              statTitle="Бонусы за день"
             />
           </Col>
           <Col xl="3" lg="4" sm="6">

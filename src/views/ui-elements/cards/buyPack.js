@@ -1,6 +1,5 @@
 import React from "react"
 import { Col, Row, Card, CardBody } from "reactstrap"
-import { ContextLayout } from "../../utility/context/Layout"
 import Slider from "rc-slider"
 
 const Handle = Slider.Handle

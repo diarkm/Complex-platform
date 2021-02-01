@@ -168,7 +168,7 @@ class AccessControl extends React.Component {
               <CardBody>
                 <p>
                   You can add route protection using file{" "}
-                  <strong>navigationConfig</strong>. Only admin can visit
+                  <strong></strong>. Only admin can visit
                   eCommerce Dashboard.
                 </p>
                 <Button

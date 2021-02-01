@@ -5,10 +5,14 @@ import { Check } from "react-feather"
 import { connect } from "react-redux"
 import { signupForm } from "../../../../server"
 import { history } from "../../../../history"
+import axios from 'axios';
+import TokenStorage from '../../../../api/tokenStorage';
 
 const apiURL = 'https://cabinet.giq-group.com/back/public'
 
 class RegisterJWT extends React.Component {
+  storage = new TokenStorage()
+
   state = {
     login: "",
     firstName: "",
@@ -62,7 +66,7 @@ class RegisterJWT extends React.Component {
 
   handleRegister = e => {
     e.preventDefault()
-    this.props.signupForm(
+    /*this.props.signupForm(
       this.state.login,
       this.state.firstName,
       this.state.lastName,
@@ -71,7 +75,12 @@ class RegisterJWT extends React.Component {
       this.state.email,
       this.state.avatar,
       this.state.phoneNumber
-    )
+    )*/
+  }
+
+  componentDidMount() {
+    if (this.storage.isValid())
+      return history.push('/dashboard');
   }
 
   render() {
@@ -155,7 +164,7 @@ class RegisterJWT extends React.Component {
             label="Загрузить аватар"
             id="exampleCustomFileBrowser"
             name="customFile"
-            onChange={e => {this.setState({avatar: e.target.value}); console.log(e.target.value)}}
+            onChange={e => {this.setState({avatar: e.target.files[0]}); console.log(e.target.value)}}
             />
         </FormGroup>
         <FormGroup className="mt-1">
@@ -164,6 +173,7 @@ class RegisterJWT extends React.Component {
             icon={<Check className="vx-icon" size={16} />}
             label=" Я прочитал и принимаю пользовательское соглашение."
             defaultChecked={false}
+            onClick={e => {this.setState({accept: true})}}
           />
         </FormGroup>
         <div className="d-flex justify-content-between">
@@ -176,7 +186,7 @@ class RegisterJWT extends React.Component {
           >
             Войти
           </Button.Ripple>
-          <Button.Ripple color="primary" type="submit">
+          <Button.Ripple color="primary" type="button" onClick={this.signup}>
             Регистрация
           </Button.Ripple>
         </div>
