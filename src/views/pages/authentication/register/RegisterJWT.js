@@ -6,6 +6,8 @@ import { connect } from "react-redux"
 import { signupForm } from "../../../../server"
 import { history } from "../../../../history"
 
+const apiURL = 'https://cabinet.giq-group.com/back/public'
+
 class RegisterJWT extends React.Component {
   state = {
     login: "",
@@ -15,7 +17,47 @@ class RegisterJWT extends React.Component {
     confirmPass: "",
     email: "",
     avatar: "",
-    phoneNumber: ""
+    phoneNumber: "",
+    accept: false
+  }
+
+  signup = async () => {
+    if (!this.state.accept)
+      return alert('Примите условия соглашения');
+
+    if (this.state.password != this.state.confirmPass)
+      return alert('Введите вверные пароли');
+
+    if (this.state.login.length == 0) {
+      return alert('Введите логин');
+    }
+
+    if (this.state.email.length == 0) {
+      return alert('Введите почту');
+    }
+
+    if (this.state.phoneNumber.length == 0) {
+      return alert('Введите номер телефона');
+    }
+
+    if (this.state.firstName.length == 0 || this.state.lastName.length == 0) {
+      return alert('Введите имя и фамилию');
+    }
+
+    try {
+      let fd = new FormData();
+      for (let item in Object.values(this.state)) {
+        fd.append(Object.keys(this.state)[item], this.state[Object.keys(this.state)[item]]);
+      }
+
+      const response = await axios.post(apiURL + '/user/signup', fd);
+      if (response.data.response) {
+        alert('Вы успешно зарегестрировали свой аккаунт! Пройдите авторизацию');
+        history.push('/');
+      } else return alert(response.data.errors);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   handleRegister = e => {
@@ -110,7 +152,7 @@ class RegisterJWT extends React.Component {
         <FormGroup>
           <CustomInput
             type="file"
-            label="Выберите файл"
+            label="Загрузить аватар"
             id="exampleCustomFileBrowser"
             name="customFile"
             onChange={e => {this.setState({avatar: e.target.value}); console.log(e.target.value)}}

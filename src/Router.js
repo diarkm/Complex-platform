@@ -15,6 +15,7 @@ import reports from "./views/pages/MyPages/analyze"
 import referrals from "./views/pages/MyPages/ReferralsPage"
 import wallet from "./views/pages/MyPages/Wallet"
 import buyPackages from "./views/pages/MyPages/buyPackage"
+import myOrders from "./views/pages/MyPages/MyOrders"
 import { ContextLayout } from "./utility/context/Layout"
 
 // Route-based code splitting
@@ -231,6 +232,7 @@ class AppRouter extends React.Component {
           <AppRoute exact path="/referrals" component={referrals} />
           <AppRoute exact path="/buyPackages" component={buyPackages} />
           <AppRoute exact path="/wallet" component={wallet} />
+          <AppRoute exact path="/cart" component={myOrders} />
           <AppRoute
             path="/forgot-password"
             component={forgotPassword}

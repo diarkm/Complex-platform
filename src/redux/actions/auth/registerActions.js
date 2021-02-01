@@ -12,7 +12,7 @@ if (!firebase.apps.length) {
 
 let firebaseAuth = firebase.auth()
 
-const apiURL = 'http://cabinet.giq-group.com/back/public'
+const apiURL = 'https://cabinet.giq-group.com/back/public'
 
 export const signupWithFirebase = (email, password, name) => {
   return dispatch => {

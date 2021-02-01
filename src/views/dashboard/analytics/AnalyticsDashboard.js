@@ -16,6 +16,8 @@ import avatarImg from "../../../assets/img/portrait/small/avatar-s-11.jpg"
 import sponsorImg from "../../../assets/img/portrait/small/avatar-s-12.jpg"
 import ReferralLink from "../../ui-elements/cards/ReferralLink"
 
+const apiURL = 'https://cabinet.giq-group.com/back/public'
+
 let $primary = "#7367F0",
   $danger = "#EA5455",
   $warning = "#FF9F43",
@@ -30,7 +32,21 @@ let $primary = "#7367F0",
 
 class AnalyticsDashboard extends React.Component {
 
-  
+  storage = new TokenStorage()
+
+  state = {
+    user: null
+  }
+
+  componentDidMount() {
+    //let response = await axios.get(apiURL + '/user/', {
+    axios(apiURL + '/user/', {
+      headers: {
+        'Authorization': this.storage.get()
+      }
+    })
+    .then(res => {this.setState({user: res.data.user})})
+  }
 
   render() {
     return (

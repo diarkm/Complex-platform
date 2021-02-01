@@ -7,13 +7,18 @@ import { loginForm } from "../../../../server"
 import { connect } from "react-redux"
 import { history } from "../../../../history"
 
-const apiURL = 'http://cabinet.giq-group.com/back/public'
+const apiURL = 'https://cabinet.giq-group.com/back/public'
 
 class LoginJWT extends React.Component {
   state = {
-    login: "johndoe",
-    password: "demodemo",
-    remember: false
+    login: "",
+    password: "",
+    remember: false,
+    code: undefined,
+    googleAuth: {
+      active: false,
+      token: undefined
+    }
   }
 
   handleLogin = e => {

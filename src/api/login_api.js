@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-const apiURL = 'http://cabinet.giq-group.com/back/public'
+const apiURL = 'https://cabinet.giq-group.com/back/public'
 
 export default class PostLogin extends Component{
     constructor(props){
