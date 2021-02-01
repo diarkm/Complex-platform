@@ -7,6 +7,16 @@ import "../../../assets/scss/plugins/forms/flatpickr/flatpickr.scss"
 
 
 class InfoTab extends React.Component {
+  constructor() {
+    super();
+    this.state = { checked: false };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(checked) {
+    this.setState({ checked });
+    console.log(checked)
+  }
 
   render() {
     return (
@@ -31,6 +41,8 @@ class InfoTab extends React.Component {
                 type="switch"
                 id="success"
                 name="success"
+                onChange={this.handleChange}
+                checked={this.state.checked}
                 inline
               >
                 <span className="mb-0 switch-label">Двухфакторная аутентификация</span>

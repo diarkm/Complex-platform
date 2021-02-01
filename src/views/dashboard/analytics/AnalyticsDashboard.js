@@ -19,6 +19,8 @@ import ReferralLink from "../../ui-elements/cards/ReferralLink"
 import axios from 'axios';
 import TokenStorage from '../../../api/tokenStorage';
 
+const apiURL = 'https://cabinet.giq-group.com/back/public'
+
 let $primary = "#7367F0",
   $danger = "#EA5455",
   $warning = "#FF9F43",
@@ -39,14 +41,14 @@ class AnalyticsDashboard extends React.Component {
     user: null
   }
 
-  async componentDidMount() {
-    let response = await axios.get('http://79.143.31.221/user/', {
+  componentDidMount() {
+    //let response = await axios.get(apiURL + '/user/', {
+    axios(apiURL + '/user/', {
       headers: {
         'Authorization': this.storage.get()
       }
     })
-
-    this.setState({user: response.data.user});
+    .then(res => {this.setState({user: res.data.user})})
   }
 
   render() {

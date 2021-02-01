@@ -9,14 +9,14 @@ import { history } from "../../../../history"
 import axios from 'axios';
 import TokenStorage from '../../../../api/tokenStorage';
 
-const apiURL = 'http://cabinet.giq-group.com/back/public'
+const apiURL = 'https://cabinet.giq-group.com/back/public'
 
 class LoginJWT extends React.Component {
   storage = new TokenStorage()
 
   state = {
-    login: "fman",
-    password: "4445",
+    login: "",
+    password: "",
     remember: false,
     code: undefined,
     googleAuth: {

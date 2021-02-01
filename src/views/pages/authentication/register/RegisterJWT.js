@@ -8,6 +8,8 @@ import { history } from "../../../../history"
 import axios from 'axios';
 import TokenStorage from '../../../../api/tokenStorage';
 
+const apiURL = 'https://cabinet.giq-group.com/back/public'
+
 class RegisterJWT extends React.Component {
   storage = new TokenStorage()
 
@@ -52,7 +54,7 @@ class RegisterJWT extends React.Component {
         fd.append(Object.keys(this.state)[item], this.state[Object.keys(this.state)[item]]);
       }
 
-      const response = await axios.post('http://79.143.31.221/user/signup', fd);
+      const response = await axios.post(apiURL + '/user/signup', fd);
       if (response.data.response) {
         alert('Вы успешно зарегестрировали свой аккаунт! Пройдите авторизацию');
         history.push('/');
@@ -159,7 +161,7 @@ class RegisterJWT extends React.Component {
         <FormGroup>
           <CustomInput
             type="file"
-            label="Выберите файл"
+            label="Загрузить аватар"
             id="exampleCustomFileBrowser"
             name="customFile"
             onChange={e => {this.setState({avatar: e.target.files[0]}); console.log(e.target.value)}}
