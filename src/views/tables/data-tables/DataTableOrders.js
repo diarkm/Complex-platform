@@ -80,182 +80,182 @@ class DataTableOrders extends React.Component {
     ],
     data: [
       {
-        id: "#52",
-        date: "May 13, 2018",
+        id: "52",
+        date: "Январь 13, 2021",
         status: "пополнение",
         revenue: "$32,000"
       },
       {
-        id: "#51",
-        date: "May 13, 2018",
+        id: "51",
+        date: "Февраль 13, 2021",
         status: "пополнение",
         revenue: "$32,000"
       },
       {
-        id: "#50",
-        date: "May 13, 2018",
+        id: "50",
+        date: "Март 13, 2021",
         status: "пополнение",
         revenue: "$32,000"
       },
       {
-        id: "#49",
-        date: "May 13, 2018",
+        id: "49",
+        date: "Апрель 13, 2021",
         status: "пополнение",
         revenue: "$32,000"
       },
       {
-        id: "#48",
-        date: "May 13, 2018",
+        id: "48",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        id: "#47",
-        date: "May 13, 2018",
+        id: "47",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        id: "#46",
-        date: "May 13, 2018",
+        id: "46",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        id: "#45",
-        date: "May 13, 2018",
+        id: "45",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        id: "#44",
-        date: "May 13, 2018",
+        id: "44",
+        date: "Январь 13, 2021",
         status: "пополнение",
         revenue: "$32,000"
       },
       {
-        id: "#43",
-        date: "May 13, 2018",
+        id: "43",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        id: "#42",
-        date: "May 13, 2018",
+        id: "42",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        id: "#41",
-        date: "May 13, 2018",
+        id: "41",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        id: "#40",
-        date: "May 13, 2018",
+        id: "40",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        id: "#39",
-        date: "May 13, 2018",
+        id: "39",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        id: "#38",
-        date: "May 13, 2018",
+        id: "38",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        id: "#37",
-        date: "May 13, 2018",
+        id: "37",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        id: "#36",
-        date: "May 13, 2018",
+        id: "36",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        id: "#35",
-        date: "May 13, 2018",
+        id: "35",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        id: "#34",
-        date: "May 13, 2018",
+        id: "34",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        id: "#33",
-        date: "May 13, 2018",
+        id: "33",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        id: "#32",
-        date: "May 13, 2018",
+        id: "32",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        id: "#31",
-        date: "May 13, 2018",
+        id: "31",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        id: "#30",
-        date: "May 13, 2018",
+        id: "30",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        id: "#29",
-        date: "May 13, 2018",
+        id: "29",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        id: "#28",
-        date: "May 13, 2018",
+        id: "28",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        id: "#27",
-        date: "May 13, 2018",
+        id: "27",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        id: "#26",
-        date: "May 13, 2018",
+        id: "26",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        id: "#25",
-        date: "May 13, 2018",
+        id: "25",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        id: "#24",
-        date: "May 13, 2018",
+        id: "24",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        id: "#23",
-        date: "May 13, 2018",
+        id: "23",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       }
@@ -273,10 +273,12 @@ class DataTableOrders extends React.Component {
     if (value.length) {
       filteredData = data.filter(item => {
         let startsWithCondition =
+          item.id.toLowerCase().startsWith(value.toLowerCase()) ||
           item.date.toLowerCase().startsWith(value.toLowerCase()) ||
           item.revenue.toLowerCase().startsWith(value.toLowerCase()) ||
           item.status.toLowerCase().startsWith(value.toLowerCase())
         let includesCondition =
+          item.id.toLowerCase().startsWith(value.toLowerCase()) ||
           item.date.toLowerCase().includes(value.toLowerCase()) ||
           item.revenue.toLowerCase().includes(value.toLowerCase()) ||
           item.status.toLowerCase().includes(value.toLowerCase())

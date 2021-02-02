@@ -93,7 +93,7 @@ class LoginJWT extends React.Component {
             <FormGroup className="form-label-group position-relative has-icon-left">
               <Input
                 type="text"
-                placeholder="johndoe"
+                placeholder="Логин"
                 value={this.state.login}
                 onChange={e => this.setState({ login: e.target.value })}
                 required

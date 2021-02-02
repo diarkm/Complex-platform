@@ -105,7 +105,7 @@ export const revenueGenerated = {
 
 export const revenueGeneratedSeries = [
   {
-    name: "Revenue",
+    name: "Доход",
     data: [350, 275, 400, 300, 350, 300, 450]
   }
 ]
@@ -217,7 +217,7 @@ export const ordersReceived = {
 
 export const ordersReceivedSeries = [
   {
-    name: "Orders",
+    name: "Заказов",
     data: [10, 15, 8, 15, 7, 12, 8]
   }
 ]

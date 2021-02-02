@@ -1,12 +1,12 @@
-// import TokenStorage from './tokenStorage'
 import axios from "axios"
-
-const apiURL = 'https://cabinet.giq-group.com/back/public'
+import {apiURL} from './config'
+import TokenStorage from './tokenStorage'
 
 class UserDataService {
   constructor() {
-    this.accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4LCJnb29nbGVfc2VjcmV0IjpudWxsLCIyZmFfY29uZmlybWVkIjpmYWxzZSwibGlmZVRpbWUiOjI0LCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJleHAiOjE2MTIwOTY2MTd9.UXu0qVCp56IIonI5Exf-vbsIxKe2BtBhODBiE1A4L2Q';
-    this.client      = axios.create({
+    this.tokenStorage = new TokenStorage()
+    this.accessToken  = this.tokenStorage.get()
+    this.client       = axios.create({
       baseURL: apiURL,
       headers: {
         Authorization: `${this.accessToken}`,
@@ -14,13 +14,56 @@ class UserDataService {
     })
   }
 
-  async updateUserData(userData) {
-    console.log("UserDataService.updateUserData():", userData);
-    return this.client.post('/user/settings', userData, {
-      'Content-Type': 'application/json'
+  getFormData(values) {
+    let formData = new FormData()
+    for (let key in values) {
+      if (values.hasOwnProperty(key)) {
+        formData.append(key, values[key])
+      }
+    }
+    return formData
+  }
+
+  async changePassword(userData) {
+    console.log("UserDataService.changePassword():", userData)
+    let formData = this.getFormData(userData)
+    return this.client.post('/user/settings/password/change', formData, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     })
       .then(response => {
-        if (!response.ok) {
+        if (!response.response) {
+          this.handleResponseError(response)
+        }
+        return response
+      })
+      .catch(error => {
+        this.handleError(error)
+      })
+  }
+
+  async getUserData() {
+    console.log("UserDataService.getUserData()");
+    return this.client.get('/user')
+      .then(response => {
+        return response.data
+      })
+      .catch(error => {
+        this.handleError(error)
+      })
+  }
+
+  async updateUserData(userData) {
+    console.log("UserDataService.updateUserData():", userData);
+    let formData = this.getFormData(userData)
+    return this.client.post('/user/settings', formData, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+      .then(response => {
+        if (!response.response) {
           this.handleResponseError(response)
         }
         return response.json()
@@ -29,6 +72,48 @@ class UserDataService {
         this.handleError(error)
       })
   }
+
+  async resendConfirmEmail() {
+    console.log("UserDataService.resendConfirmEmail()");
+    return this.client.post('/user/settings/resendConfirmEmail', {})
+      .then(response => {
+        return response.data
+      })
+      .catch(error => {
+        this.handleError(error)
+      })
+  }
+
+  async getWalletsData() {
+    console.log("UserDataService.getUserData()");
+    return this.client.get('/user/wallet')
+      .then(response => {
+        return response.data
+      })
+      .catch(error => {
+        this.handleError(error)
+      })
+  }
+
+  async updateWalletData(walletData) {
+    console.log("UserDataService.updateWalletData():", walletData);
+    let formData = this.getFormData(walletData)
+    return this.client.post('/user/wallet/edit', formData, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+      .then(response => {
+        if (!response.response) {
+          this.handleResponseError(response)
+        }
+        return response.json()
+      })
+      .catch(error => {
+        this.handleError(error)
+      })
+  }
+
 
   handleResponseError(response) {
     throw new Error("HTTP error, status = " + response.status)

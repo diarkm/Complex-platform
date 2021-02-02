@@ -78,7 +78,7 @@ class ReferralsReports extends React.Component {
     },
     series: [
       {
-        name: "Доходы",
+        name: "Рефералов",
         data: [10, 14, 23, 12, 4, 6, 3, 8, 11, 31, 4, 5]
       }
     ]

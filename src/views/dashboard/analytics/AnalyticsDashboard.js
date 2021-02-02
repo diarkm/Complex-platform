@@ -38,7 +38,8 @@ class AnalyticsDashboard extends React.Component {
   storage = new TokenStorage()
 
   state = {
-    user: null
+    user: null,
+    refer: null
   }
 
   componentDidMount() {
@@ -49,6 +50,13 @@ class AnalyticsDashboard extends React.Component {
       }
     })
     .then(res => {this.setState({user: res.data.user})})
+    axios(apiURL + '/user/referral/refer', {
+      headers: {
+        'Authorization': this.storage.get()
+      }
+    })
+    .then(res => {this.setState({refer: res.data.refer})})
+    console.log(this.state)
   }
 
   render() {
@@ -81,7 +89,7 @@ class AnalyticsDashboard extends React.Component {
                 iconBg="primary"
                 iconLeft
                 icon={sponsorImg}
-                stat="Эмма Уотсон"
+                stat="John Doe"
                 statTitle="Мой спонсор"
               />
           </Col>
@@ -126,7 +134,7 @@ class AnalyticsDashboard extends React.Component {
                 <h4>Информация о пользователе</h4>
               </CardHeader>
               <div className="text-center pt-0 my-auto">
-                  <h5>{this.state.user.firstName} {this.state.user.lastName}</h5>
+                  <h5>John Doe</h5>
                   <p>INVESTOR GIQ-S</p>
                   <div className="avatar mr-1 avatar-x3">
                     <img src={avatarImg} alt="avatarImg" />

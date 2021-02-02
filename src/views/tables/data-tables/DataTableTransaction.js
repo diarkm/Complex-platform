@@ -75,152 +75,152 @@ class DataTableCustom extends React.Component {
     ],
     data: [
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
+        status: "пополнение",
+        revenue: "$3,000"
+      },
+      {
+        date: "Февраль 13, 2021",
+        status: "пополнение",
+        revenue: "$5,000"
+      },
+      {
+        date: "Март 13, 2021",
+        status: "пополнение",
+        revenue: "$6,000"
+      },
+      {
+        date: "Апрель 13, 2021",
+        status: "пополнение",
+        revenue: "$7,000"
+      },
+      {
+        date: "Январь 13, 2021",
+        status: "в обработке",
+        revenue: "$32,000"
+      },
+      {
+        date: "Январь 13, 2021",
+        status: "выполнено",
+        revenue: "$32,000"
+      },
+      {
+        date: "Январь 13, 2021",
+        status: "в обработке",
+        revenue: "$32,000"
+      },
+      {
+        date: "Январь 13, 2021",
+        status: "в обработке",
+        revenue: "$32,000"
+      },
+      {
+        date: "Январь 13, 2021",
         status: "пополнение",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
-        status: "пополнение",
-        revenue: "$32,000"
-      },
-      {
-        date: "May 13, 2018",
-        status: "пополнение",
-        revenue: "$32,000"
-      },
-      {
-        date: "May 13, 2018",
-        status: "пополнение",
-        revenue: "$32,000"
-      },
-      {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
-        status: "выполнено",
-        revenue: "$32,000"
-      },
-      {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
-        status: "пополнение",
-        revenue: "$32,000"
-      },
-      {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "в обработке",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
-        status: "в обработке",
-        revenue: "$32,000"
-      },
-      {
-        date: "May 13, 2018",
-        status: "в обработке",
-        revenue: "$32,000"
-      },
-      {
-        date: "May 13, 2018",
-        status: "в обработке",
-        revenue: "$32,000"
-      },
-      {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       },
       {
-        date: "May 13, 2018",
+        date: "Январь 13, 2021",
         status: "выполнено",
         revenue: "$32,000"
       }

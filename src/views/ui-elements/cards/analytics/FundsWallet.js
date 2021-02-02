@@ -1,6 +1,7 @@
 import React from "react"
 import { Card, CardBody, Progress, Button } from "reactstrap"
 import { ChevronsRight } from "react-feather"
+import { history } from "../../../../history"
 
 class FundsWallet extends React.Component {
   render() {
@@ -21,6 +22,7 @@ class FundsWallet extends React.Component {
             block
             color="primary"
             className="w-100 box-shadow-1 mt-2"
+            onClick={() => history.push("/buyPackages")}
           >
             Пополнить счет <ChevronsRight size={15} />
           </Button.Ripple>

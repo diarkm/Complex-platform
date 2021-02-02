@@ -17,6 +17,7 @@ import wallet from "./views/pages/MyPages/Wallet"
 import buyPackages from "./views/pages/MyPages/buyPackage"
 import myOrders from "./views/pages/MyPages/MyOrders"
 import { ContextLayout } from "./utility/context/Layout"
+import ConfirmEmail from './views/pages/authentication/ConfirmEmail'
 
 // Route-based code splitting
 import analyticsDashboard from "./views/dashboard/analytics/AnalyticsDashboard"
@@ -247,6 +248,7 @@ class AppRouter extends React.Component {
             path="/settings"
             component={accountSettings}
           />
+          <AppRoute exact path="/confirm" component={ConfirmEmail} fullLayout/>
 
           <AppRoute exact path="/ecom" component={ecom} />
           <AppRoute exact path="/analytic" component={analytic} />

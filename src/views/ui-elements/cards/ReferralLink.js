@@ -12,7 +12,7 @@ class ReferralLink extends React.Component {
             <p>Скопируйте ссылку и получайте бонусы за приглашенных рефералов!</p>
             <Row className="justify-align-center">
               <Col lg="10" md="10" sm="12">
-                <Input type="text" id="basicInput" value="https://giq-group.com/?ref=johndoe" />
+                <Input type="text" id="basicInput" value="https://giq-group.com/?ref=johndoe" readOnly/>
               </Col>
               <Col lg="2" md="2" sm="12">
                 <Button.Ripple color="primary">Скопировать</Button.Ripple>
