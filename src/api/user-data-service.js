@@ -207,6 +207,7 @@ class UserDataService {
     console.log("UserDataService.getReferralTree()");
     return this.client.get('/user/referral/tree')
       .then(response => {
+        console.log('TREE', response.data)
         return response.data
       })
       .catch(error => {
@@ -217,6 +218,18 @@ class UserDataService {
   async getTransactions(page = 1) {
     console.log("UserDataService.getTransactions()", page);
     return this.client.get('/transaction')
+      .then(response => {
+        return response.data
+      })
+      .catch(error => {
+        this.handleError(error)
+      })
+  }
+
+  async getAvailableDeposits () {
+    console.log('UserDataService.getAvailableDeposits()')
+
+    return this.client.get(`/user/deposit/available`)
       .then(response => {
         return response.data
       })

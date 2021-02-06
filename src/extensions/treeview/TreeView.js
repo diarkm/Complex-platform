@@ -13,7 +13,6 @@ import Prism from "prismjs"
 import { connect } from "react-redux"
 import UserDataService from "../../api/user-data-service";
 import * as filters from "./Filter"
-import avatarImg from "../../assets/img/portrait/small/avatar-s-11.jpg"
 import { styleLight, styleDark } from "./Styles"
 const Loading = props => {
   return (
@@ -23,14 +22,7 @@ const Loading = props => {
   )
 }
 
-const CustomHeader = ({ node, style, prefix }) =>
-  <div style={style.base}>
-    <div style={{ ...style.title, display: "flex" }}>
-      <img className="mr-1 rounded-circle" src={avatarImg} width="32" height="32"></img> {`${node.name}`}
-    </div>
-  </div>;
-
-const data = {
+const data = []/*{
   name: 'John Doe',
   children: [
       {
@@ -60,7 +52,7 @@ const data = {
           ]
       }
   ]
-}
+}*/
 
 class TreeView extends React.Component {
   state={
@@ -80,8 +72,9 @@ class TreeView extends React.Component {
   async getReferralTree() {
     this.userDataService.getReferralTree()
       .then(res => {
-        console.log('OK', res.tree)
-        this.setState({data: res.tree})
+        let tree = this.getReferrals(res.tree)
+
+        this.setState({data: tree})
       })
       .catch(err => console.log(err))
   }
@@ -97,7 +90,7 @@ class TreeView extends React.Component {
     if (node.children) {
       node.toggled = toggled
     }
-    this.setState(() => ({ cursor: node, data: Object.assign({}, data) }))
+    this.setState(() => ({ cursor: node, data }))
   }
 
   onFilterMouseUp = ({ target: { value } }) => {
@@ -110,10 +103,36 @@ class TreeView extends React.Component {
     this.setState(() => ({ data: filtered }))
   }
 
+  getReferrals (data) {
+    let referrals = [],
+      childrenReferral = item => {
+        return {
+          name: item.firstname + ' ' + item.lastname,
+          avatar: item.avatar,
+          id: item.id,
+          children: item.data
+        }
+      }
+
+    if(data.length) {
+      let index = Object.keys(data)[0]
+      let userReferral = data[index].data[index]
+
+      referrals.push({
+        name: userReferral.firstName + ' ' + userReferral.lastName,
+        avatar: userReferral.avatar,
+        children: []
+      })
+    }
+
+    return referrals
+  }
+
   render() {
     const { data, cursor } = this.state
     decorators.Loading = Loading
-    decorators.Header = CustomHeader
+
+    if(!data.length) return ''
 
     return (
       <React.Fragment>
@@ -132,18 +151,29 @@ class TreeView extends React.Component {
                       className="form-control mb-1"
                       onKeyUp={this.onFilterMouseUp}
                     />
-                    <Treebeard
-                      data={data ? data : ''}
-                      onToggle={this.onToggle}
-                      style={
-                        this.props.theme === "light" ||
-                        this.props.theme === "semi-dark"
-                          ? styleLight
-                          : styleDark
-                      }
-                      decorators={decorators}
-                      animations={false}
-                    />
+
+                    {data.map((item, i) => {
+                      decorators.Header =  ({ node, style, prefix, url }) =>
+                      <div style={style.base}>
+                        <div style={{ ...style.title, display: "flex" }}>
+                          <img className="mr-1 rounded-circle" src={`http://cabinet.giq-group.com/back/storage/app/${item.avatar}`} width="32" height="32"></img> {`${node.name}`}
+                        </div>
+                      </div>;
+
+                      return <Treebeard
+                        key={i}
+                        data={item}
+                        onToggle={this.onToggle}
+                        style={
+                          this.props.theme === "light" ||
+                          this.props.theme === "semi-dark"
+                            ? styleLight
+                            : styleDark
+                        }
+                        decorators={decorators}
+                        animations={false}
+                      />
+                    })}
                   </Col>
                 </Row>
               </CardBody>
