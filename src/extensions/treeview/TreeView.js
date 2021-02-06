@@ -11,6 +11,7 @@ import {
 import { Treebeard, decorators } from "react-treebeard"
 import Prism from "prismjs"
 import { connect } from "react-redux"
+import UserDataService from "../../api/user-data-service";
 import * as filters from "./Filter"
 import avatarImg from "../../assets/img/portrait/small/avatar-s-11.jpg"
 import { styleLight, styleDark } from "./Styles"
@@ -31,7 +32,6 @@ const CustomHeader = ({ node, style, prefix }) =>
 
 const data = {
   name: 'John Doe',
-  toggled: true,
   children: [
       {
           name: 'Diana Doe',
@@ -67,8 +67,23 @@ class TreeView extends React.Component {
     data
   }
 
+  constructor(props) {
+    super(props)
+    this.userDataService = new UserDataService()
+  }
+
   componentDidMount() {
+    this.getReferralTree();
     Prism.highlightAll()
+  }
+
+  async getReferralTree() {
+    this.userDataService.getReferralTree()
+      .then(res => {
+        console.log('OK', res.tree)
+        this.setState({data: res.tree})
+      })
+      .catch(err => console.log(err))
   }
 
   onToggle = (node, toggled) => {
@@ -118,7 +133,7 @@ class TreeView extends React.Component {
                       onKeyUp={this.onFilterMouseUp}
                     />
                     <Treebeard
-                      data={data}
+                      data={data ? data : ''}
                       onToggle={this.onToggle}
                       style={
                         this.props.theme === "light" ||

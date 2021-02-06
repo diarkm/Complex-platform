@@ -1,22 +1,37 @@
 import React from "react"
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardBody,
-  Row,
-  Col,
-  FormGroup,
-  Form,
-  Input,
-  Button,
-  Label
-} from "reactstrap"
+import {Button, Card, CardBody, CardHeader, CardTitle, Col, Form, FormGroup, Input, Label, Row} from "reactstrap"
+import UserDataService from "../../../api/user-data-service"
 import fgImg from "../../../assets/img/pages/forgot-password.png"
-import { history } from "../../../history"
 import "../../../assets/scss/pages/authentication.scss"
+import {history} from "../../../history"
 
 class ForgotPassword extends React.Component {
+  constructor(props) {
+    super(props)
+    this.userDataService = new UserDataService()
+  }
+
+  state = {
+    email: ''
+  }
+
+  handleChange(changeObject) {
+    this.setState(changeObject);
+  }
+
+  handleSubmit(event) {
+    let data = {
+      email:       this.state.email,
+    }
+    this.userDataService.restorePassword(data)
+      .then(res => {
+        console.log('OK', res)
+        history.push("/")
+      })
+      .catch(err => console.log(err))
+    event.preventDefault();
+  }
+
   render() {
     return (
       <Row className="m-0 justify-content-center">
@@ -33,7 +48,7 @@ class ForgotPassword extends React.Component {
                 lg="6"
                 className="d-lg-block d-none text-center align-self-center"
               >
-                <img src={fgImg} alt="fgImg" />
+                <img src={fgImg} alt="fgImg"/>
               </Col>
               <Col lg="6" md="12" className="p-0">
                 <Card className="rounded-0 mb-0 px-2 py-1">
@@ -46,9 +61,12 @@ class ForgotPassword extends React.Component {
                     Введите свою почту и мы вышлем вам письмо с дальнейшими инструкциями
                   </p>
                   <CardBody className="pt-1 pb-0">
-                    <Form>
+                    <Form onSubmit={e => this.handleSubmit(e)}>
                       <FormGroup className="form-label-group">
-                        <Input type="text" placeholder="Email" required />
+                        <Input type="text" placeholder="Email"
+                               value={this.state.email}
+                               onChange={(e) => this.handleChange({email: e.target.value})}
+                               required/>
                         <Label>Почта</Label>
                       </FormGroup>
                       <div className="float-md-left d-block mb-1">
@@ -66,10 +84,6 @@ class ForgotPassword extends React.Component {
                           color="primary"
                           type="submit"
                           className="px-75 btn-block"
-                          onClick={e => {
-                            e.preventDefault()
-                            history.push("/")
-                          }}
                         >
                           Восстановить пароль
                         </Button.Ripple>
@@ -85,4 +99,5 @@ class ForgotPassword extends React.Component {
     )
   }
 }
+
 export default ForgotPassword

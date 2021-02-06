@@ -1,22 +1,57 @@
 import React from "react"
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardBody,
-  Row,
-  Col,
-  FormGroup,
-  Form,
-  Input,
-  Button,
-  Label
-} from "reactstrap"
-import { history } from "../../../history"
+import {Button, Card, CardBody, CardHeader, CardTitle, Col, Form, FormGroup, Input, Label, Row} from "reactstrap"
+import UserDataService from "../../../api/user-data-service"
 import resetImg from "../../../assets/img/pages/reset-password.png"
 import "../../../assets/scss/pages/authentication.scss"
+import {history} from "../../../history"
 
 class ResetPassword extends React.Component {
+  constructor(props) {
+    super(props)
+    this.setState({token: this.props.match.params.token})
+    this.userDataService = new UserDataService()
+  }
+
+  state = {
+    token:           '',
+    password:        '',
+    confirmPassword: '',
+  }
+
+  componentDidMount() {
+    this.checkToken();
+  }
+
+  async checkToken() {
+    let data = {
+      token: this.state.token,
+    }
+    this.userDataService.checkToken(data)
+      .then(res => {
+        console.log('OK', res)
+        history.push("/")
+      })
+      .catch(err => console.log(err))
+  }
+
+  handleChange(changeObject) {
+    this.setState(changeObject);
+  }
+
+  handleSubmit(event) {
+    let data = {
+      token:        this.state.token,
+      new_password: this.state.password,
+    }
+    this.userDataService.setNewPassword(data)
+      .then(res => {
+        console.log('OK', res)
+        history.push("/")
+      })
+      .catch(err => console.log(err))
+    event.preventDefault();
+  }
+
   render() {
     return (
       <Row className="m-0 justify-content-center">
@@ -33,7 +68,7 @@ class ResetPassword extends React.Component {
                 lg="6"
                 className="d-lg-block d-none text-center align-self-center px-5"
               >
-                <img className="px-5 mx-2" src={resetImg} alt="resetImg" />
+                <img className="px-5 mx-2" src={resetImg} alt="resetImg"/>
               </Col>
               <Col lg="6" md="12" className="p-0">
                 <Card className="rounded-0 mb-0 px-2 py-50">
@@ -46,11 +81,13 @@ class ResetPassword extends React.Component {
                     Ваш новый пароль должен отличаться от предыдущих
                   </p>
                   <CardBody className="pt-1">
-                    <Form>
+                    <Form onSubmit={e => this.handleSubmit(e)}>
                       <FormGroup className="form-label-group">
                         <Input
                           type="password"
                           placeholder="Пароль"
+                          value={this.state.email}
+                          onChange={(e) => this.handleChange({password: e.target.value})}
                           required
                         />
                         <Label>Пароль</Label>
@@ -59,6 +96,8 @@ class ResetPassword extends React.Component {
                         <Input
                           type="password"
                           placeholder="Подтвердите пароль"
+                          value={this.state.email}
+                          onChange={(e) => this.handleChange({confirmPassword: e.target.value})}
                           required
                         />
                         <Label>Подтвердите пароль</Label>
@@ -81,10 +120,6 @@ class ResetPassword extends React.Component {
                           color="primary"
                           type="submit"
                           className="btn-block mt-1 mt-sm-0"
-                          onClick={e => 
-                            {e.preventDefault()
-                            history.push("/")
-                          }}
                         >
                           Изменить пароль
                         </Button.Ripple>
@@ -100,4 +135,5 @@ class ResetPassword extends React.Component {
     )
   }
 }
+
 export default ResetPassword

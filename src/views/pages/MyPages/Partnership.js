@@ -6,7 +6,7 @@ import {
   Row,
   Col
 } from "reactstrap"
-import { ChevronsRight, ChevronsLeft } from "react-feather"
+import { ChevronsRight } from "react-feather"
 import img1 from "../../../assets/img/pages/kb-article.jpg"
 import "../../../assets/scss/pages/knowledge-base.scss"
 class Partnership extends React.Component {

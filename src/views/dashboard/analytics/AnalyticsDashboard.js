@@ -1,5 +1,6 @@
 import React from "react"
 import { Row, Col, Card, CardHeader, Button } from "reactstrap"
+import img from "../../../assets/img/portrait/small/avatar-s-11.jpg";
 import SalesCard from "./SalesCard"
 import RevenueGenerated from "../../ui-elements/cards/statistics/RevenueGenerated"
 import RevenueLastMonth from "../../ui-elements/cards/statistics/RevenueLastMonth"
@@ -18,8 +19,9 @@ import sponsorImg from "../../../assets/img/portrait/small/avatar-s-12.jpg"
 import ReferralLink from "../../ui-elements/cards/ReferralLink"
 import axios from 'axios';
 import TokenStorage from '../../../api/tokenStorage';
+import UserDataService from "../../../api/user-data-service"
 
-const apiURL = 'https://cabinet.giq-group.com/back/public'
+// const apiURL = 'https://cabinet.giq-group.com/back/public'
 
 let $primary = "#7367F0",
   $danger = "#EA5455",
@@ -39,24 +41,43 @@ class AnalyticsDashboard extends React.Component {
 
   state = {
     user: null,
-    refer: null
+    referral: null,
+    userAvatar: img,
+    referralAvatar: sponsorImg
+  }
+
+  constructor(props) {
+    super(props)
+    this.userDataService = new UserDataService()
   }
 
   componentDidMount() {
-    //let response = await axios.get(apiURL + '/user/', {
-    axios(apiURL + '/user/', {
-      headers: {
-        'Authorization': this.storage.get()
-      }
-    })
-    .then(res => {this.setState({user: res.data.user})})
-    axios(apiURL + '/user/referral/refer', {
-      headers: {
-        'Authorization': this.storage.get()
-      }
-    })
-    .then(res => {this.setState({refer: res.data.refer})})
-    console.log(this.state)
+    this.getUserData();
+  }
+
+  async getUserData() {
+    this.userDataService.getUserData()
+      .then(res => {
+        console.log('res.user', res.user);
+        this.setState({user: res.user})
+        if (res.user.avatar)
+          this.setState({userAvatar: `/${res.user.avatar}`})
+        else
+          this.setState({userAvatar: img})
+      })
+      .catch(err => console.log(err))
+
+    this.userDataService.getReferralData()
+      .then(res => {
+        console.log('res.refer', res.refer);
+        this.setState({referral: res.refer})
+        if (res.user.avatar)
+          this.setState({referralAvatar: `/${res.user.avatar}`})
+        else
+          this.setState({referralAvatar: sponsorImg})
+      })
+      .catch(err => console.log(err))
+
   }
 
   render() {
@@ -80,16 +101,16 @@ class AnalyticsDashboard extends React.Component {
                 hideChart
                 iconBg="primary"
                 iconLeft
-                icon={avatarImg}
-                stat="INTESTOR GIQ-S"
+                icon={this.state.userAvatar}
+                stat={this.state.user ? `${this.state.user.firstName} ${this.state.user.lastName}` : ''}
                 statTitle="Мой статус"
               />
               <UserCards
                 hideChart
                 iconBg="primary"
                 iconLeft
-                icon={sponsorImg}
-                stat="John Doe"
+                icon={this.state.referralAvatar}
+                stat={this.state.referral ? `${this.state.referral.firstName} ${this.state.referral.lastName}` : 'Нет спонсора'}
                 statTitle="Мой спонсор"
               />
           </Col>
@@ -134,7 +155,7 @@ class AnalyticsDashboard extends React.Component {
                 <h4>Информация о пользователе</h4>
               </CardHeader>
               <div className="text-center pt-0 my-auto">
-                  <h5>John Doe</h5>
+                  <h5>{this.state.user ? `${this.state.user.firstName} ${this.state.user.lastName}` : ''}</h5>
                   <p>INVESTOR GIQ-S</p>
                   <div className="avatar mr-1 avatar-x3">
                     <img src={avatarImg} alt="avatarImg" />

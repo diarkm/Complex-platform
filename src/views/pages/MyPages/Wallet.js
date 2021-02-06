@@ -3,7 +3,7 @@ import { Row, Col, Button } from 'reactstrap'
 import FundsWallet from "../../ui-elements/cards/analytics/FundsWallet"
 import SuberscribersGained from "../../ui-elements/cards/statistics/SubscriberGained"
 import TreeView from "../../../extensions/treeview/TreeView"
-import DataTableTransaction from "../../tables/data-tables/DataTableTransaction"
+import DataTableOrders from "../../tables/data-tables/DataTableOrders"
 
 let $primary = "#7367F0",
   $danger = "#EA5455",
@@ -22,7 +22,7 @@ class Wallet extends React.Component {
                     <FundsWallet />
                 </Col>
                 <Col lg="8" md="8" sm="12">
-                    <DataTableTransaction />
+                    <DataTableOrders />
                 </Col>
             </Row>
             <Row>

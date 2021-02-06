@@ -69,9 +69,15 @@ const ThemeNavbar = props => {
         <div className="navbar-wrapper">
           <div className="navbar-container content">
             <div
-              className="navbar-collapse d-flex justify-content-end align-items-center"
+              className="navbar-collapse d-flex justify-content-between align-items-center"
               id="navbar-mobile"
             >
+              <div className="bookmark-wrapper">
+                <NavbarBookmarks
+                  sidebarVisibility={props.sidebarVisibility}
+                  handleAppOverlay={props.handleAppOverlay}
+                />
+              </div>
               <NavbarUser
                 handleAppOverlay={props.handleAppOverlay}
                 changeCurrentLang={props.changeCurrentLang}

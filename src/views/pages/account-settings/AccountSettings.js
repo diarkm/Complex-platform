@@ -13,10 +13,6 @@ import { Settings, Lock, Info, Instagram, Link, Bell } from "react-feather"
 import GeneralTab from "./General"
 import ChangePassword from "./ChangePassword"
 import InfoTab from "./Info"
-import SocialLinks from "./SocialLinks"
-import Connection from "./Connection"
-import Notifications from "./Notifications"
-import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb"
 
 import "../../../assets/scss/pages/account-settings.scss"
 

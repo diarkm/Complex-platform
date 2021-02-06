@@ -1,5 +1,6 @@
 import React from "react"
-import { Form, FormGroup, Input, Label, Button, CustomInput } from "reactstrap"
+import { Form, FormGroup, Input, Label, Button, CustomInput, Alert } from "reactstrap"
+import UserDataService from "../../../../api/user-data-service";
 import Checkbox from "../../../../components/@vuexy/checkbox/CheckboxesVuexy"
 import { Check } from "react-feather"
 import { connect } from "react-redux"
@@ -7,8 +8,6 @@ import { signupForm } from "../../../../server"
 import { history } from "../../../../history"
 import axios from 'axios';
 import TokenStorage from '../../../../api/tokenStorage';
-
-const apiURL = 'https://cabinet.giq-group.com/back/public'
 
 class RegisterJWT extends React.Component {
   storage = new TokenStorage()
@@ -22,7 +21,13 @@ class RegisterJWT extends React.Component {
     email: "",
     avatar: "",
     phoneNumber: "",
-    accept: false
+    accept: false,
+    ref_id: ''
+  }
+
+  constructor(props) {
+    super(props)
+    this.userDataService = new UserDataService()
   }
 
   signup = async () => {
@@ -54,7 +59,7 @@ class RegisterJWT extends React.Component {
         fd.append(Object.keys(this.state)[item], this.state[Object.keys(this.state)[item]]);
       }
 
-      const response = await axios.post(apiURL + '/user/signup', fd);
+      const response = await axios.post('https://cabinet.giq-group.com/back/public/user/signup', fd);
       if (response.data.response) {
         alert('Вы успешно зарегестрировали свой аккаунт! Пройдите авторизацию');
         history.push('/');
@@ -66,26 +71,31 @@ class RegisterJWT extends React.Component {
 
   handleRegister = e => {
     e.preventDefault()
-    /*this.props.signupForm(
-      this.state.login,
-      this.state.firstName,
-      this.state.lastName,
-      this.state.password,
-      this.state.confirmPass,
-      this.state.email,
-      this.state.avatar,
-      this.state.phoneNumber
-    )*/
   }
 
   componentDidMount() {
     if (this.storage.isValid())
       return history.push('/dashboard');
+    this.setState({referer: this.props.referer, ref_id: this.props.referer})
+    if (this.props.referer) {
+      this.getReferrerByLogin(this.props.referer)
+    }
+  }
+
+  getReferrerByLogin(login) {
+    this.userDataService.getReferrerByLogin(login)
+      .then(res => {
+        this.setState({refererName: res.user ? `${res.user.firstName} ${res.user.lastName}` : null})
+      })
+      .catch(err => console.log(err))
   }
 
   render() {
     return (
       <Form action="/" onSubmit={this.handleRegister}>
+        <Alert color="primary" style={{display: this.state.refererName ? 'block' : 'none' }}>
+          <strong>Ваш спонсор: </strong>{this.state.refererName ? this.state.refererName : ''}
+        </Alert>
         <FormGroup className="form-label-group">
           <Input
             type="text"
@@ -161,7 +171,7 @@ class RegisterJWT extends React.Component {
         <FormGroup>
           <CustomInput
             type="file"
-            label="Загрузить аватар"
+            label="Выберите файл"
             id="exampleCustomFileBrowser"
             name="customFile"
             onChange={e => {this.setState({avatar: e.target.files[0]}); console.log(e.target.value)}}

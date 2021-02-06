@@ -31,7 +31,7 @@ class General extends React.Component {
         console.log('res.user', res.user);
         this.setState(res.user)
         if (res.user.avatar)
-          this.setState({img: `/${res.user.avatar}`})
+          this.setState({img: `/back/storage/app/${res.user.avatar}`})
         else
           this.setState({img: img})
       })
@@ -121,9 +121,8 @@ class General extends React.Component {
               <FormGroup>
                 <Label for="userName">Логин</Label>
                 <Input id="userName"
-                       readOnly
                        value={this.state.login}
-                />
+                       readOnly/>
               </FormGroup>
             </Col>
             <Col lg="6" md="6" sm="12">

@@ -3,18 +3,9 @@ import {
   Card,
   CardHeader,
   CardTitle,
-  CardBody,
   Row,
   Col,
-  Nav,
-  NavItem,
-  NavLink,
-  TabContent,
-  TabPane
 } from "reactstrap"
-import classnames from "classnames"
-import RegisterFirebase from "./RegisterFirebase"
-import RegisterAuth0 from "./RegisterAuth0"
 import RegisterJWT from "./RegisterJWT"
 import registerImg from "../../../../assets/img/pages/register.jpg"
 import "../../../../assets/scss/pages/authentication.scss"
@@ -23,6 +14,11 @@ class Register extends React.Component {
   state = {
     activeTab: "1"
   }
+
+  constructor(props) {
+    super(props)
+  }
+
   toggle = tab => {
     if (this.state.activeTab !== tab) {
       this.setState({
@@ -58,7 +54,7 @@ class Register extends React.Component {
                   <p className="px-2 auth-title mb-2">
                     Пожалуйста, заполните все необходимые поля для регистрации
                   </p>
-                  <RegisterJWT />
+                  <RegisterJWT referer={this.props.match ? this.props.match.params.referer : null}/>
                 </Card>
               </Col>
             </Row>
