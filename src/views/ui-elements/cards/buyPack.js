@@ -3,8 +3,11 @@ import { Col, Row, Card, CardBody, Button } from "reactstrap"
 import Slider from "rc-slider"
 import NumericInput from "react-numeric-input"
 import { mobileStyle } from "../../forms/form-elements/number-input/InputStyles"
-    
+
+import UserDataService from '../../../api/user-data-service'
+
 const sliderObj = {values:{1: 500, 2: 1000, 3: 5000, 4: 10000, 5: 50000, 6: 100000, 7: 500000, 8: 1000000}}
+let UserAPI = new UserDataService()
 
 class buyPack extends React.Component {
 
@@ -19,6 +22,25 @@ class buyPack extends React.Component {
 
   onNumericInputChange = value => {
     this.setState({ amount: value })
+  }
+
+  onTransactionSend = async () => {
+    let user_id = await UserAPI.getUserData().then(data => {
+      return data.user.id
+    })
+
+    if(!user_id) {
+      alert('User_id not found')
+      return
+    }
+
+    user_id = user_id.toString()
+
+    UserAPI.setTransaction({
+      value: this.state.value,
+      count: this.state.amount,
+      user_id
+    })
   }
 
   render() {
@@ -59,7 +81,7 @@ class buyPack extends React.Component {
             </Row>
             <Row className="mt-2">
               <Col>
-                <Button.Ripple color="primary">Вложить</Button.Ripple>
+                <Button.Ripple onClick={this.onTransactionSend} color="primary">Вложить</Button.Ripple>
               </Col>
             </Row>
           </div>

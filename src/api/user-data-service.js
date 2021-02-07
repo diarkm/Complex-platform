@@ -215,6 +215,18 @@ class UserDataService {
       })
   }
 
+  async setTransaction ({ value = 1000, count = 1, user_id = 0 }) {
+    console.log('UserDataService.setTransaction()')
+
+    return this.client.post('/transaction/create', { value, count, user_id })
+      .then(response => {
+        return response.data
+      })
+      .catch(error => {
+        this.handleError(error)
+      })
+  }
+
   async getTransactions(page = 1) {
     console.log("UserDataService.getTransactions()", page);
     return this.client.get('/transaction')

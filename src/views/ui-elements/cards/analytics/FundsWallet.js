@@ -23,7 +23,7 @@ const FundsWallet = () => {
   if(!deposits.length) {
     UserAPI.getDeposits()
       .then(response => {
-        console.log(response)
+        setdeposits(response.deposits.collection)
       })
   }
 
@@ -63,16 +63,18 @@ const FundsWallet = () => {
             <small>Срок депозита</small>
           </div>
           <hr className="my-1" />
-          <div className="d-flex justify-content-between">
-            <p className="text-success">$800</p>
-            <p>23/12/2021</p>
-          </div>
-          <hr className=" mt-0 mb-1" />
-          <div className="d-flex justify-content-between">
-            <p className="text-success">$2000</p>
-            <p>02/01/2022</p>
-          </div>
-          <hr className="my-0" />
+          {deposits.length ? deposits.map((deposit, i) => {
+            return (
+              <React.Fragment key={i}>
+                <div className="d-flex justify-content-between">
+                  <p className="text-success">${deposit.value}</p>
+                  <p>{deposit.created_at
+                        .match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)}</p>
+                </div>
+                <hr className=" mt-0 mb-1" />
+              </React.Fragment>
+            )
+          }) : ''}
         </div>
       </CardBody>
     </Card>

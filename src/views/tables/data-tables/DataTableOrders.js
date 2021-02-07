@@ -46,7 +46,7 @@ class DataTableOrders extends React.Component {
   state = {
     columns: [
       {
-        name: "Номер",
+        name: "ID транзакции",
         selector: "id",
         sortable: true,
         cell: row => (
@@ -55,213 +55,32 @@ class DataTableOrders extends React.Component {
       },
       {
         name: "Дата",
-        selector: "date",
+        selector: "created_at",
         sortable: true,
         cell: row => (
-          <p className="text-bold-500 text-truncate mb-0">{row.date}</p>
+          <p className="text-bold-500 text-truncate mb-0">{row.created_at}</p>
         )
       },
       {
         name: "Сумма",
-        selector: "revenue",
+        selector: "value",
         sortable: true,
-        cell: row => <p className="text-bold-500 mb-0">{row.revenue}</p>
+        cell: row => <p className="text-bold-500 mb-0">{row.value}</p>
       },
       {
-        name: "Статус",
-        selector: "status",
+        name: "Статус ID",
+        selector: "status_id",
         sortable: true,
         cell: row => (
           <Badge
             color={getColor(row)}
             pill>
-            {row.status}
+            {row.status_id}
           </Badge>
         )
       }
     ],
-    data: [
-      // {
-      //   id: "#52",
-      //   date: "May 13, 2018",
-      //   status: "пополнение",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#51",
-      //   date: "May 13, 2018",
-      //   status: "пополнение",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#50",
-      //   date: "May 13, 2018",
-      //   status: "пополнение",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#49",
-      //   date: "May 13, 2018",
-      //   status: "пополнение",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#48",
-      //   date: "May 13, 2018",
-      //   status: "в обработке",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#47",
-      //   date: "May 13, 2018",
-      //   status: "выполнено",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#46",
-      //   date: "May 13, 2018",
-      //   status: "в обработке",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#45",
-      //   date: "May 13, 2018",
-      //   status: "в обработке",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#44",
-      //   date: "May 13, 2018",
-      //   status: "пополнение",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#43",
-      //   date: "May 13, 2018",
-      //   status: "в обработке",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#42",
-      //   date: "May 13, 2018",
-      //   status: "в обработке",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#41",
-      //   date: "May 13, 2018",
-      //   status: "в обработке",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#40",
-      //   date: "May 13, 2018",
-      //   status: "в обработке",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#39",
-      //   date: "May 13, 2018",
-      //   status: "в обработке",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#38",
-      //   date: "May 13, 2018",
-      //   status: "в обработке",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#37",
-      //   date: "May 13, 2018",
-      //   status: "в обработке",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#36",
-      //   date: "May 13, 2018",
-      //   status: "в обработке",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#35",
-      //   date: "May 13, 2018",
-      //   status: "выполнено",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#34",
-      //   date: "May 13, 2018",
-      //   status: "выполнено",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#33",
-      //   date: "May 13, 2018",
-      //   status: "выполнено",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#32",
-      //   date: "May 13, 2018",
-      //   status: "выполнено",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#31",
-      //   date: "May 13, 2018",
-      //   status: "выполнено",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#30",
-      //   date: "May 13, 2018",
-      //   status: "выполнено",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#29",
-      //   date: "May 13, 2018",
-      //   status: "выполнено",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#28",
-      //   date: "May 13, 2018",
-      //   status: "выполнено",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#27",
-      //   date: "May 13, 2018",
-      //   status: "выполнено",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#26",
-      //   date: "May 13, 2018",
-      //   status: "выполнено",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#25",
-      //   date: "May 13, 2018",
-      //   status: "выполнено",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#24",
-      //   date: "May 13, 2018",
-      //   status: "выполнено",
-      //   revenue: "$32,000"
-      // },
-      // {
-      //   id: "#23",
-      //   date: "May 13, 2018",
-      //   status: "выполнено",
-      //   revenue: "$32,000"
-      // }
-    ],
+    data: [],
     filteredData: [],
     value: "",
     page: 1,
@@ -280,7 +99,8 @@ class DataTableOrders extends React.Component {
   getTransactions() {
     this.userDataService.getTransactions()
       .then(res => {
-        console.log('OK', res)
+        console.log('DataTableOrders.getTransactions', res.data)
+
         this.setState({data: res.data.collection})
         this.setState({pages: res.data.pages})
       })
