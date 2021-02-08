@@ -56,7 +56,10 @@ class RegisterJWT extends React.Component {
     try {
       let fd = new FormData();
       for (let item in Object.values(this.state)) {
-        fd.append(Object.keys(this.state)[item], this.state[Object.keys(this.state)[item]]);
+        let $keyItem = Object.keys(this.state)[item]
+
+        if(this.state[$keyItem])
+          fd.append($keyItem, this.state[$keyItem])
       }
 
       const response = await axios.post('https://cabinet.giq-group.com/back/public/user/signup', fd);
