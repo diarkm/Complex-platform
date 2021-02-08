@@ -102,7 +102,7 @@ class TreeView extends React.Component {
     let referrals = [],
       showUser = (currentItem, children) => {
         return {
-          name: currentItem.depth+':'+currentItem.data.firstName + ' ' + currentItem.data.lastName,
+          name: currentItem.data.firstName + ' ' + currentItem.data.lastName,
           avatar: currentItem.data.avatar,
           id: currentItem.data.id,
           children
