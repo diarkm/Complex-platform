@@ -20,6 +20,7 @@ import ReferralLink from "../../ui-elements/cards/ReferralLink"
 import axios from 'axios';
 import TokenStorage from '../../../api/tokenStorage';
 import UserDataService from "../../../api/user-data-service"
+import defaultAvatar from "../../../assets/img/default-avatar.png"
 
 // const apiURL = 'https://cabinet.giq-group.com/back/public'
 
@@ -101,15 +102,15 @@ class AnalyticsDashboard extends React.Component {
                 hideChart
                 iconBg="primary"
                 iconLeft
-                icon={this.state.userAvatar}
-                stat={this.state.user ? `${this.state.user.firstName} ${this.state.user.lastName}` : ''}
+                icon={'https://cabinet.giq-group.com/back/storage/app' + this.state.userAvatar}
+                stat="INVESTOR GIQ-S"
                 statTitle="Мой статус"
               />
               <UserCards
                 hideChart
                 iconBg="primary"
                 iconLeft
-                icon={this.state.referralAvatar}
+                icon={this.state.referral ? 'https://cabinet.giq-group.com/back/storage/app' + this.state.referralAvatar : defaultAvatar}
                 stat={this.state.referral ? `${this.state.referral.firstName} ${this.state.referral.lastName}` : 'Нет спонсора'}
                 statTitle="Мой спонсор"
               />
@@ -157,8 +158,8 @@ class AnalyticsDashboard extends React.Component {
               <div className="text-center pt-0 my-auto">
                   <h5>{this.state.user ? `${this.state.user.firstName} ${this.state.user.lastName}` : ''}</h5>
                   <p>INVESTOR GIQ-S</p>
-                  <div className="avatar mr-1 avatar-x3">
-                    <img src={avatarImg} alt="avatarImg" />
+                  <div className="avatar">
+                    <img width="200" height="200" src={'https://cabinet.giq-group.com/back/storage/app' + this.state.userAvatar} alt="avatarImg" />
                   </div>
                   <div className="d-flex justify-content-around mt-2">
                     <div className="uploads">
