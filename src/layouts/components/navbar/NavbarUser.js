@@ -350,7 +350,7 @@ class NavbarUser extends React.PureComponent {
             </div>
             <span data-tour="user">
               <img
-                src={this.state.userAvatar}
+                src={'https://cabinet.giq-group.com/back/storage/app'+this.state.userAvatar}
                 className="round"
                 height="40"
                 width="40"
