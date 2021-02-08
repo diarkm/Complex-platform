@@ -115,18 +115,9 @@ class TreeView extends React.Component {
       childrenReferral = ($item) => {
         let $tree = []
 
-        let createTree = currentItem => {
-          data.forEach(item => {
-            if(item.refer_id == currentItem.referral_id) {
-              let refObj = showUser(currentItem, childrenReferral(item))
-
-              console.log(refObj)
-
-              $tree.push(refObj)
-            }
-          })
-        }
-        createTree($item)
+        $tree = data.filter(item => item.refer_id === $item.referral_id).map(item => {
+          return showUser(item, childrenReferral(item))
+        })
 
         return $tree
       }
@@ -136,7 +127,7 @@ class TreeView extends React.Component {
         let children = childrenReferral(item)
 
         // УРОВЕНЬ 1
-        if (item.depth === 1) {
+        if(item.depth === 1) {
           referrals.push(showUser(item, children))
         }
       })
