@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle, CardBody } from "reactstrap"
 import Chart from "react-apexcharts"
 
 class ReferralsReports extends React.Component {
+
   state = {
     options: {
       chart: {
@@ -83,6 +84,7 @@ class ReferralsReports extends React.Component {
       }
     ]
   }
+
   render() {
     return (
       <Card>
@@ -101,5 +103,6 @@ class ReferralsReports extends React.Component {
       </Card>
     )
   }
+
 }
 export default ReferralsReports

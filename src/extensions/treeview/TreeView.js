@@ -14,6 +14,8 @@ import { connect } from "react-redux"
 import UserDataService from "../../api/user-data-service";
 import * as filters from "./Filter"
 import { styleLight, styleDark } from "./Styles"
+import avatarImg from "../../assets/img/portrait/small/avatar-s-11.jpg"
+
 const Loading = props => {
   return (
     <div style={props.style.wrapper}>
@@ -22,38 +24,7 @@ const Loading = props => {
   )
 }
 
-const data = []/*{
-  name: 'John Doe',
-  children: [
-      {
-          name: 'Diana Doe',
-          children: [
-              { name: 'Adam Smith' },
-              { name: 'Ariana Bloomberg' }
-          ]
-      },
-      {
-          name: 'Max Marchenko',
-          children: [
-            { name: 'Anna Smith' },
-            { name: 'Sam Polsen' }
-          ]
-      },
-      {
-          name: 'Diar Kundakbaev',
-          children: [
-              {
-                  name: 'Rustem Kozhabayev',
-                  children: [
-                      { name: 'Daulet Ersainov' },
-                      { name: 'Richard Winston' }
-                  ]
-              }
-          ]
-      }
-  ]
-}*/
-
+const data = []
 class TreeView extends React.Component {
   state={
     data
@@ -105,23 +76,26 @@ class TreeView extends React.Component {
 
   getReferrals (data) {
     let referrals = [],
-      childrenReferral = item => {
-        return {
-          name: item.firstname + ' ' + item.lastname,
-          avatar: item.avatar,
-          id: item.id,
-          children: item.data
-        }
+      childrenReferral = ({ depth, refer_id, referral_id }) => {
+        console.log(referral_id)
+
+        return []
       }
 
     if(data.length) {
-      let index = Object.keys(data)[0]
-      let userReferral = data[index].data[index]
+      data.forEach((item, i) => {
+        let currentUser = item.data
+        let children = childrenReferral(item)
 
-      referrals.push({
-        name: userReferral.firstName + ' ' + userReferral.lastName,
-        avatar: userReferral.avatar,
-        children: []
+        // УРОВЕН 1 дерева
+        if (item.depth === 1) {
+          referrals.push({
+            name: currentUser.firstName + ' ' + currentUser.lastName,
+            avatar: currentUser.avatar,
+            id: currentUser.id,
+            children
+          })
+        }
       })
     }
 
@@ -153,12 +127,16 @@ class TreeView extends React.Component {
                     />
 
                     {data.map((item, i) => {
+                      let avatarSrc = item.avatar ?
+                        `http://cabinet.giq-group.com/back/storage/app/${item.avatar}`
+                      : avatarImg
+
                       decorators.Header =  ({ node, style, prefix, url }) =>
-                      <div style={style.base}>
-                        <div style={{ ...style.title, display: "flex" }}>
-                          <img className="mr-1 rounded-circle" src={`http://cabinet.giq-group.com/back/storage/app/${item.avatar}`} width="32" height="32"></img> {`${node.name}`}
-                        </div>
-                      </div>;
+                        <div style={style.base}>
+                          <div style={{ ...style.title, display: "flex" }}>
+                            <img className="mr-1 rounded-circle" src={avatarSrc} width="32" height="32" /> {`${node.name}`}
+                          </div>
+                        </div>;
 
                       return <Treebeard
                         key={i}

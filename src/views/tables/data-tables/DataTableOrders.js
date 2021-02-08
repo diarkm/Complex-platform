@@ -58,7 +58,7 @@ class DataTableOrders extends React.Component {
         selector: "created_at",
         sortable: true,
         cell: row => (
-          <p className="text-bold-500 text-truncate mb-0">{row.created_at}</p>
+          <p className="text-bold-500 text-truncate mb-0">{row.created_at.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)}</p>
         )
       },
       {
