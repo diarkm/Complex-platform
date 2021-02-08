@@ -14,7 +14,7 @@ import { connect } from "react-redux"
 import UserDataService from "../../api/user-data-service";
 import * as filters from "./Filter"
 import { styleLight, styleDark } from "./Styles"
-import avatarImg from "../../assets/img/portrait/small/avatar_none.jpeg"
+import avatarImg from "../../assets/img/portrait/small/avatar-s-1.jpg"
 
 const Loading = props => {
   return (
@@ -161,9 +161,7 @@ class TreeView extends React.Component {
                     />
 
                     {data.map((item, i) => {
-                      let avatarSrc = item.avatar ?
-                        `http://cabinet.giq-group.com/back/storage/app/${item.avatar}`
-                      : avatarImg
+                      let avatarSrc = avatarImg
 
                       decorators.Header =  ({ node, style, prefix, url }) =>
                         <div style={style.base}>

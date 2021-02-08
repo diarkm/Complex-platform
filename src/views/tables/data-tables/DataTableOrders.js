@@ -69,13 +69,13 @@ class DataTableOrders extends React.Component {
       },
       {
         name: "Статус ID",
-        selector: "status_id",
+        selector: "status",
         sortable: true,
         cell: row => (
           <Badge
             color={getColor(row)}
             pill>
-            {row.status_id}
+            {row.status.name}
           </Badge>
         )
       }
