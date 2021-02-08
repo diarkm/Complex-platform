@@ -222,9 +222,6 @@ class UserDataService {
       .then(response => {
         return response.data
       })
-      .catch(error => {
-        this.handleError(error)
-      })
   }
 
   async getTransactions(page = 1) {
