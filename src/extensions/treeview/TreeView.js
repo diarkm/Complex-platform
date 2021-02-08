@@ -14,7 +14,7 @@ import { connect } from "react-redux"
 import UserDataService from "../../api/user-data-service";
 import * as filters from "./Filter"
 import { styleLight, styleDark } from "./Styles"
-import avatarImg from "../../assets/img/portrait/small/avatar-s-11.jpg"
+import avatarImg from "../../assets/img/portrait/small/avatar_none.jpeg"
 
 const Loading = props => {
   return (
@@ -108,12 +108,15 @@ class TreeView extends React.Component {
           children
         }
       },
+      /**
+       * refer_id - тот, кто пригласил (Пригласивший)
+       * referral_id - тот, кто принял приглашение (Реферал)
+       */
       childrenReferral = ($item) => {
         let $tree = []
 
         data.forEach(item => {
-          if($item.referral_id === item.refer_id &&
-            (item.referral_id !== $item.referral_id && item.refer_id !== $item.refer_id)) {
+          if(item.refer_id === $item.referral_id && $item.depth+1 >= item.depth) {
             $tree.push(showUser($item, childrenReferral(item)))
           }
         })
@@ -131,6 +134,8 @@ class TreeView extends React.Component {
         }
       })
     }
+
+    console.log(data)
 
     return referrals
   }
