@@ -24,7 +24,31 @@ const Loading = props => {
   )
 }
 
-const data = []
+const data = []/*{
+  name: 'John Doe',
+  children: [
+      {
+          name: 'Max Marchenko',
+          children: [
+            { name: 'Anna Smith' },
+            { name: 'Sam Polsen' }
+          ]
+      },
+      {
+          name: 'Diar Kundakbaev',
+          children: [
+              {
+                  name: 'Rustem Kozhabayev',
+                  children: [
+                      { name: 'Daulet Ersainov' },
+                      { name: 'Richard Winston' }
+                  ]
+              }
+          ]
+      }
+  ]
+}*/
+
 class TreeView extends React.Component {
   state={
     data
@@ -76,25 +100,34 @@ class TreeView extends React.Component {
 
   getReferrals (data) {
     let referrals = [],
-      childrenReferral = ({ depth, refer_id, referral_id }) => {
-        console.log(referral_id)
+      showUser = (currentItem, children) => {
+        return {
+          name: currentItem.data.firstName + ' ' + currentItem.data.lastName,
+          avatar: currentItem.data.avatar,
+          id: currentItem.data.id,
+          children
+        }
+      },
+      childrenReferral = ($item) => {
+        let $tree = []
 
-        return []
+        data.forEach(item => {
+          if($item.referral_id === item.refer_id &&
+            (item.referral_id !== $item.referral_id && item.refer_id !== $item.refer_id)) {
+            $tree.push(showUser($item, childrenReferral(item)))
+          }
+        })
+
+        return $tree
       }
 
     if(data.length) {
       data.forEach((item, i) => {
-        let currentUser = item.data
         let children = childrenReferral(item)
 
-        // УРОВЕН 1 дерева
+        // УРОВЕНЬ 1
         if (item.depth === 1) {
-          referrals.push({
-            name: currentUser.firstName + ' ' + currentUser.lastName,
-            avatar: currentUser.avatar,
-            id: currentUser.id,
-            children
-          })
+          referrals.push(showUser(item, children))
         }
       })
     }
