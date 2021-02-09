@@ -82,6 +82,8 @@ class AnalyticsDashboard extends React.Component {
   }
 
   render() {
+    const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : '' : ''
+
     return (
       <React.Fragment>
         <Row>
@@ -103,14 +105,14 @@ class AnalyticsDashboard extends React.Component {
                 iconBg="primary"
                 iconLeft
                 icon={'https://cabinet.giq-group.com/back/storage/app' + this.state.userAvatar}
-                stat="INVESTOR GIQ-S"
+                stat={userStatus}
                 statTitle="Мой статус"
               />
               <UserCards
                 hideChart
                 iconBg="primary"
                 iconLeft
-                icon={this.state.referral ? 'https://cabinet.giq-group.com/back/storage/app' + this.state.referralAvatar : defaultAvatar}
+                icon={this.state.referral ? 'https://cabinet.giq-group.com/back/storage/app/' + this.state.referralAvatar : defaultAvatar}
                 stat={this.state.referral ? `${this.state.referral.firstName} ${this.state.referral.lastName}` : 'Нет спонсора'}
                 statTitle="Мой спонсор"
               />
@@ -157,7 +159,7 @@ class AnalyticsDashboard extends React.Component {
               </CardHeader>
               <div className="text-center pt-0 my-auto">
                   <h5>{this.state.user ? `${this.state.user.firstName} ${this.state.user.lastName}` : ''}</h5>
-                  <p>INVESTOR GIQ-S</p>
+                  <p>{userStatus}</p>
                   <div className="avatar">
                     <img width="200" height="200" src={'https://cabinet.giq-group.com/back/storage/app' + this.state.userAvatar} alt="avatarImg" />
                   </div>

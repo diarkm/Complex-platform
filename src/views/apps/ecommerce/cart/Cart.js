@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import { toast } from "react-toastify"
 import {
   Card,
@@ -35,79 +35,80 @@ import { AvInput, AvGroup, AvFeedback } from "availity-reactstrap-validation"
 import "../../../../assets/scss/pages/app-ecommerce-shop.scss"
 import "react-toastify/dist/ReactToastify.css"
 import "../../../../assets/scss/plugins/extensions/toastr.scss"
+import { Redirect } from "react-router-dom"
 
-class Checkout extends React.Component {
-  
-  render() {
-    return (
-      <React.Fragment>
-        <Row>
-          <Col lg="7" md="7" sm="12">
-            <Card>
-              <CardHeader className="flex-column align-items-start">
-                <CardTitle>Детали оплаты</CardTitle>
-                <p className="text-muted mt-25">
-                Выбери способ оплаты
-                </p>
-              </CardHeader>
-              <CardBody className="d-block">
-                <div className="mb-3">
-                  <div className="vx-radio-con vx-radio-primary">
-                    <input type="radio" name="bank" />
-                    <span className="vx-radio">
-                      <span className="vx-radio--border"></span>
-                      <span className="vx-radio--circle"></span>
-                    </span>
-                    <img className="rounded-circle mx-1" src={bankLogo} alt="img-placeholder" height="40" />
-                    <span>AdvCash</span>
-                  </div>
-                  <div className="vx-radio-con vx-radio-primary">
-                    <input type="radio" name="bank" />
-                    <span className="vx-radio">
-                      <span className="vx-radio--border"></span>
-                      <span className="vx-radio--circle"></span>
-                    </span>
-                    <img className="mx-1" src={bitcoinLogo} alt="img-placeholder" height="40" />
-                    <span>Bitcoin</span>
-                  </div>
+const Checkout = () => {
+  const [redirect, setredirect] = useState(null)
+
+  return (
+    <React.Fragment>
+      {redirect ? <Redirect to={redirect} /> : ''}
+      <Row>
+        <Col lg="7" md="7" sm="12">
+          <Card>
+            <CardHeader className="flex-column align-items-start">
+              <CardTitle>Детали оплаты</CardTitle>
+              <p className="text-muted mt-25">
+              Выбери способ оплаты
+              </p>
+            </CardHeader>
+            <CardBody className="d-block">
+              <div className="mb-3">
+                <div className="vx-radio-con vx-radio-primary">
+                  <input type="radio" name="bank" />
+                  <span className="vx-radio">
+                    <span className="vx-radio--border"></span>
+                    <span className="vx-radio--circle"></span>
+                  </span>
+                  <img className="rounded-circle mx-1" src={bankLogo} alt="img-placeholder" height="40" />
+                  <span>AdvCash</span>
                 </div>
-                <div className="customer-cvv mt-1">
-                    <div className="form-inline">
-                    <Button color="primary" className="ml-50 mb-50">
-                      {" "}
-                      Продолжить{" "}
-                    </Button>
-                  </div>
+                <div className="vx-radio-con vx-radio-primary">
+                  <input onChange={() => setredirect('bitcoinCheckout')} type="radio" name="bank" />
+                  <span className="vx-radio">
+                    <span className="vx-radio--border"></span>
+                    <span className="vx-radio--circle"></span>
+                  </span>
+                  <img className="mx-1" src={bitcoinLogo} alt="img-placeholder" height="40" />
+                  <span>Bitcoin</span>
                 </div>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col lg="5" md="5" sm="12">
-            <Card>
-              <CardHeader>
-                <CardTitle>Стоимость</CardTitle>
-              </CardHeader>
-              <CardBody>
-                <div className="detail d-flex justify-content-between">
-                  <div className="details title">Цена за 1 заказ</div>
-                  <div className="detail-amt">
-                    <strong>$699.30</strong>
-                  </div>
+              </div>
+              <div className="customer-cvv mt-1">
+                  <div className="form-inline">
+                  <Button color="primary" className="ml-50 mb-50">
+                    {" "}
+                    Продолжить{" "}
+                  </Button>
                 </div>
-                <hr />
-                <div className="detail d-flex justify-content-between">
-                  <div className="details title">Итого</div>
-                  <div className="detail-amt text-success">
-                    <strong>$699.30</strong>
-                  </div>
+              </div>
+            </CardBody>
+          </Card>
+        </Col>
+        <Col lg="5" md="5" sm="12">
+          <Card>
+            <CardHeader>
+              <CardTitle>Стоимость</CardTitle>
+            </CardHeader>
+            <CardBody>
+              <div className="detail d-flex justify-content-between">
+                <div className="details title">Цена за 1 заказ</div>
+                <div className="detail-amt">
+                  <strong>$699.30</strong>
                 </div>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-      </React.Fragment>
-    )
-  }
+              </div>
+              <hr />
+              <div className="detail d-flex justify-content-between">
+                <div className="details title">Итого</div>
+                <div className="detail-amt text-success">
+                  <strong>$699.30</strong>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </React.Fragment>
+  )
 }
 
 export default Checkout

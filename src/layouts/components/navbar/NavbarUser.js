@@ -94,7 +94,7 @@ class NavbarUser extends React.PureComponent {
     this.getUserData();
   }
 
-  
+
   async getUserData() {
     this.userDataService.getUserData()
       .then(res => {
@@ -128,6 +128,8 @@ class NavbarUser extends React.PureComponent {
     this.setState({ langDropdown: !this.state.langDropdown })
 
   render() {
+    const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : '' : ''
+
     return (
       <ul className="nav navbar-nav navbar-nav-user float-right">
         <IntlContext.Consumer>
@@ -346,7 +348,7 @@ class NavbarUser extends React.PureComponent {
               <span className="user-name text-bold-600">
               {this.state.user ? `${this.state.user.firstName} ${this.state.user.lastName}` : ''}
               </span>
-              <span className="user-status">INVESTOR GIQ-S</span>
+              <span className="user-status">{userStatus}</span>
             </div>
             <span data-tour="user">
               <img

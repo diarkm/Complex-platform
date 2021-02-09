@@ -14,7 +14,7 @@ import { connect } from "react-redux"
 import UserDataService from "../../api/user-data-service";
 import * as filters from "./Filter"
 import { styleLight, styleDark } from "./Styles"
-import avatarImg from "../../assets/img/portrait/small/avatar-s-1.jpg"
+import avatarImg from "../../assets/img/portrait/small/avatar_none.jpeg"
 
 const Loading = props => {
   return (
@@ -139,6 +139,16 @@ class TreeView extends React.Component {
   render() {
     const { data, cursor } = this.state
     decorators.Loading = Loading
+    decorators.Header =  ({ node, style, prefix }) => {
+      const avatar = node.avatar ? `http://cabinet.giq-group.com/back/storage/app/${node.avatar}` : avatarImg
+      return (
+        <div style={style.base}>
+          <div style={{ ...style.title, display: "flex" }}>
+            <img className="mr-1 rounded-circle" src={avatar} width="32" height="32" /> {`${node.name}`}
+          </div>
+        </div>
+      )
+    }
 
     if(!data.length) return ''
 
@@ -153,23 +163,7 @@ class TreeView extends React.Component {
               <CardBody>
                 <Row>
                   <Col>
-                    <input
-                      type="text"
-                      placeholder="Поиск..."
-                      className="form-control mb-1"
-                      onKeyUp={this.onFilterMouseUp}
-                    />
-
                     {data.map((item, i) => {
-                      let avatarSrc = avatarImg
-
-                      decorators.Header =  ({ node, style, prefix, url }) =>
-                        <div style={style.base}>
-                          <div style={{ ...style.title, display: "flex" }}>
-                            <img className="mr-1 rounded-circle" src={avatarSrc} width="32" height="32" /> {`${node.name}`}
-                          </div>
-                        </div>;
-
                       return <Treebeard
                         key={i}
                         data={item}
