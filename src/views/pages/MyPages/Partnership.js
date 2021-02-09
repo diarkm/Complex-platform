@@ -18,67 +18,64 @@ class Partnership extends React.Component {
             <Card>
               <CardHeader>
                 <h1>Партнерская программа</h1>
-                <p>Last updated on 10 Dec 2018</p>
               </CardHeader>
               <CardBody>
-                <p>
-                It has been said that astronomy is a humbling and character-building experience. 
-                There is perhaps no better demonstration of the folly of human conceits than this 
-                distant image of our tiny world. To me, it underscores our responsibility to deal 
-                more kindly with one another, and to preserve and cherish the pale blue dot, the 
-                only home we’ve ever known. The Earth is a very small stage in a vast cosmic arena. 
-                Think of the rivers of blood spilled by all those generals and emperors so that, 
-                in glory and triumph, they could become the momentary masters of a fraction of a 
-                dot. Think of the endless cruelties visited by the inhabitants of one corner of 
-                this pixel on the scarcely distinguishable inhabitants of some other corner, how 
-                frequent their misunderstandings, how eager they are to kill one another, how 
-                fervent their hatreds.
-                </p>
-                <img
-                  src={img1}
-                  alt="article img"
-                  className="img-fluid rounded-sm mb-1 w-100"
-                />
-                <p>
-                  Candy canes oat cake biscuit halvah ice cream. Marshmallow
-                  icing topping toffee caramels dessert carrot cake. Liquorice
-                  soufflé brownie sugar plum dessert cotton candy. Cupcake
-                  halvah topping oat cake soufflé pastry dragée pudding cotton
-                  candy.
-                </p>
-                <h5 className="mb-1">Topics:</h5>
-                <ul className="article-question p-0 list-unstyled">
-                  <li>
-                    <ChevronsRight size={16} />
-                    <span className="align-middle">
-                      Pastry jelly chocolate bar caramels
-                    </span>
-                  </li>
-                  <li>
-                    <ChevronsRight size={16} />
-                    <span className="align-middle">
-                      Donut chupa chups oat cake
-                    </span>
-                  </li>
-                  <li>
-                    <ChevronsRight size={16} />
-                    <span className="align-middle">
-                      Marshmallow icing topping toffee caramels dessert carrot
-                      cake
-                    </span>
-                  </li>
-                </ul>
-                <p className="mt-2">
-                  Chocolate cake powder I love jelly beans lemon drops candy
-                  fruitcake. Sesame snaps sugar plum chocolate candy canes
-                  muffin. Wafer pastry topping croissant pudding dessert I love.
-                  Bonbon apple pie fruitcake candy canes I love. Lollipop sweet
-                  gingerbread I love I love dessert. I love halvah marshmallow
-                  pie jelly beans macaroon candy. Bonbon ice cream lollipop pie
-                  fruitcake oat cake. Topping marshmallow I love sesame snaps
-                  dragée. I love sesame snaps jelly. Chocolate sesame snaps
-                  jelly I love I love powder jelly-o.
-                </p>
+                <div className='mb-2'>
+                  <h5>INVESTOR GIQ-S</h5>
+                  <p>Личный взнос 500$<br/>
+                  Лично рефералов минимум по 500$ 5 человек в структуре<br/>
+                  Товарооборот 25000$<br/>
+                  Бонус 500$
+                  </p>
+                </div>
+                <div className='mb-2'>
+                  <h5>INVESTOR GIQ-G</h5>
+                  <p>Личный взнос 1000$<br/>
+                  Лично приглашенных минимум 10 рефералов по 500$<br/>
+                  Товарооборот 50000$<br/>
+                  Бонус 1000$
+                  </p>
+                </div>
+                <div className='mb-2'>
+                  <h5>INVESTOR GIQ-D</h5>
+                  <p>Личный взнос 3000$<br/>
+                  Лично приглашенных 12 рефералов по 1000$.<br/>
+                  Товарооборот 100000$<br/>
+                  Бонус 2500$
+                  </p>
+                </div>
+                <div className='mb-2'>
+                  <h5>INVESTOR GIQ-R</h5>
+                  <p>Личный взнос 5000$<br/>
+                  Лично приглашенных 15 рефералов по 1000$<br/>
+                  Товарооборот 200000$<br/>
+                  Бонус 5000$
+                  </p>
+                </div>
+                <div className='mb-2'>
+                  <h5>INVESTOR GIQ-N</h5>
+                  <p>Личный взнос 10000$<br/>
+                  Лично приглашенных 20 рефералов по 1000$<br/>
+                  Товарооборот 300000$<br/>
+                  Бонус 10000$
+                  </p>
+                </div>
+                <div className='mb-2'>
+                  <h5>INVESTOR GIQ-M</h5>
+                  <p>Личный взнос 25000$<br/>
+                  Лично приглашенных 25 рефералов по 1000$<br/>
+                  Товарооборот 500000$<br/>
+                  Бонус 20000$ 
+                  </p>
+                </div>
+                <div className='mb-2'>
+                  <h5>INVESTOR GIQ-T</h5>
+                  <p>Личный взнос 30000$<br/>
+                  Лично приглашенных 30 рефералов по 1000$<br/>
+                  Товарооборот 1000000$<br/>
+                  Бонус 50000$
+                  </p>
+                </div>
               </CardBody>
             </Card>
           </Col>
