@@ -5,6 +5,7 @@ import NumericInput from "react-numeric-input"
 import { mobileStyle } from "../../forms/form-elements/number-input/InputStyles"
 
 import UserDataService from '../../../api/user-data-service'
+import { Redirect } from "react-router-dom"
 
 const sliderObj = {values:{1: 500, 2: 1000, 3: 5000, 4: 10000, 5: 50000, 6: 100000, 7: 500000, 8: 1000000}}
 let UserAPI = new UserDataService()
@@ -13,7 +14,8 @@ class buyPack extends React.Component {
 
   state = {
     value: 1000,
-    amount: 1
+    amount: 1,
+    redirect: ''
   }
 
   onSliderChange = value => {
@@ -25,25 +27,21 @@ class buyPack extends React.Component {
   }
 
   onTransactionSend = async () => {
-    let user_id = await UserAPI.getUserData().then(data => {
-      return data.user.id
-    })
-
-    if(!user_id) {
-      alert('User_id not found')
-      return
+    let data = {
+      value: this.state.value,
+      count: this.state.amount
     }
 
-    user_id = user_id.toString()
-
-    UserAPI.setTransaction({
-      value: this.state.value,
-      count: this.state.amount,
-      user_id
+    UserAPI.setTransaction(data).then(() => {
+      localStorage.setItem('transactionCurrent', JSON.stringify(data))
+      this.setState(() => ({ redirect: '/checkout' }))
     })
   }
 
   render() {
+    if(this.state.redirect)
+      return <Redirect to={this.state.redirect} />
+
     return (
       <Card>
         <CardBody className="m-3">

@@ -39,6 +39,17 @@ import { Redirect } from "react-router-dom"
 
 const Checkout = () => {
   const [redirect, setredirect] = useState(null)
+  const [localtrans, setlocaltrans] = useState({
+    value: 0,
+    count: 0
+  })
+
+  const currentTransactionKey = 'transactionCurrent'
+  if(localtrans.value == 0 && localStorage.getItem(currentTransactionKey)) {
+    setlocaltrans(JSON.parse(
+      localStorage.getItem(currentTransactionKey)
+    ))
+  }
 
   return (
     <React.Fragment>
@@ -93,14 +104,14 @@ const Checkout = () => {
               <div className="detail d-flex justify-content-between">
                 <div className="details title">Цена за 1 заказ</div>
                 <div className="detail-amt">
-                  <strong>$699.30</strong>
+                  <strong>${localtrans.value}</strong>
                 </div>
               </div>
               <hr />
               <div className="detail d-flex justify-content-between">
-                <div className="details title">Итого</div>
+                <div className="details title">Итого ({localtrans.count} шт.)</div>
                 <div className="detail-amt text-success">
-                  <strong>$699.30</strong>
+                  <strong>${localtrans.count * localtrans.value}</strong>
                 </div>
               </div>
             </CardBody>
