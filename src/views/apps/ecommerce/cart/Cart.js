@@ -37,18 +37,31 @@ import "react-toastify/dist/ReactToastify.css"
 import "../../../../assets/scss/plugins/extensions/toastr.scss"
 import { Redirect } from "react-router-dom"
 
+import UserDataService from '../../../../api/user-data-service'
+
+let UserAPI = new UserDataService()
+
 const Checkout = () => {
   const [redirect, setredirect] = useState(null)
   const [localtrans, setlocaltrans] = useState({
     value: 0,
     count: 0
   })
+  const [paymenttype, setpaymenttype] = useState(0)
 
   const currentTransactionKey = 'transactionCurrent'
   if(localtrans.value == 0 && localStorage.getItem(currentTransactionKey)) {
     setlocaltrans(JSON.parse(
       localStorage.getItem(currentTransactionKey)
     ))
+  }
+
+  const onSetTransaction = () => {
+    UserAPI.setTransaction(localtrans)
+
+    if (paymenttype === 1) {
+      setredirect('/bitcoinCheckout')
+    }
   }
 
   return (
@@ -66,7 +79,7 @@ const Checkout = () => {
             <CardBody className="d-block">
               <div className="mb-3">
                 <div className="vx-radio-con vx-radio-primary">
-                  <input type="radio" name="bank" />
+                  <input onChange={() => setpaymenttype(0)} type="radio" name="bank" />
                   <span className="vx-radio">
                     <span className="vx-radio--border"></span>
                     <span className="vx-radio--circle"></span>
@@ -75,7 +88,7 @@ const Checkout = () => {
                   <span>AdvCash</span>
                 </div>
                 <div className="vx-radio-con vx-radio-primary">
-                  <input onChange={() => setredirect('bitcoinCheckout')} type="radio" name="bank" />
+                  <input onChange={() => setpaymenttype(1)} type="radio" name="bank" />
                   <span className="vx-radio">
                     <span className="vx-radio--border"></span>
                     <span className="vx-radio--circle"></span>
@@ -86,7 +99,7 @@ const Checkout = () => {
               </div>
               <div className="customer-cvv mt-1">
                   <div className="form-inline">
-                  <Button color="primary" className="ml-50 mb-50">
+                  <Button onClick={onSetTransaction} color="primary" className="ml-50 mb-50">
                     {" "}
                     Продолжить{" "}
                   </Button>

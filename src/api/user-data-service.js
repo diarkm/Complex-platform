@@ -215,10 +215,10 @@ class UserDataService {
       })
   }
 
-  async setTransaction ({ value = 1000, count = 1, user_id = 0 }) {
+  async setTransaction ({ value = 1000, count = 1 }) {
     console.log('UserDataService.setTransaction()')
 
-    return this.client.post('/transaction/create', { value, count, user_id })
+    return this.client.post('/transaction/create', { value, count })
       .then(response => {
         return response.data
       })

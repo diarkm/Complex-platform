@@ -128,7 +128,7 @@ class NavbarUser extends React.PureComponent {
     this.setState({ langDropdown: !this.state.langDropdown })
 
   render() {
-    const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : '' : ''
+    const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : 'Без статуса' : 'Без статуса'
 
     return (
       <ul className="nav navbar-nav navbar-nav-user float-right">

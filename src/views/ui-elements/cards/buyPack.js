@@ -4,11 +4,9 @@ import Slider from "rc-slider"
 import NumericInput from "react-numeric-input"
 import { mobileStyle } from "../../forms/form-elements/number-input/InputStyles"
 
-import UserDataService from '../../../api/user-data-service'
 import { Redirect } from "react-router-dom"
 
 const sliderObj = {values:{1: 500, 2: 1000, 3: 5000, 4: 10000, 5: 50000, 6: 100000, 7: 500000, 8: 1000000}}
-let UserAPI = new UserDataService()
 
 class buyPack extends React.Component {
 
@@ -32,10 +30,8 @@ class buyPack extends React.Component {
       count: this.state.amount
     }
 
-    UserAPI.setTransaction(data).then(() => {
-      localStorage.setItem('transactionCurrent', JSON.stringify(data))
-      this.setState(() => ({ redirect: '/checkout' }))
-    })
+    localStorage.setItem('transactionCurrent', JSON.stringify(data))
+    this.setState(() => ({ redirect: '/checkout' }))
   }
 
   render() {

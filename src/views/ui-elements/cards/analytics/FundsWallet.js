@@ -8,6 +8,7 @@ import UserDataService from "../../../../api/user-data-service";
 const FundsWallet = () => {
   const [balance, setbalance] = useState(0)
   const [deposits, setdeposits] = useState([])
+  const [depositsloaded, setdepositsloaded] = useState(false)
 
   let UserAPI = new UserDataService()
 
@@ -20,10 +21,11 @@ const FundsWallet = () => {
   }
 
   // Депозиты
-  if(!deposits.length) {
+  if(!deposits.length && !depositsloaded) {
     UserAPI.getDeposits()
       .then(response => {
         setdeposits(response.deposits.collection)
+        setdepositsloaded(true)
       })
   }
 
