@@ -1,6 +1,6 @@
 import React from "react"
 import { Row, Col, Card, CardHeader, Button } from "reactstrap"
-import img from "../../../assets/img/portrait/small/avatar-s-11.jpg";
+import img from "../../../assets/img/default-avatar.png"
 import SalesCard from "./SalesCard"
 import RevenueGenerated from "../../ui-elements/cards/statistics/RevenueGenerated"
 import RevenueLastMonth from "../../ui-elements/cards/statistics/RevenueLastMonth"
@@ -14,7 +14,6 @@ import ActivityTimeline from "./ActivityTimeline"
 import RevenueChart from "../../ui-elements/cards/analytics/Revenue"
 import ClientRetention from "../../ui-elements/cards/analytics/ClientRetention"
 import "../../../assets/scss/pages/dashboard-analytics.scss"
-import avatarImg from "../../../assets/img/portrait/small/avatar-s-11.jpg"
 import sponsorImg from "../../../assets/img/portrait/small/avatar-s-12.jpg"
 import ReferralLink from "../../ui-elements/cards/ReferralLink"
 import axios from 'axios';
@@ -44,7 +43,7 @@ class AnalyticsDashboard extends React.Component {
     user: null,
     referral: null,
     userAvatar: img,
-    referralAvatar: sponsorImg
+    referralAvatar: img
   }
 
   constructor(props) {
@@ -62,7 +61,7 @@ class AnalyticsDashboard extends React.Component {
         console.log('res.user', res.user);
         this.setState({user: res.user})
         if (res.user.avatar)
-          this.setState({userAvatar: `/${res.user.avatar}`})
+          this.setState({userAvatar: `https://cabinet.giq-group.com/back/storage/app/${res.user.avatar}`})
         else
           this.setState({userAvatar: img})
       })
@@ -72,10 +71,10 @@ class AnalyticsDashboard extends React.Component {
       .then(res => {
         console.log('res.refer', res.refer);
         this.setState({referral: res.refer})
-        if (res.user.avatar)
-          this.setState({referralAvatar: `/${res.user.avatar}`})
+        if (res.refer.avatar)
+          this.setState({referralAvatar: `https://cabinet.giq-group.com/back/storage/app/${res.refer.avatar}`})
         else
-          this.setState({referralAvatar: sponsorImg})
+          this.setState({referralAvatar: img})
       })
       .catch(err => console.log(err))
 
@@ -104,7 +103,7 @@ class AnalyticsDashboard extends React.Component {
                 hideChart
                 iconBg="primary"
                 iconLeft
-                icon={'https://cabinet.giq-group.com/back/storage/app' + this.state.userAvatar}
+                icon={this.state.userAvatar}
                 stat={userStatus}
                 statTitle="Мой статус"
               />
@@ -112,7 +111,7 @@ class AnalyticsDashboard extends React.Component {
                 hideChart
                 iconBg="primary"
                 iconLeft
-                icon={this.state.referral ? 'https://cabinet.giq-group.com/back/storage/app/' + this.state.referralAvatar : defaultAvatar}
+                icon={this.state.referralAvatar}
                 stat={this.state.referral ? `${this.state.referral.firstName} ${this.state.referral.lastName}` : 'Нет спонсора'}
                 statTitle="Мой спонсор"
               />
@@ -161,7 +160,7 @@ class AnalyticsDashboard extends React.Component {
                   <h5>{this.state.user ? `${this.state.user.firstName} ${this.state.user.lastName}` : ''}</h5>
                   <p>{userStatus}</p>
                   <div className="avatar">
-                    <img width="200" height="200" src={'https://cabinet.giq-group.com/back/storage/app' + this.state.userAvatar} alt="avatarImg" />
+                    <img width="200" height="200" src={this.state.userAvatar} alt="avatarImg" />
                   </div>
                   <div className="d-flex justify-content-around mt-2">
                     <div className="uploads">

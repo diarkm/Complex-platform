@@ -6,8 +6,9 @@ import Sales from "../../ui-elements/cards/analytics/Sales2"
 import Funds from "../../ui-elements/cards/analytics/Funds"
 import SuberscribersGained from "../../ui-elements/cards/statistics/SubscriberGained"
 import UserCards from "../../../components/@vuexy/statisticsCard/UserCards"
-import avatarImg from "../../../assets/img/portrait/small/avatar-s-11.jpg"
-import sponsorImg from "../../../assets/img/portrait/small/avatar-s-12.jpg"
+import img from "../../../assets/img/default-avatar.png"
+import TokenStorage from '../../../api/tokenStorage';
+import UserDataService from "../../../api/user-data-service"
 
 let $primary = "#7367F0",
   $danger = "#EA5455",
@@ -18,7 +19,53 @@ let $primary = "#7367F0",
 
 class Analyze extends React.Component {
 
+    
+  storage = new TokenStorage()
+
+  state = {
+    user: null,
+    referral: null,
+    userAvatar: img,
+    referralAvatar: img
+  }
+
+  constructor(props) {
+    super(props)
+    this.userDataService = new UserDataService()
+  }
+
+  componentDidMount() {
+    this.getUserData();
+  }
+
+  async getUserData() {
+    this.userDataService.getUserData()
+      .then(res => {
+        console.log('res.user', res.user);
+        this.setState({user: res.user})
+        if (res.user.avatar)
+          this.setState({userAvatar: `https://cabinet.giq-group.com/back/storage/app/${res.user.avatar}`})
+        else
+          this.setState({userAvatar: img})
+      })
+      .catch(err => console.log(err))
+
+    this.userDataService.getReferralData()
+      .then(res => {
+        console.log('res.refer', res.refer);
+        this.setState({referral: res.refer})
+        if (res.refer.avatar)
+          this.setState({referralAvatar: `https://cabinet.giq-group.com/back/storage/app/${res.refer.avatar}`})
+        else
+          this.setState({referralAvatar: img})
+      })
+      .catch(err => console.log(err))
+
+  }
+
     render(){
+        const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : 'Без статуса' : 'Без статуса'
+
         return (
         <React.Fragment>
             <Row>
@@ -39,16 +86,16 @@ class Analyze extends React.Component {
                     hideChart
                     iconBg="primary"
                     iconLeft
-                    icon={avatarImg}
-                    stat="INTESTOR GIQ-S"
+                    icon={this.state.userAvatar}
+                    stat={userStatus}
                     statTitle="Мой статус"
                 />
                 <UserCards
                     hideChart
                     iconBg="primary"
                     iconLeft
-                    icon={sponsorImg}
-                    stat="Эмма Уотсон"
+                    icon={this.state.referralAvatar}
+                    stat={this.state.referral ? `${this.state.referral.firstName} ${this.state.referral.lastName}` : 'Нет спонсора'}
                     statTitle="Мой спонсор"
                 />
             </Col>

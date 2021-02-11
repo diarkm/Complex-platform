@@ -2,6 +2,7 @@ import React from "react"
 import {
   NavItem,
   NavLink,
+  CustomInput,
   UncontrolledDropdown,
   Dropdown,
   DropdownMenu,
@@ -21,7 +22,7 @@ import { history } from "../../../history"
 import { IntlContext } from "../../../utility/context/Internationalization"
 import TokenStorage from '../../../api/tokenStorage';
 import UserDataService from "../../../api/user-data-service"
-import img from "../../../assets/img/portrait/small/avatar-s-11.jpg";
+import img from "../../../assets/img/default-avatar.png"
 
 const handleNavigation = (e, path) => {
   e.preventDefault()
@@ -101,7 +102,7 @@ class NavbarUser extends React.PureComponent {
         console.log('res.user', res.user);
         this.setState({user: res.user})
         if (res.user.avatar)
-          this.setState({userAvatar: `/${res.user.avatar}`})
+          this.setState({userAvatar: `https://cabinet.giq-group.com/back/storage/app/${res.user.avatar}`})
         else
           this.setState({userAvatar: img})
       })
@@ -131,6 +132,7 @@ class NavbarUser extends React.PureComponent {
     const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : 'Без статуса' : 'Без статуса'
 
     return (
+      
       <ul className="nav navbar-nav navbar-nav-user float-right">
         <IntlContext.Consumer>
           {context => {
@@ -352,7 +354,7 @@ class NavbarUser extends React.PureComponent {
             </div>
             <span data-tour="user">
               <img
-                src={'https://cabinet.giq-group.com/back/storage/app'+this.state.userAvatar}
+                src={this.state.userAvatar}
                 className="round"
                 height="40"
                 width="40"

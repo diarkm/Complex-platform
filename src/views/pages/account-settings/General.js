@@ -2,7 +2,7 @@ import $ from "jquery"
 import React from "react"
 import {Alert, Button, Col, Form, FormGroup, Input, Label, Media, Row} from "reactstrap"
 import UserDataService from "../../../api/user-data-service"
-import img from "../../../assets/img/portrait/small/avatar-s-11.jpg"
+import img from "../../../assets/img/default-avatar.png"
 
 class General extends React.Component {
   constructor(props) {

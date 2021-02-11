@@ -33,4 +33,10 @@ export default class TokenStorage
             return JSON.parse(localStorage.getItem('token')).token;
         else return null;
     }
+
+    delete()
+    {
+        if(this.isValid())
+            localStorage.removeItem('token');
+    }
 }
