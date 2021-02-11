@@ -175,7 +175,7 @@ class TreeView extends React.Component {
                         decorators={decorators}
                         animations={false}
                       />
-                    }) : ''}
+                    }) : 'У вас нет рефералов'}
                   </Col>
                 </Row>
               </CardBody>
