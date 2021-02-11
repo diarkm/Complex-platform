@@ -66,6 +66,10 @@ const FundsWallet = () => {
           </div>
           <hr className="my-1" />
           {deposits.length ? deposits.map((deposit, i) => {
+
+            if(parseInt(deposit.value) <= 0)
+              return ''
+
             return (
               <React.Fragment key={i}>
                 <div className="d-flex justify-content-between">
