@@ -122,7 +122,7 @@ class TreeView extends React.Component {
         return $tree
       }
 
-    if(data.length) {
+    if(data) {
       data.forEach((item, i) => {
         let children = childrenReferral(item)
 
