@@ -33,7 +33,7 @@ const UserDropdown = props => {
 
   const exit = () => {
     localStorage.removeItem('token');
-    history.push('/');
+    window.location.href = '/';
   }
   return (
     <DropdownMenu right>
@@ -48,10 +48,12 @@ const UserDropdown = props => {
       <DropdownItem divider />
       <DropdownItem
         tag="a"
-        href="/settings"
+        href="#"
         onClick={e => {
           e.preventDefault()
-          if (isAuthenticated) {
+
+          exit()
+          /*if (isAuthenticated) {
             return logout({
               returnTo: window.location.origin + process.env.REACT_APP_PUBLIC_PATH
             })
@@ -62,14 +64,14 @@ const UserDropdown = props => {
                 return props.logoutWithLogin()
               }
             } else {
-              history.push("/")
+              window.location.href = '/'
             }
-          }
+          }*/
 
         }}
       >
         <Icon.Power size={14} className="mr-50" />
-        <span className="align-middle" onClick={exit}>Выйти</span>
+        <span className="align-middle">Выйти</span>
       </DropdownItem>
     </DropdownMenu>
   )

@@ -47,10 +47,12 @@ class UserDataService {
     console.log("UserDataService.getUserData()");
     return this.client.get('/user')
       .then(response => {
+        window.USER = response.data
         return response.data
       })
       .catch(error => {
-        this.handleError(error)
+        window.USER = null
+        //this.handleError(error)
       })
   }
 
