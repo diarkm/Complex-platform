@@ -15,6 +15,7 @@ import ConfirmEmail from './views/pages/authentication/ConfirmEmail'
 
 // Route-based code splitting
 import analyticsDashboard from "./views/dashboard/analytics/AnalyticsDashboard"
+import UserDataService from "./api/user-data-service"
 
 const checkout = lazy(() => import("./views/apps/ecommerce/cart/Cart"))
 const bitcoinCheckout = lazy(() => import("./views/apps/ecommerce/cart/BitcoinCheckout"))
@@ -69,7 +70,27 @@ const mapStateToProps = state => {
 const AppRoute = connect(mapStateToProps)(RouteConfig)
 
 class AppRouter extends React.Component {
+  state = {
+    user: window.USER,
+    checkUserInit: false
+  }
+
+  constructor () {
+    super()
+
+    this.userDataService = new UserDataService()
+  }
+
+  async componentDidMount () {
+    await this.userDataService.getUserData()
+    this.setState(() => ({ checkUserInit: true, user: window.USER }))
+  }
+
   render() {
+    const { user, checkUserInit } = this.state
+
+    if(!checkUserInit) return <Spinner />
+
     return (
       // Set the directory path if you are deploying in sub-folder
       <Router history={history}>
@@ -77,13 +98,6 @@ class AppRouter extends React.Component {
           <AppRoute exact path="/" component={Login} fullLayout />
           <AppRoute exact path="/register" component={register} fullLayout />
           <AppRoute path="/register/:referer" component={register} fullLayout />
-          <AppRoute exact path="/dashboard" component={analyticsDashboard} />
-          <AppRoute exact path="/partner" component={partnership} />
-          <AppRoute exact path="/reports" component={reports} />
-          <AppRoute exact path="/referrals" component={referrals} />
-          <AppRoute exact path="/buyPackages" component={buyPackages} />
-          <AppRoute exact path="/wallet" component={wallet} />
-          <AppRoute exact path="/cart" component={myOrders} />
           <AppRoute
             path="/forgot-password"
             component={forgotPassword}
@@ -95,23 +109,34 @@ class AppRouter extends React.Component {
             fullLayout
           />
           <AppRoute
-            path="/settings"
-            component={accountSettings}
-          />
-          <AppRoute exact path="/confirm" component={ConfirmEmail} fullLayout/>
-          <AppRoute
-            path="/checkout"
-            component={checkout}
-          />
-          <AppRoute
-            path="/bitcoinCheckout"
-            component={bitcoinCheckout}
-          />
-          <AppRoute
             path="/reset-password/:token"
             component={resetPassword}
             fullLayout
           />
+
+          {user ? <>
+            <AppRoute exact path="/dashboard" component={analyticsDashboard} />
+            <AppRoute exact path="/partner" component={partnership} />
+            <AppRoute exact path="/reports" component={reports} />
+            <AppRoute exact path="/referrals" component={referrals} />
+            <AppRoute exact path="/buyPackages" component={buyPackages} />
+            <AppRoute exact path="/wallet" component={wallet} />
+            <AppRoute exact path="/cart" component={myOrders} />
+            <AppRoute
+              path="/settings"
+              component={accountSettings}
+            />
+            <AppRoute exact path="/confirm" component={ConfirmEmail} fullLayout/>
+            <AppRoute
+              path="/checkout"
+              component={checkout}
+            />
+            <AppRoute
+              path="/bitcoinCheckout"
+              component={bitcoinCheckout}
+            />
+          </> : ''}
+
           <AppRoute component={error404} fullLayout />
         </Switch>
       </Router>
