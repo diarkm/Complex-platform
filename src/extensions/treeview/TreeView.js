@@ -150,8 +150,6 @@ class TreeView extends React.Component {
       )
     }
 
-    if(!data.length) return ''
-
     return (
       <React.Fragment>
         <Row>
@@ -163,7 +161,7 @@ class TreeView extends React.Component {
               <CardBody>
                 <Row>
                   <Col>
-                    {data.map((item, i) => {
+                    {data.length ? data.map((item, i) => {
                       return <Treebeard
                         key={i}
                         data={item}
@@ -177,7 +175,7 @@ class TreeView extends React.Component {
                         decorators={decorators}
                         animations={false}
                       />
-                    })}
+                    }) : 'У вас нет рефералов'}
                   </Col>
                 </Row>
               </CardBody>

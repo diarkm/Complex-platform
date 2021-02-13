@@ -56,7 +56,7 @@ class LoginJWT extends React.Component {
       }
 
       this.createToken(response.data.token);
-      history.push("/dashboard");
+      window.location.href = '/dashboard'
     } catch (e) {
       console.error(e);
       console.error('Произошла ошибка при аутентификации');
@@ -74,7 +74,7 @@ class LoginJWT extends React.Component {
         return alert('Неверно введен код подтверждения');
 
       this.createToken(response.data.token);
-      history.push("/dashboard");
+      window.location.href = '/dashboard'
     } catch (e) {
       console.error(e);
     }
