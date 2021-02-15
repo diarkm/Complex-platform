@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react"
-import { Router, Switch, Route } from "react-router-dom"
+import { Router, Switch, Route, Redirect } from "react-router-dom"
 import { history } from "./history"
 import { connect } from "react-redux"
 import Spinner from "./components/@vuexy/spinner/Loading-spinner"
@@ -69,6 +69,25 @@ const mapStateToProps = state => {
 
 const AppRoute = connect(mapStateToProps)(RouteConfig)
 
+const AuthRoutes = [
+  {path: '/dashboard', exact: true, component: analyticsDashboard},
+  {path: '/partner', exact: true, component: partnership},
+  {path: '/reports', exact: true, component: reports},
+  {path: '/referrals', exact: true, component: referrals},
+  {path: '/buyPackages', exact: true, component: buyPackages},
+  {path: '/wallet', exact: true, component: wallet},
+  {path: '/cart', exact: true, component: myOrders},
+
+  {path: '/settings', component: accountSettings},
+  {path: '/confirm', exact: true, fullLayout: true, component: ConfirmEmail},
+  {path: '/checkout', component: checkout},
+  {path: '/bitcoinCheckout', component: bitcoinCheckout}
+]
+const AuthComponentRedirect = () => {
+  window.location.href = '/'
+  return Login
+}
+
 class AppRouter extends React.Component {
   state = {
     user: window.USER,
@@ -114,28 +133,17 @@ class AppRouter extends React.Component {
             fullLayout
           />
 
-          {user ? <>
-            <AppRoute exact path="/dashboard" component={analyticsDashboard} />
-            <AppRoute exact path="/partner" component={partnership} />
-            <AppRoute exact path="/reports" component={reports} />
-            <AppRoute exact path="/referrals" component={referrals} />
-            <AppRoute exact path="/buyPackages" component={buyPackages} />
-            <AppRoute exact path="/wallet" component={wallet} />
-            <AppRoute exact path="/cart" component={myOrders} />
-            <AppRoute
-              path="/settings"
-              component={accountSettings}
+          {AuthRoutes.map((route, i) => {
+            let routeComponent = user ? route.component : AuthComponentRedirect
+
+            return <AppRoute
+              key={i}
+              path={route.path}
+              component={routeComponent}
+              exact={route.exact}
+              fullLayout={route.fullLayout}
             />
-            <AppRoute exact path="/confirm" component={ConfirmEmail} fullLayout/>
-            <AppRoute
-              path="/checkout"
-              component={checkout}
-            />
-            <AppRoute
-              path="/bitcoinCheckout"
-              component={bitcoinCheckout}
-            />
-          </> : ''}
+          })}
 
           <AppRoute component={error404} fullLayout />
         </Switch>
