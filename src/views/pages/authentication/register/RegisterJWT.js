@@ -174,7 +174,6 @@ class RegisterJWT extends React.Component {
         <FormGroup>
           <CustomInput
             required={false}
-            isRequire={false}
             type="file"
             label="Выберите файл"
             id="exampleCustomFileBrowser"
