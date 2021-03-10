@@ -18,6 +18,9 @@ import {
 import {getPrincipal} from "../../../api/principal-storage"
 import UserDataService from "../../../api/user-data-service"
 import "../../../assets/scss/plugins/forms/flatpickr/flatpickr.scss"
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import "../../../assets/scss/plugins/extensions/toastr.scss"
 
 class InfoTab extends React.Component {
   constructor() {
@@ -33,6 +36,18 @@ class InfoTab extends React.Component {
       googleSecret:   '',
     };
     this.userDataService = new UserDataService()
+  }
+
+  onValidationError = errors => {
+    toast.error(errors, {
+      position: toast.POSITION.TOP_RIGHT
+    })
+  }
+
+  onValidationSuccess = message => {
+    toast.success(message, {
+      position: toast.POSITION.TOP_RIGHT
+    })
   }
 
   componentDidMount() {
@@ -79,13 +94,17 @@ class InfoTab extends React.Component {
       wallet:    this.state.wallet,
       wallet_id: this.state.wallet_id || null,
     }
-    this.userDataService.createWallet(walletData)
-      .then(res => {
-        console.log('OK', res)
-        this.setState({block: true})
-      })
-      .catch(err => console.log(err))
-    event.preventDefault();
+    if(walletData.wallet.length == 0){
+      this.userDataService.createWallet(walletData)
+        .then(res => {
+          this.setState({block: true})
+        })
+        .catch(err => console.log(err))
+        this.onValidationSuccess('Вы успешно добавили кошелек, чтобы его изменить обратитесь к администратору')
+      event.preventDefault();
+    } else {
+      this.onValidationError('Чтобы изменить кошелек, пожалуйста, обратитесь к администратору')
+    }
   }
 
   enable2fa() {
@@ -93,12 +112,24 @@ class InfoTab extends React.Component {
       secret: this.state.googleSecret,
       code:   this.state.googleCode,
     }
-    this.userDataService.enable2fa(googleData)
-      .then(res => {
-        console.log('OK', res)
-        this.setState({add2faModal: false})
-      })
-      .catch(err => console.log(err))
+    if(googleData.code.length==0){
+      this.setState({checked: false});
+      this.setState({add2faModal: false});
+      return;
+    } else {
+      this.userDataService.enable2fa(googleData)
+        .then(res => {
+          console.log('OK', res)
+          if (res.response === false){
+            this.onValidationError('Вы ввели неверный код');
+            return
+          }
+          else
+            this.onValidationSuccess('Вы успешно активировали двухфакторную аутентификацию')
+          this.setState({add2faModal: false})
+        })
+        .catch(err => console.log(err))
+    }
   }
 
   disable2fa() {
@@ -111,6 +142,7 @@ class InfoTab extends React.Component {
         this.setState({remove2faModal: false})
       })
       .catch(err => console.log(err))
+      this.onValidationSuccess('Вы деактивировали двухфакторную аутентификацию')
   }
 
   render() {
@@ -195,6 +227,9 @@ class InfoTab extends React.Component {
             <Button color="primary" onClick={(e) => this.enable2fa()}>
               ОК
             </Button>
+            <Button color="danger" onClick={(e) => { this.setState({add2faModal: false}); this.setState({checked: false}) }}>
+              Закрыть
+            </Button>
           </ModalFooter>
         </Modal>
         <Modal
@@ -230,8 +265,12 @@ class InfoTab extends React.Component {
             <Button color="primary" onClick={(e) => this.disable2fa()}>
               Отключить
             </Button>
+            <Button color="danger" onClick={(e) => { this.setState({add2faModal: false}); this.setState({checked: false})}}>
+              Закрыть
+            </Button>
           </ModalFooter>
         </Modal>
+        <ToastContainer />
       </React.Fragment>
     )
   }

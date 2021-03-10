@@ -8,6 +8,9 @@ import { connect } from "react-redux"
 import { history } from "../../../../history"
 import axios from 'axios';
 import TokenStorage from '../../../../api/tokenStorage';
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import "../../../../assets/scss/plugins/extensions/toastr.scss"
 
 const apiURL = 'https://cabinet.giq-group.com/back/public'
 
@@ -43,7 +46,7 @@ class LoginJWT extends React.Component {
       });
 
       if (response.data.response === false)
-        return alert('Вы ввели неверно логин или пароль');
+        return this.onValidationError('Вы ввели неверно логин или пароль');
 
       if (response.data["2FA"] === true) {
         this.setState({
@@ -63,16 +66,25 @@ class LoginJWT extends React.Component {
     }
   }
 
+  onValidationError = errors => {
+    toast.error(errors, {
+      position: toast.POSITION.TOP_RIGHT
+    })
+  }
+
   googleAuth = async () => {
     try {
       const response = await axios.post(apiURL + '/user/login/2fa', {
         token: this.state.googleAuth.token,
         code: this.state.code
+      }, {
+        headers: {
+          Authorization: `${this.state.googleAuth.token}`
+        }
       });
-
-      if (response.data.response === false)
-        return alert('Неверно введен код подтверждения');
-
+      if (response.data.response === false){
+        return this.onValidationError('Неверно введен код подтверждения');
+      }
       this.createToken(response.data.token);
       window.location.href = '/dashboard'
     } catch (e) {
@@ -165,6 +177,7 @@ class LoginJWT extends React.Component {
               }
             </div>
           </Form>
+          <ToastContainer />
         </CardBody>
       </React.Fragment>
     )

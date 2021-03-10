@@ -3,13 +3,16 @@ import React from "react"
 import {Button, Col, FormGroup, Row} from "reactstrap"
 import * as Yup from "yup"
 import UserDataService from "../../../api/user-data-service";
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import "../../../assets/scss/plugins/extensions/toastr.scss"
 
 const formSchema = Yup.object().shape({
-  oldpass:     Yup.string().required("Required"),
-  newpass:     Yup.string().required("Required"),
+  oldpass:     Yup.string().required("Это поле должно быть заполнено"),
+  newpass:     Yup.string().required("Это поле должно быть заполнено"),
   confirmpass: Yup.string()
-                 .oneOf([Yup.ref("newpass"), null], "Passwords must match")
-                 .required("Required")
+                 .oneOf([Yup.ref("newpass"), null], "Пароли должны совпадать")
+                 .required("Это поле должно быть заполнено")
 })
 
 class ChangePassword extends React.Component {
@@ -26,6 +29,12 @@ class ChangePassword extends React.Component {
     this.userDataService.getUserData()
       .then(res => this.setState(res.user))
       .catch(err => console.log(err))
+  }
+
+  onValidationSuccess = message => {
+    toast.success(message, {
+      position: toast.POSITION.TOP_RIGHT
+    })
   }
 
   render() {
@@ -116,6 +125,7 @@ class ChangePassword extends React.Component {
             </Formik>
           </Col>
         </Row>
+        <ToastContainer />
       </React.Fragment>
     )
   }

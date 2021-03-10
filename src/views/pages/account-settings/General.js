@@ -3,6 +3,9 @@ import React from "react"
 import {Alert, Button, Col, Form, FormGroup, Input, Label, Media, Row} from "reactstrap"
 import UserDataService from "../../../api/user-data-service"
 import img from "../../../assets/img/default-avatar.png"
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import "../../../assets/scss/plugins/extensions/toastr.scss"
 
 class General extends React.Component {
   constructor(props) {
@@ -17,12 +20,19 @@ class General extends React.Component {
     firstName:    '',
     lastName:     '',
     phoneNumber:  '',
+    confirmed: 1,
     selectedFile: null,
     isFilePicked: false,
   }
 
   componentDidMount() {
     this.getUserData();
+  }
+
+  onValidateSuccess = message => {
+    toast.success(message, {
+      position: toast.POSITION.TOP_RIGHT
+    })
   }
 
   getUserData() {
@@ -62,6 +72,18 @@ class General extends React.Component {
     reader.readAsDataURL(e.target.files[0])
   }
 
+  checkData(userData){
+    if(userData.email.length == 0) return false
+    if(userData.firstName.length == 0) return false
+    if(userData.lastName.length == 0) return false
+    if(userData.phoneNumber.length == 0) return false
+    return true
+  }
+
+  refreshPage(){
+    window.location.reload();
+  }
+
   handleSubmit(event) {
     let userData = {
       login:       this.state.login,
@@ -71,9 +93,14 @@ class General extends React.Component {
       phoneNumber: this.state.phoneNumber,
     }
     if (this.state.isFilePicked) userData.avatar = this.state.selectedFile
-    this.userDataService.updateUserData(userData).then(res => console.log('OK', res))
-      .catch(err => console.log(err))
-    event.preventDefault();
+    if(this.checkData(userData)){
+      this.userDataService.updateUserData(userData).then(res => {
+        this.refreshPage()
+      })
+        .catch(err => console.log(err))
+        this.onValidateSuccess('Данные успешно сохранены!')
+      event.preventDefault();
+    }
   }
 
   resendConfirmEmail(){
@@ -159,6 +186,7 @@ class General extends React.Component {
                 color="warning"
                 isOpen={this.state.visible}
                 toggle={this.dismissAlert}
+                style={{display: this.state.confirmed == 0 ? 'block' : 'none' }}
               >
                 <p className="mb-0">
                   Ваша почта не подтверждена. Мы выслали вам код с дальнейшей инструкцией по активации.<br></br>
@@ -170,12 +198,13 @@ class General extends React.Component {
               <Button.Ripple className="mr-50" type="submit" color="primary">
                 Сохранить изменения
               </Button.Ripple>
-              <Button.Ripple type="submit" color="danger">
+              <Button.Ripple onClick={this.refreshPage} type="reset" color="danger">
                 Отмена
               </Button.Ripple>
             </Col>
           </Row>
         </Form>
+        <ToastContainer />
       </React.Fragment>
     )
   }

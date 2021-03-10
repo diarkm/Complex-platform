@@ -8,6 +8,9 @@ import { signupForm } from "../../../../server"
 import { history } from "../../../../history"
 import axios from 'axios';
 import TokenStorage from '../../../../api/tokenStorage';
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import "../../../../assets/scss/plugins/extensions/toastr.scss"
 
 class RegisterJWT extends React.Component {
   storage = new TokenStorage()
@@ -22,7 +25,9 @@ class RegisterJWT extends React.Component {
     avatar: "",
     phoneNumber: "",
     accept: false,
-    ref_id: ''
+    ref_id: '',
+    showError: false,
+    errorMessage: ''
   }
 
   constructor(props) {
@@ -30,27 +35,47 @@ class RegisterJWT extends React.Component {
     this.userDataService = new UserDataService()
   }
 
-  signup = async () => {
-    if (!this.state.accept)
-      return alert('Примите условия соглашения');
+  onValidationError = errors => {
+    toast.error(errors, {
+      position: toast.POSITION.TOP_RIGHT
+    })
+  }
 
-    if (this.state.password != this.state.confirmPass)
-      return alert('Введите вверные пароли');
+  onValidationSuccess = message => {
+    toast.success(message, {
+      position: toast.POSITION.TOP_RIGHT
+    })
+  }
+
+  signup = async () => {
+    if (!this.state.accept){
+      this.onValidationError('Пожалуйста примите пользовательское соглашение');
+      return
+    }
+
+    if (this.state.password != this.state.confirmPass){
+      this.onValidationError('Пароли не совпадают');
+      return
+    }
 
     if (this.state.login.length == 0) {
-      return alert('Введите логин');
+      this.onValidationError('Введите логин');
+      return
     }
 
     if (this.state.email.length == 0) {
-      return alert('Введите почту');
+      this.onValidationError('Введите почту');
+      return
     }
 
     if (this.state.phoneNumber.length == 0) {
-      return alert('Введите номер телефона');
+      this.onValidationError('Введите номер телефона');
+      return
     }
 
     if (this.state.firstName.length == 0 || this.state.lastName.length == 0) {
-      return alert('Введите имя и фамилию');
+      this.onValidationError('Введите имя и фамилию');
+      return
     }
 
     try {
@@ -66,7 +91,7 @@ class RegisterJWT extends React.Component {
       if (response.data.response) {
         alert('Вы успешно зарегестрировали свой аккаунт! Пройдите авторизацию');
         history.push('/');
-      } else return alert(response.data.errors);
+      } else return this.onValidationError(response.data.errors);
     } catch (e) {
       console.error(e);
     }
@@ -98,6 +123,9 @@ class RegisterJWT extends React.Component {
       <Form action="/" onSubmit={this.handleRegister}>
         <Alert color="primary" style={{display: this.state.refererName ? 'block' : 'none' }}>
           <strong>Ваш спонсор: </strong>{this.state.refererName ? this.state.refererName : ''}
+        </Alert>
+        <Alert color="danger" style={{display: this.state.showError ? 'block' : 'none' }}>
+          {this.state.errorMessage}
         </Alert>
         <FormGroup className="form-label-group">
           <Input
@@ -204,6 +232,7 @@ class RegisterJWT extends React.Component {
             Регистрация
           </Button.Ripple>
         </div>
+        <ToastContainer />
       </Form>
     )
   }

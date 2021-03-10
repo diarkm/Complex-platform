@@ -25,7 +25,6 @@ class UserDataService {
   }
 
   async changePassword(userData) {
-    console.log("UserDataService.changePassword():", userData)
     let formData = this.getFormData(userData)
     return this.client.post('/user/settings/password/change', formData, {
       headers: {
@@ -44,7 +43,6 @@ class UserDataService {
   }
 
   async getUserData() {
-    console.log("UserDataService.getUserData()");
     return this.client.get('/user')
       .then(response => {
         window.USER = response.data
@@ -57,7 +55,6 @@ class UserDataService {
   }
 
   async updateUserData(userData) {
-    console.log("UserDataService.updateUserData():", userData);
     let formData = this.getFormData(userData)
     return this.client.post('/user/settings', formData, {
       headers: {
@@ -76,7 +73,6 @@ class UserDataService {
   }
 
   async resendConfirmEmail() {
-    console.log("UserDataService.resendConfirmEmail()");
     return this.client.post('/user/settings/resendConfirmEmail', {})
       .then(response => {
         return response.data
@@ -87,7 +83,6 @@ class UserDataService {
   }
 
   async getWalletsData() {
-    console.log("UserDataService.getUserData()");
     return this.client.get('/user/wallet')
       .then(response => {
         return response.data
@@ -98,7 +93,6 @@ class UserDataService {
   }
 
   async createWallet(walletData) {
-    console.log("UserDataService.createWallet():", walletData);
     let formData = this.getFormData(walletData)
     return this.client.post('/user/wallet/add', formData, {
       headers: {
@@ -117,7 +111,6 @@ class UserDataService {
   }
 
   async updateWalletData(walletData) {
-    console.log("UserDataService.updateWalletData():", walletData);
     let formData = this.getFormData(walletData)
     return this.client.post('/user/wallet/edit', formData, {
       headers: {
@@ -136,7 +129,6 @@ class UserDataService {
   }
 
   async restorePassword(data) {
-    console.log("UserDataService.restorePassword():", data);
     let formData = this.getFormData(data)
 
     return this.client.post('/user/password/restore', formData)
@@ -152,7 +144,6 @@ class UserDataService {
   }
 
   async checkToken(data) {
-    console.log("UserDataService.checkToken():", data);
     let formData = this.getFormData(data)
 
     return this.client.post('/password/restore/check', formData)
@@ -168,7 +159,6 @@ class UserDataService {
   }
 
   async setNewPassword(data) {
-    console.log("UserDataService.setNewPassword():", data);
     let formData = this.getFormData(data)
 
     return this.client.post('/password/restore/set', formData)
@@ -184,7 +174,6 @@ class UserDataService {
   }
 
   async getReferrerByLogin(login) {
-    console.log("UserDataService.getReferralData()");
     return this.client.get(`/public/userByLogin/${login}`)
       .then(response => {
         return response.data
@@ -195,7 +184,6 @@ class UserDataService {
   }
 
   async getReferralData() {
-    console.log("UserDataService.getReferralData()");
     return this.client.get('/user/referral/refer')
       .then(response => {
         return response.data
@@ -206,7 +194,6 @@ class UserDataService {
   }
 
   async getReferralTree() {
-    console.log("UserDataService.getReferralTree()");
     return this.client.get('/user/referral/tree')
       .then(response => {
         console.log('TREE', response.data)
@@ -218,7 +205,6 @@ class UserDataService {
   }
 
   async setTransaction ({ value = 1000, count = 1 }) {
-    console.log('UserDataService.setTransaction()')
 
     return this.client.post('/transaction/create', { value, count })
       .then(response => {
@@ -227,7 +213,6 @@ class UserDataService {
   }
 
   async getTransactions(page = 1) {
-    console.log("UserDataService.getTransactions()", page);
     return this.client.get('/transaction')
       .then(response => {
         return response.data
@@ -238,7 +223,6 @@ class UserDataService {
   }
 
   async getAvailableDeposits () {
-    console.log('UserDataService.getAvailableDeposits()')
 
     return this.client.get(`/user/deposit/available`)
       .then(response => {
@@ -250,7 +234,6 @@ class UserDataService {
   }
 
   async getDeposits(page = 1) {
-    console.log("UserDataService.getDeposits()");
     return this.client.get(`/user/deposit/get/${page}`)
       .then(response => {
         return response.data
@@ -261,7 +244,6 @@ class UserDataService {
   }
 
   async get2faQr() {
-    console.log("UserDataService.get2faQr()");
     return this.client.get(`/user/2fa/qr`)
       .then(response => {
         return response.data
@@ -272,7 +254,6 @@ class UserDataService {
   }
 
   async enable2fa(data) {
-    console.log("UserDataService.enable2fa()", data);
     let formData = this.getFormData(data)
     return this.client.post(`/user/2fa/enable`, formData)
       .then(response => {
@@ -284,10 +265,12 @@ class UserDataService {
   }
 
   async disable2fa() {
-    console.log("UserDataService.disable2fa()");
     return this.client.post(`/user/2fa/disable`, {})
       .then(response => {
-        return response.data
+        if(response.data.response === true)
+          return response.data
+        else
+          console.log(response.data.errors)
       })
       .catch(error => {
         this.handleError(error)
