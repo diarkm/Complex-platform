@@ -19,6 +19,12 @@ import {
   } from "react-feather"
 
 class StatisticsBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      balance: null
+    };
+  }
   render() {
     return (
       <Card>
@@ -32,7 +38,7 @@ class StatisticsBar extends React.Component {
               hideChart
               iconBg="primary"
               icon={<Activity className="primary" size={22} />}
-              stat="+$34"
+              stat="0"
               statTitle="Бонусы за день"
             />
           </Col>
@@ -41,7 +47,7 @@ class StatisticsBar extends React.Component {
               hideChart
               iconBg="info"
               icon={<UserCheck className="info" size={22} />}
-              stat="52"
+              stat="0"
               statTitle="Рефераллов"
             />
           </Col>
@@ -50,7 +56,7 @@ class StatisticsBar extends React.Component {
               hideChart
               iconBg="warning"
               icon={<ShoppingBag className="warning" size={22} />}
-              stat="23"
+              stat="0"
               statTitle="Заказов"
             />
           </Col>
@@ -59,7 +65,7 @@ class StatisticsBar extends React.Component {
               hideChart
               iconBg="success"
               icon={<DollarSign className="success" size={22} />}
-              stat="$9745"
+              stat={'$' + this.props.balance}
               statTitle="Кошелек"
             />
           </Col>

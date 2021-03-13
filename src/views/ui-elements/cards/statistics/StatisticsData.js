@@ -50,7 +50,7 @@ export const subscribersGained = {
 export const subscribersGainedSeries = [
   {
     name: "Доход сети",
-    data: [2800, 4000, 3600, 5200, 3800, 6000, 5500]
+    data: [0, 0, 0, 0, 0, 0, 0]
   }
 ]
 
@@ -106,7 +106,7 @@ export const revenueGenerated = {
 export const revenueGeneratedSeries = [
   {
     name: "Доход",
-    data: [350, 275, 400, 300, 350, 300, 450]
+    data: [0, 0, 0, 0, 0, 0, 0]
   }
 ]
 
@@ -218,6 +218,6 @@ export const ordersReceived = {
 export const ordersReceivedSeries = [
   {
     name: "Заказов",
-    data: [10, 15, 8, 15, 7, 12, 8]
+    data: [0, 0, 0, 0, 0, 0, 0]
   }
 ]

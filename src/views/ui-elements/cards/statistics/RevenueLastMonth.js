@@ -9,7 +9,7 @@ class RevenueLastMonth extends React.Component {
       <StatisticsCard
         icon={<CreditCard className="success" size={22} />}
         iconBg="success"
-        stat="53.9k"
+        stat="0"
         statTitle="Доход за прошлый месяц"
         options={revenueGenerated}
         series={revenueGeneratedSeries}

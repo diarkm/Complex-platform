@@ -6,6 +6,12 @@ import decorLeft from "../../../assets/img/elements/decore-left.png"
 import decorRight from "../../../assets/img/elements/decore-right.png"
 
 class SalesCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: null
+    };
+  }
   render() {
     return (
       <Card className="bg-analytics text-white sales-card">
@@ -18,9 +24,9 @@ class SalesCard extends React.Component {
             </div>
           </div>
           <div className="award-info text-center">
-            <h1 className="mb-2 text-white">Поздравляем 🎉 John!</h1>
+            <h1 className="mb-2 text-white">Привет, 🎉 {this.props.name}</h1>
             <p className="m-auto mb-0 w-75">
-              Вы стали INVESTOR GIQ-S
+              Добро пожаловать в систему GIQ GROUP!
             </p>
           </div>
         </CardBody>

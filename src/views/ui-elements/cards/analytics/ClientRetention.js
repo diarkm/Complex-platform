@@ -1,8 +1,10 @@
 import React from "react"
 import { Card, CardHeader, CardTitle, CardBody } from "reactstrap"
 import Chart from "react-apexcharts"
+import { FormattedMessage, useIntl } from "react-intl"
 
 class ClientRetention extends React.Component {
+
   state = {
     options: {
       chart: {
@@ -79,32 +81,33 @@ class ClientRetention extends React.Component {
     series: [
       {
         name: "Доходы",
-        data: [175, 125, 225, 175, 160, 189, 206, 134, 159, 216, 148, 123]
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       },
       {
         name: "Расходы",
         data: [
-          -144,
-          -155,
-          -141,
-          -167,
-          -122,
-          -143,
-          -158,
-          -107,
-          -126,
-          -131,
-          -140,
-          -137
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
         ]
       }
     ]
   }
+  
   render() {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Отчет за год</CardTitle>
+          <CardTitle><FormattedMessage id="Отчеты за год" /></CardTitle>
         </CardHeader>
         <CardBody>
           <Chart

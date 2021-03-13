@@ -20,6 +20,7 @@ import axios from 'axios';
 import TokenStorage from '../../../api/tokenStorage';
 import UserDataService from "../../../api/user-data-service"
 import defaultAvatar from "../../../assets/img/default-avatar.png"
+import { history } from "../../../history"
 
 // const apiURL = 'https://cabinet.giq-group.com/back/public'
 
@@ -43,7 +44,8 @@ class AnalyticsDashboard extends React.Component {
     user: null,
     referral: null,
     userAvatar: img,
-    referralAvatar: img
+    referralAvatar: img,
+    balance: 0
   }
 
   constructor(props) {
@@ -59,7 +61,7 @@ class AnalyticsDashboard extends React.Component {
     this.userDataService.getUserData()
       .then(res => {
         console.log('res.user', res.user);
-        this.setState({user: res.user})
+        this.setState({user: res.user, balance: res.balance});
         if (res.user.avatar)
           this.setState({userAvatar: `https://cabinet.giq-group.com/back/storage/app/${res.user.avatar}`})
         else
@@ -119,7 +121,7 @@ class AnalyticsDashboard extends React.Component {
         </Row>
         <Row>
           <Col md="4" sm="12">
-            <SalesCard />
+            <SalesCard name={this.state.user ? this.state.user.firstName : ""}/>
             <RevenueGenerated />
           </Col>
           <Col className="match-height" md="8" sm="12">
@@ -133,7 +135,7 @@ class AnalyticsDashboard extends React.Component {
         </Row>
         <Row className="match-height">
           <Col lg="8" md="12" sm="12">
-            <Statistics />
+            <Statistics balance={this.state.balance}/>
           </Col>
           <Col lg="2" md="6" sm="12">
             <Orders />
@@ -164,26 +166,29 @@ class AnalyticsDashboard extends React.Component {
                   </div>
                   <div className="d-flex justify-content-around mt-2">
                     <div className="uploads">
-                      <p className="font-weight-bold font-medium-2 mb-0">568</p>
+                      <p className="font-weight-bold font-medium-2 mb-0">0</p>
                       <span>заказов</span>
                     </div>
                     <div className="followers">
-                      <p className="font-weight-bold font-medium-2 mb-0">76</p>
+                      <p className="font-weight-bold font-medium-2 mb-0">0</p>
                       <span>рефералов</span>
                     </div>
                     <div className="following">
-                      <p className="font-weight-bold font-medium-2 mb-0">2000$</p>
+                      <p className="font-weight-bold font-medium-2 mb-0">{"$" + this.state.balance}</p>
                       <span>заработано</span>
                     </div>
                   </div>
-                  <Button.Ripple className="btn-block gradient-light-primary mt-2">
+                  <Button.Ripple 
+                    className="btn-block gradient-light-primary mt-2"
+                    onClick={() => history.push("/referrals")}
+                    >
                   Посмотреть структуру
                   </Button.Ripple>
               </div>
             </Card>
           </Col>
           <Col lg="4" md="6" sm="12">
-            <ActivityTimeline />
+            <ActivityTimeline name={this.state.user ? this.state.user.firstName : ""}/>
           </Col>
         </Row>
         <Row>

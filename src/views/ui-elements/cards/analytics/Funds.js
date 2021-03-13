@@ -13,7 +13,7 @@ const Funds = () => {
   if (balance === 0) {
     UserAPI.getUserData()
       .then(response => {
-        setbalance(response.user.balance)
+        setbalance(response.balance)
       })
   }
 
@@ -28,7 +28,7 @@ const Funds = () => {
           <span className="text-muted">Мой кошелек: </span>${balance}
         </small>
         <h5 className="mt-1">
-          <span className="text-success">+5.2% ($956)</span>
+          <span className="text-success">+0% ($0)</span>
         </h5>
         <Button.Ripple
           block
@@ -39,11 +39,11 @@ const Funds = () => {
           Пополнить счет <ChevronsRight size={15} />
         </Button.Ripple>
         <hr className="my-2" />
-        <small>Заработано: $56,156</small>
+        <small>Заработано: ${balance}</small>
         <Progress className="mt-1 mb-2" color="success" value="100" />
 
-        <small>В заморозке: $16,156</small>
-        <Progress className="mt-1" color="warning" value="25" />
+        <small>В заморозке: $0</small>
+        <Progress className="mt-1" color="warning" value="0" />
       </CardBody>
     </Card>
   )
