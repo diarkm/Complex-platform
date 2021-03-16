@@ -1,5 +1,6 @@
 import React from "react"
 import { Card, CardBody } from "reactstrap"
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 class UserCards extends React.Component {
   render() {
@@ -9,14 +10,13 @@ class UserCards extends React.Component {
           className={`${this.props.className ? this.props.className : "stats-card-body"} d-flex justify-content-left align-items-center
            ${!this.props.hideChart ? "pb-0" : "pb-2"} pt-2`}
         >
-        <div
-            className={`avatar mr-2`}
-        >
-            <img width='45' height='45' src={this.props.icon} />
+        <div className={`avatar mr-2`}>
+          {this.props.icon ? <img width='45' height='45' src={this.props.icon} /> : <Skeleton circle={true} width={45} height={45}/>}
+            
         </div>
         <div className="title-section">
-            <h4 className="text-bold-600 mb-25">{this.props.stat}</h4>
-            <p className="mb-0">{this.props.statTitle}</p>
+            <h4 className="text-bold-600 mb-25">{this.props.stat ? this.props.stat : <Skeleton/>}</h4>
+            <p className="mb-0">{this.props.statTitle ? this.props.statTitle : <Skeleton/>}</p>
         </div>
         </CardBody>
       </Card>

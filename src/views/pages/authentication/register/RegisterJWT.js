@@ -1,5 +1,5 @@
 import React from "react"
-import { Form, FormGroup, Input, Label, Button, CustomInput, Alert } from "reactstrap"
+import { Form, FormGroup, Input, Label, Button, CustomInput, Alert, Row, Col } from "reactstrap"
 import UserDataService from "../../../../api/user-data-service";
 import Checkbox from "../../../../components/@vuexy/checkbox/CheckboxesVuexy"
 import { Check } from "react-feather"
@@ -127,78 +127,98 @@ class RegisterJWT extends React.Component {
         <Alert color="danger" style={{display: this.state.showError ? 'block' : 'none' }}>
           {this.state.errorMessage}
         </Alert>
-        <FormGroup className="form-label-group">
-          <Input
-            type="text"
-            placeholder="Логин"
-            required
-            value={this.state.login}
-            onChange={e => this.setState({ login: e.target.value })}
-          />
-          <Label>Логин</Label>
-        </FormGroup>
-        <FormGroup className="form-label-group">
-          <Input
-            type="text"
-            placeholder="Имя"
-            required
-            value={this.state.firstName}
-            onChange={e => this.setState({ firstName: e.target.value })}
-          />
-          <Label>Имя</Label>
-        </FormGroup>
-        <FormGroup className="form-label-group">
-          <Input
-            type="text"
-            placeholder="Фамилия"
-            required
-            value={this.state.lastName}
-            onChange={e => this.setState({ lastName: e.target.value })}
-          />
-          <Label>Фамилия</Label>
-        </FormGroup>
-        <FormGroup className="form-label-group">
-          <Input
-            type="password"
-            placeholder="Пароль"
-            required
-            value={this.state.password}
-            onChange={e => this.setState({ password: e.target.value })}
-          />
-          <Label>Пароль</Label>
-        </FormGroup>
-        <FormGroup className="form-label-group">
-          <Input
-            type="password"
-            placeholder="Подтвердите пароль"
-            required
-            value={this.state.confirmPass}
-            onChange={
-              e => { this.setState({ confirmPass: e.target.value }) }
-            }
-          />
-          <Label>Подтвердите пароль</Label>
-        </FormGroup>
-        <FormGroup className="form-label-group">
-          <Input
-            type="email"
-            placeholder="Почта"
-            required
-            value={this.state.email}
-            onChange={e => this.setState({ email: e.target.value })}
-          />
-          <Label>Почта</Label>
-        </FormGroup>
-        <FormGroup className="form-label-group">
-          <Input
-            type="tel"
-            placeholder="+7 777 777 7777"
-            required
-            value={this.state.phoneNumber}
-            onChange={e => this.setState({ phoneNumber: e.target.value })}
-          />
-          <Label>Телефон</Label>
-        </FormGroup>
+        <Row>
+          <Col lg="6" md="6" sm="12">
+            <FormGroup className="form-label-group">
+              <Input
+                type="text"
+                placeholder="Логин"
+                required
+                value={this.state.login}
+                onChange={e => this.setState({ login: e.target.value.replace(/[^\w\s]/gi, "") })}
+              />
+              <Label>Логин</Label>
+            </FormGroup>
+          </Col>
+          <Col lg="6" md="6" sm="12">
+            <FormGroup className="form-label-group">
+              <Input
+                type="tel"
+                placeholder="+7 777 777 7777"
+                required
+                value={this.state.phoneNumber}
+                onChange={e => this.setState({ phoneNumber: e.target.value })}
+              />
+              <Label>Телефон</Label>
+            </FormGroup>
+          </Col>
+          <Col lg="12" md="12" sm="12">
+            <FormGroup className="form-label-group">
+              <Input
+                type="email"
+                placeholder="Почта"
+                required
+                value={this.state.email}
+                onChange={e => this.setState({ email: e.target.value })}
+              />
+              <Label>Почта</Label>
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col lg="6" md="6" sm="12">
+            <FormGroup className="form-label-group">
+              <Input
+                type="password"
+                placeholder="Пароль"
+                required
+                value={this.state.password}
+                onChange={e => this.setState({ password: e.target.value })}
+              />
+              <Label>Пароль</Label>
+            </FormGroup>
+          </Col>
+          <Col lg="6" md="6" sm="12">
+            <FormGroup className="form-label-group">
+              <Input
+                type="password"
+                placeholder="Подтвердите пароль"
+                required
+                value={this.state.confirmPass}
+                onChange={
+                  e => { this.setState({ confirmPass: e.target.value }) }
+                }
+              />
+              <Label>Подтвердите пароль</Label>
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col lg="6" md="6" sm="12">
+            <FormGroup className="form-label-group">
+              <Input
+                type="text"
+                placeholder="Имя"
+                required
+                value={this.state.firstName}
+                onChange={e => this.setState({ firstName: e.target.value })}
+              />
+              <Label>Имя</Label>
+            </FormGroup>
+          </Col>
+          <Col lg="6" md="6" sm="12">
+            <FormGroup className="form-label-group">
+              <Input
+                type="text"
+                placeholder="Фамилия"
+                required
+                value={this.state.lastName}
+                onChange={e => this.setState({ lastName: e.target.value })}
+              />
+              <Label>Фамилия</Label>
+            </FormGroup>
+          </Col>
+        </Row>
         <FormGroup>
           <CustomInput
             required={false}

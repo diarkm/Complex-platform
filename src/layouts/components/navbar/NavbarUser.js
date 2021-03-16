@@ -23,6 +23,7 @@ import { IntlContext } from "../../../utility/context/Internationalization"
 import TokenStorage from '../../../api/tokenStorage';
 import UserDataService from "../../../api/user-data-service"
 import img from "../../../assets/img/default-avatar.png"
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 const handleNavigation = (e, path) => {
   e.preventDefault()
@@ -85,7 +86,7 @@ class NavbarUser extends React.PureComponent {
     shoppingCart: [],
     suggestions: [],
     user: null,
-    userAvatar: img
+    userAvatar: null
   }
 
   constructor(props) {
@@ -131,242 +132,245 @@ class NavbarUser extends React.PureComponent {
     this.setState({ langDropdown: !this.state.langDropdown })
 
   render() {
-    const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : 'Без статуса' : 'Без статуса'
+    const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : 'Без статуса' : null
 
     return (
       
-      <ul className="nav navbar-nav navbar-nav-user float-right">
-        <IntlContext.Consumer>
-          {context => {
-            let langArr = {
-              "en" : "English",
-              "ru" : "Русский"
-            }
-            return (
-              <Dropdown
-                tag="li"
-                className="dropdown-language nav-item"
-                isOpen={this.state.langDropdown}
-                toggle={this.handleLangDropdown}
-                data-tour="language"
-              >
-                <DropdownToggle
-                  tag="a"
-                  className="nav-link"
+      <SkeletonTheme color="#283046" highlightColor="#3F4860">
+        <ul className="nav navbar-nav navbar-nav-user float-right">
+          <IntlContext.Consumer>
+            {context => {
+              let langArr = {
+                "en" : "English",
+                "ru" : "Русский"
+              }
+              return (
+                <Dropdown
+                  tag="li"
+                  className="dropdown-language nav-item"
+                  isOpen={this.state.langDropdown}
+                  toggle={this.handleLangDropdown}
+                  data-tour="language"
                 >
-                  <ReactCountryFlag
-                  className="country-flag"
-                    countryCode={
-                      context.state.locale === "en"
-                        ? "us"
-                        : context.state.locale
-                    }
-                    svg
-                  />
-                  <span className="d-sm-inline-block d-none text-capitalize align-middle ml-50">
-                    {langArr[context.state.locale]}
-                  </span>
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem
+                  <DropdownToggle
                     tag="a"
-                    onClick={e => context.switchLanguage("en")}
+                    className="nav-link"
                   >
-                    <ReactCountryFlag className="country-flag" countryCode="us" svg />
-                    <span className="ml-1">English</span>
-                  </DropdownItem>
-                  <DropdownItem
-                    tag="a"
-                    onClick={e => context.switchLanguage("ru")}
-                  >
-                    <ReactCountryFlag className="country-flag" countryCode="ru" svg />
-                    <span className="ml-1">Русский</span>
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            )
-          }}
-        </IntlContext.Consumer>
-        <UncontrolledDropdown
-          tag="li"
-          className="dropdown-notification nav-item"
-        >
-          <DropdownToggle tag="a" className="nav-link nav-link-label">
-            <Icon.Bell size={21} />
-            <Badge pill color="primary" className="badge-up">
-              {" "}
-              5{" "}
-            </Badge>
-          </DropdownToggle>
-          <DropdownMenu tag="ul" right className="dropdown-menu-media">
-            <li className="dropdown-menu-header">
-              <div className="dropdown-header mt-0">
-                <h3 className="text-white">5 новых</h3>
-                <span className="notification-title">Уведомления системы</span>
-              </div>
-            </li>
-            <PerfectScrollbar
-              className="media-list overflow-hidden position-relative"
-              options={{
-                wheelPropagation: false
-              }}
-            >
-              <div className="d-flex justify-content-between">
-                <Media className="d-flex align-items-start">
-                  <Media left href="#">
-                    <Icon.PlusSquare
-                      className="font-medium-5 primary"
-                      size={21}
+                    <ReactCountryFlag
+                    className="country-flag"
+                      countryCode={
+                        context.state.locale === "en"
+                          ? "us"
+                          : context.state.locale
+                      }
+                      svg
                     />
-                  </Media>
-                  <Media body>
-                    <Media heading className="primary media-heading" tag="h6">
-                      You have new order!
-                    </Media>
-                    <p className="notification-text">
-                      Are your going to meet me tonight?
-                    </p>
-                  </Media>
-                  <small>
-                    <time
-                      className="media-meta"
-                      dateTime="2015-06-11T18:29:20+08:00"
+                    <span className="d-sm-inline-block d-none text-capitalize align-middle ml-50">
+                      {langArr[context.state.locale]}
+                    </span>
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem
+                      tag="a"
+                      onClick={e => context.switchLanguage("en")}
                     >
-                      9 hours ago
-                    </time>
-                  </small>
-                </Media>
-              </div>
-              <div className="d-flex justify-content-between">
-                <Media className="d-flex align-items-start">
-                  <Media left href="#">
-                    <Icon.DownloadCloud
-                      className="font-medium-5 success"
-                      size={21}
-                    />
-                  </Media>
-                  <Media body>
-                    <Media heading className="success media-heading" tag="h6">
-                      99% Server load
-                    </Media>
-                    <p className="notification-text">
-                      You got new order of goods?
-                    </p>
-                  </Media>
-                  <small>
-                    <time
-                      className="media-meta"
-                      dateTime="2015-06-11T18:29:20+08:00"
+                      <ReactCountryFlag className="country-flag" countryCode="us" svg />
+                      <span className="ml-1">English</span>
+                    </DropdownItem>
+                    <DropdownItem
+                      tag="a"
+                      onClick={e => context.switchLanguage("ru")}
                     >
-                      5 hours ago
-                    </time>
-                  </small>
-                </Media>
-              </div>
-              <div className="d-flex justify-content-between">
-                <Media className="d-flex align-items-start">
-                  <Media left href="#">
-                    <Icon.AlertTriangle
-                      className="font-medium-5 danger"
-                      size={21}
-                    />
-                  </Media>
-                  <Media body>
-                    <Media heading className="danger media-heading" tag="h6">
-                      Warning Notification
+                      <ReactCountryFlag className="country-flag" countryCode="ru" svg />
+                      <span className="ml-1">Русский</span>
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              )
+            }}
+          </IntlContext.Consumer>
+          {/* <UncontrolledDropdown
+            tag="li"
+            className="dropdown-notification nav-item"
+          >
+            <DropdownToggle tag="a" className="nav-link nav-link-label">
+              <Icon.Bell size={21} />
+              <Badge pill color="primary" className="badge-up">
+                {" "}
+                5{" "}
+              </Badge>
+            </DropdownToggle>
+            <DropdownMenu tag="ul" right className="dropdown-menu-media">
+              <li className="dropdown-menu-header">
+                <div className="dropdown-header mt-0">
+                  <h3 className="text-white">5 новых</h3>
+                  <span className="notification-title">Уведомления системы</span>
+                </div>
+              </li>
+              <PerfectScrollbar
+                className="media-list overflow-hidden position-relative"
+                options={{
+                  wheelPropagation: false
+                }}
+              >
+                <div className="d-flex justify-content-between">
+                  <Media className="d-flex align-items-start">
+                    <Media left href="#">
+                      <Icon.PlusSquare
+                        className="font-medium-5 primary"
+                        size={21}
+                      />
                     </Media>
-                    <p className="notification-text">
-                      Server has used 99% of CPU
-                    </p>
-                  </Media>
-                  <small>
-                    <time
-                      className="media-meta"
-                      dateTime="2015-06-11T18:29:20+08:00"
-                    >
-                      Today
-                    </time>
-                  </small>
-                </Media>
-              </div>
-              <div className="d-flex justify-content-between">
-                <Media className="d-flex align-items-start">
-                  <Media left href="#">
-                    <Icon.CheckCircle
-                      className="font-medium-5 info"
-                      size={21}
-                    />
-                  </Media>
-                  <Media body>
-                    <Media heading className="info media-heading" tag="h6">
-                      Complete the task
+                    <Media body>
+                      <Media heading className="primary media-heading" tag="h6">
+                        You have new order!
+                      </Media>
+                      <p className="notification-text">
+                        Are your going to meet me tonight?
+                      </p>
                     </Media>
-                    <p className="notification-text">
-                      One of your task is pending.
-                    </p>
+                    <small>
+                      <time
+                        className="media-meta"
+                        dateTime="2015-06-11T18:29:20+08:00"
+                      >
+                        9 hours ago
+                      </time>
+                    </small>
                   </Media>
-                  <small>
-                    <time
-                      className="media-meta"
-                      dateTime="2015-06-11T18:29:20+08:00"
-                    >
-                      Last week
-                    </time>
-                  </small>
-                </Media>
-              </div>
-              <div className="d-flex justify-content-between">
-                <Media className="d-flex align-items-start">
-                  <Media left href="#">
-                    <Icon.File className="font-medium-5 warning" size={21} />
-                  </Media>
-                  <Media body>
-                    <Media heading className="warning media-heading" tag="h6">
-                      Generate monthly report
+                </div>
+                <div className="d-flex justify-content-between">
+                  <Media className="d-flex align-items-start">
+                    <Media left href="#">
+                      <Icon.DownloadCloud
+                        className="font-medium-5 success"
+                        size={21}
+                      />
                     </Media>
-                    <p className="notification-text">
-                      Reminder to generate monthly report
-                    </p>
+                    <Media body>
+                      <Media heading className="success media-heading" tag="h6">
+                        99% Server load
+                      </Media>
+                      <p className="notification-text">
+                        You got new order of goods?
+                      </p>
+                    </Media>
+                    <small>
+                      <time
+                        className="media-meta"
+                        dateTime="2015-06-11T18:29:20+08:00"
+                      >
+                        5 hours ago
+                      </time>
+                    </small>
                   </Media>
-                  <small>
-                    <time
-                      className="media-meta"
-                      dateTime="2015-06-11T18:29:20+08:00"
-                    >
-                      Last month
-                    </time>
-                  </small>
-                </Media>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <Media className="d-flex align-items-start">
+                    <Media left href="#">
+                      <Icon.AlertTriangle
+                        className="font-medium-5 danger"
+                        size={21}
+                      />
+                    </Media>
+                    <Media body>
+                      <Media heading className="danger media-heading" tag="h6">
+                        Warning Notification
+                      </Media>
+                      <p className="notification-text">
+                        Server has used 99% of CPU
+                      </p>
+                    </Media>
+                    <small>
+                      <time
+                        className="media-meta"
+                        dateTime="2015-06-11T18:29:20+08:00"
+                      >
+                        Today
+                      </time>
+                    </small>
+                  </Media>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <Media className="d-flex align-items-start">
+                    <Media left href="#">
+                      <Icon.CheckCircle
+                        className="font-medium-5 info"
+                        size={21}
+                      />
+                    </Media>
+                    <Media body>
+                      <Media heading className="info media-heading" tag="h6">
+                        Complete the task
+                      </Media>
+                      <p className="notification-text">
+                        One of your task is pending.
+                      </p>
+                    </Media>
+                    <small>
+                      <time
+                        className="media-meta"
+                        dateTime="2015-06-11T18:29:20+08:00"
+                      >
+                        Last week
+                      </time>
+                    </small>
+                  </Media>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <Media className="d-flex align-items-start">
+                    <Media left href="#">
+                      <Icon.File className="font-medium-5 warning" size={21} />
+                    </Media>
+                    <Media body>
+                      <Media heading className="warning media-heading" tag="h6">
+                        Generate monthly report
+                      </Media>
+                      <p className="notification-text">
+                        Reminder to generate monthly report
+                      </p>
+                    </Media>
+                    <small>
+                      <time
+                        className="media-meta"
+                        dateTime="2015-06-11T18:29:20+08:00"
+                      >
+                        Last month
+                      </time>
+                    </small>
+                  </Media>
+                </div>
+              </PerfectScrollbar>
+              <li className="dropdown-menu-footer">
+                <DropdownItem tag="a" className="p-1 text-center">
+                  <span className="align-middle">Читать больше уведомлений</span>
+                </DropdownItem>
+              </li>
+            </DropdownMenu>
+          </UncontrolledDropdown> */}
+          <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
+            <DropdownToggle tag="a" className="nav-link dropdown-user-link">
+              <div className="user-nav d-sm-flex d-none">
+                <span className="user-name text-bold-600">
+                 {this.state.user ? `${this.state.user.firstName} ${this.state.user.lastName}` : <Skeleton width={80}/>}
+                </span>
+                <span className="user-status">{userStatus || <Skeleton width={40}/>}</span>
               </div>
-            </PerfectScrollbar>
-            <li className="dropdown-menu-footer">
-              <DropdownItem tag="a" className="p-1 text-center">
-                <span className="align-middle">Читать больше уведомлений</span>
-              </DropdownItem>
-            </li>
-          </DropdownMenu>
-        </UncontrolledDropdown>
-        <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
-          <DropdownToggle tag="a" className="nav-link dropdown-user-link">
-            <div className="user-nav d-sm-flex d-none">
-              <span className="user-name text-bold-600">
-              {this.state.user ? `${this.state.user.firstName} ${this.state.user.lastName}` : ''}
+              <span data-tour="user">
+                {this.state.userAvatar ?
+                <img
+                  src={this.state.userAvatar}
+                  className="round"
+                  height="40"
+                  width="40"
+                  alt="avatar"
+                /> : <Skeleton width={40} height={40} circle={true}/>}
               </span>
-              <span className="user-status">{userStatus}</span>
-            </div>
-            <span data-tour="user">
-              <img
-                src={this.state.userAvatar}
-                className="round"
-                height="40"
-                width="40"
-                alt="avatar"
-              />
-            </span>
-          </DropdownToggle>
-          <UserDropdown {...this.props} />
-        </UncontrolledDropdown>
-      </ul>
+            </DropdownToggle>
+            <UserDropdown {...this.props} />
+          </UncontrolledDropdown>
+        </ul>
+      </SkeletonTheme>
     )
   }
 }

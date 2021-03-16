@@ -105,7 +105,10 @@ class General extends React.Component {
 
   resendConfirmEmail(){
     this.userDataService.resendConfirmEmail()
-      .then(res => console.log('OK', res))
+      .then(res => {
+              console.log('OK', res)
+              window.location.href = '/confirm';
+            })
       .catch(err => console.log(err))
   }
 
