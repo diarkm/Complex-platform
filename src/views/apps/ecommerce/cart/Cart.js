@@ -26,7 +26,7 @@ import {
 } from "react-feather"
 import { mobileStyle } from "../../../forms/form-elements/number-input/InputStyles"
 import Breacrumbs from "../../../../components/@vuexy/breadCrumbs/BreadCrumb"
-import bankLogo from "../../../../assets/img/pages/eCommerce/advcash.png"
+import bankLogo from "./payment-logos/Smartpay.png"
 import bitcoinLogo from "../../../../assets/img/pages/eCommerce/Bitcoin_Logo.png"
 import Wizard from "../../../../components/@vuexy/wizard/WizardComponent"
 import { productsList } from "./cartData"
@@ -48,6 +48,18 @@ const Checkout = () => {
     count: 0
   })
   const [paymenttype, setpaymenttype] = useState(0)
+  const [transaction, settransaction] = useState(null)
+
+  const paymentTypes = [
+    'btc',
+    'card',
+    'webmoney',
+    'qiwi',
+    'w1',
+    'yandex',
+    'ekzt',
+    'onay'
+  ]
 
   const currentTransactionKey = 'transactionCurrent'
   if(localtrans.value == 0 && localStorage.getItem(currentTransactionKey)) {
@@ -56,12 +68,26 @@ const Checkout = () => {
     ))
   }
 
-  const onSetTransaction = () => {
-    UserAPI.setTransaction(localtrans)
+  const onSetTransaction = async () => {
+    let transaction = await UserAPI.setTransaction(localtrans)
+
+    if(transaction.response && transaction.transaction_id)
+      settransaction(transaction.transaction_id)
 
     if (paymenttype === 1) {
       setredirect('/bitcoinCheckout')
     }
+  }
+
+  const onSetPayment = async () => {
+    let payment = await UserAPI.paymentCreate({
+      sum: localtrans.value * localtrans.count,
+      type: paymenttype,
+      transaction_id: transaction
+    })
+
+    if(payment.response && payment.link)
+      window.location.href = payment.link
   }
 
   return (
@@ -77,15 +103,15 @@ const Checkout = () => {
               </p>
             </CardHeader>
             <CardBody className="d-block">
-              <div className="mb-3">
+              {!transaction ? <div className="mb-3">
                 <div className="vx-radio-con vx-radio-primary">
                   <input onChange={() => setpaymenttype(0)} type="radio" name="bank" />
                   <span className="vx-radio">
                     <span className="vx-radio--border"></span>
                     <span className="vx-radio--circle"></span>
                   </span>
-                  <img className="rounded-circle mx-1" src={bankLogo} alt="img-placeholder" height="40" />
-                  <span>AdvCash</span>
+                  <img className="rounded-circle mx-1" src={bankLogo} alt="img-placeholder" height="35" />
+                  <span>SmartPay</span>
                 </div>
                 <div className="vx-radio-con vx-radio-primary">
                   <input onChange={() => setpaymenttype(1)} type="radio" name="bank" />
@@ -96,10 +122,25 @@ const Checkout = () => {
                   <img className="mx-1" src={bitcoinLogo} alt="img-placeholder" height="40" />
                   <span>Bitcoin</span>
                 </div>
-              </div>
+              </div> : <div className="mb-3">
+
+                {paymentTypes.map((item, i) => {
+                  return <div key={i} className="vx-radio-con vx-radio-primary">
+                    <input onChange={() => setpaymenttype(item)} type="radio" name="bank" />
+                    <span className="vx-radio">
+                      <span className="vx-radio--border"></span>
+                      <span className="vx-radio--circle"></span>
+                    </span>
+                    <img className="rounded-circle mx-1" src={require(`./payment-logos/${item}.png`)} alt="img-placeholder" width="35" />
+                    <span>{item}</span>
+                  </div>
+                })}
+
+              </div>}
+
               <div className="customer-cvv mt-1">
                   <div className="form-inline">
-                  <Button onClick={onSetTransaction} color="primary" className="ml-50 mb-50">
+                  <Button onClick={() => !transaction ? onSetTransaction() : onSetPayment()} color="primary" className="ml-50 mb-50">
                     {" "}
                     Продолжить{" "}
                   </Button>
