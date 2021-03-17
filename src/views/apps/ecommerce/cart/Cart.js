@@ -51,14 +51,15 @@ const Checkout = () => {
   const [transaction, settransaction] = useState(null)
 
   const paymentTypes = [
-    'btc',
-    'card',
-    'webmoney',
-    'qiwi',
-    'w1',
-    'yandex',
-    'ekzt',
-    'onay'
+    ['btc', 'BitCoin'],
+    ['card', 'Visa / MasterCard'],
+    ['webmoney', 'WebMoney (WMK)'],
+    ['webmoney_z', 'WebMoney (WMZ)'],
+    ['qiwi', 'Qiwi-кошелек'],
+    ['w1', 'WalletOne'],
+    ['yandex', 'Yandex.Деньги'],
+    ['ekzt', 'E-KZT'],
+    ['onay', 'Карты ONAY']
   ]
 
   const currentTransactionKey = 'transactionCurrent'
@@ -126,13 +127,13 @@ const Checkout = () => {
 
                 {paymentTypes.map((item, i) => {
                   return <div key={i} className="vx-radio-con vx-radio-primary">
-                    <input onChange={() => setpaymenttype(item)} type="radio" name="bank" />
+                    <input onChange={() => setpaymenttype(item[0])} type="radio" name="bank" />
                     <span className="vx-radio">
                       <span className="vx-radio--border"></span>
                       <span className="vx-radio--circle"></span>
                     </span>
-                    <img className="rounded-circle mx-1" src={require(`./payment-logos/${item}.png`)} alt="img-placeholder" width="35" />
-                    <span>{item}</span>
+                    <img className="rounded-circle mx-1" src={require(`./payment-logos/${item[0]}.png`)} alt="img-placeholder" width="35" />
+                    <span>{item[1]}</span>
                   </div>
                 })}
 
