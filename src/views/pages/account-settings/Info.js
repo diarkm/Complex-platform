@@ -59,7 +59,6 @@ class InfoTab extends React.Component {
   getWalletsData() {
     this.userDataService.getWalletsData()
       .then(res => {
-        console.log('res', res);
         if (res.wallets.length) {
           this.setState(res.wallets[0])
         } else {
@@ -78,7 +77,6 @@ class InfoTab extends React.Component {
     if (checked) {
       this.userDataService.get2faQr()
         .then(res => {
-          console.log('res', res);
           this.setState({qr: res.url.qr})
           this.setState({googleSecret: res.url.secretKey})
           this.setState({add2faModal: true})
@@ -94,17 +92,13 @@ class InfoTab extends React.Component {
       wallet:    this.state.wallet,
       wallet_id: this.state.wallet_id || null,
     }
-    if(walletData.wallet.length == 0){
       this.userDataService.createWallet(walletData)
         .then(res => {
           this.setState({block: true})
         })
         .catch(err => console.log(err))
-        this.onValidationSuccess('Вы успешно добавили кошелек, чтобы его изменить обратитесь к администратору')
+      this.onValidationSuccess('Изменения успешно сохранены')
       event.preventDefault();
-    } else {
-      this.onValidationError('Чтобы изменить кошелек, пожалуйста, обратитесь к администратору')
-    }
   }
 
   enable2fa() {
@@ -119,7 +113,6 @@ class InfoTab extends React.Component {
     } else {
       this.userDataService.enable2fa(googleData)
         .then(res => {
-          console.log('OK', res)
           if (res.response === false){
             this.onValidationError('Вы ввели неверный код');
             return
@@ -138,7 +131,6 @@ class InfoTab extends React.Component {
     }
     this.userDataService.disable2fa(googleData)
       .then(res => {
-        console.log('OK', res)
         this.setState({remove2faModal: false})
       })
       .catch(err => console.log(err))

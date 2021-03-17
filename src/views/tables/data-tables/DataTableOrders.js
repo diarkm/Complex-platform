@@ -12,6 +12,7 @@ import {
 import DataTable, { createTheme } from "react-data-table-component"
 import { Search } from "react-feather"
 import UserDataService from "../../../api/user-data-service";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 createTheme('dark-giq', {
   background: {
@@ -80,7 +81,7 @@ class DataTableOrders extends React.Component {
         )
       }
     ],
-    data: [],
+    data: null,
     filteredData: [],
     value: "",
     page: 1,
@@ -138,26 +139,30 @@ class DataTableOrders extends React.Component {
     let { data, columns, value, filteredData } = this.state
     return (
       <Card>
-        <CardHeader>
-          <CardTitle>История транзакций</CardTitle>
-        </CardHeader>
-        <CardBody className="rdt_Wrapper">
-          <DataTable
-            className="dataTable-custom"
-            data={value.length ? filteredData : data}
-            columns={columns}
-            noHeader
-            pagination
-            onChangePage={() => {
+        <SkeletonTheme color="#283046" highlightColor="#3F4860">
+          <CardHeader>
+            <CardTitle>История транзакций</CardTitle>
+          </CardHeader>
+          <CardBody className="rdt_Wrapper">
+            {data ?
+              <DataTable
+                className="dataTable-custom"
+                data={value.length ? filteredData : data}
+                columns={columns}
+                noHeader
+                pagination
+                onChangePage={() => {
 
-            }}
-            subHeader
-            theme="dark-giq"
-            subHeaderComponent={
-              <CustomHeader value={value} handleFilter={this.handleFilter} />
+                }}
+                subHeader
+                theme="dark-giq"
+                subHeaderComponent={
+                  <CustomHeader value={value} handleFilter={this.handleFilter} />
+                }
+              /> : <Skeleton height={35} count={10}/>
             }
-          />
-        </CardBody>
+          </CardBody>
+        </SkeletonTheme>
       </Card>
     )
   }

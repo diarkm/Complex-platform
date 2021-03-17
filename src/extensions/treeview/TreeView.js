@@ -15,6 +15,7 @@ import UserDataService from "../../api/user-data-service";
 import * as filters from "./Filter"
 import { styleLight, styleDark } from "./Styles"
 import avatarImg from "../../assets/img/portrait/small/avatar_none.jpeg"
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 const Loading = props => {
   return (
@@ -51,7 +52,7 @@ const data = []/*{
 
 class TreeView extends React.Component {
   state={
-    data
+    data: null
   }
 
   constructor(props) {
@@ -152,36 +153,40 @@ class TreeView extends React.Component {
 
     return (
       <React.Fragment>
-        <Row>
-          <Col sm="12">
-            <Card>
-              <CardHeader>
-                <CardTitle>Структура сети</CardTitle>
-              </CardHeader>
-              <CardBody>
-                <Row>
-                  <Col>
-                    {data.length ? data.map((item, i) => {
-                      return <Treebeard
-                        key={i}
-                        data={item}
-                        onToggle={this.onToggle}
-                        style={
-                          this.props.theme === "light" ||
-                          this.props.theme === "semi-dark"
-                            ? styleLight
-                            : styleDark
-                        }
-                        decorators={decorators}
-                        animations={false}
-                      />
-                    }) : 'У вас нет рефералов'}
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+        <SkeletonTheme color="#283046" highlightColor="#3F4860">
+          <Row>
+            <Col sm="12">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Структура сети</CardTitle>
+                </CardHeader>
+                <CardBody>
+                  <Row>
+                    <Col>{data ? data.length ? data.map((item, i) => {
+                        return <Treebeard
+                          key={i}
+                          data={item}
+                          onToggle={this.onToggle}
+                          style={
+                            this.props.theme === "light" ||
+                            this.props.theme === "semi-dark"
+                              ? styleLight
+                              : styleDark
+                          }
+                          decorators={decorators}
+                          animations={false}
+                        />
+                      }) : 'У вас нет рефералов' :
+                      <Skeleton count={5}/>
+                      }
+                      
+                    </Col>
+                  </Row>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </SkeletonTheme>
       </React.Fragment>
     )
   }

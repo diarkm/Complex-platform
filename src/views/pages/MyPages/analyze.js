@@ -9,6 +9,7 @@ import UserCards from "../../../components/@vuexy/statisticsCard/UserCards"
 import img from "../../../assets/img/default-avatar.png"
 import TokenStorage from '../../../api/tokenStorage';
 import UserDataService from "../../../api/user-data-service"
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 let $primary = "#7367F0",
   $danger = "#EA5455",
@@ -25,8 +26,8 @@ class Analyze extends React.Component {
   state = {
     user: null,
     referral: null,
-    userAvatar: img,
-    referralAvatar: img
+    userAvatar: null,
+    referralAvatar: null
   }
 
   constructor(props) {
@@ -41,8 +42,7 @@ class Analyze extends React.Component {
   async getUserData() {
     this.userDataService.getUserData()
       .then(res => {
-        console.log('res.user', res.user);
-        this.setState({user: res.user})
+        this.setState({user: res.user, balance: res.balance, isResp: true});
         if (res.user.avatar)
           this.setState({userAvatar: `https://cabinet.giq-group.com/back/storage/app/${res.user.avatar}`})
         else
@@ -52,74 +52,83 @@ class Analyze extends React.Component {
 
     this.userDataService.getReferralData()
       .then(res => {
-        console.log('res.refer', res.refer);
-        this.setState({referral: res.refer})
-        if (res.refer.avatar)
-          this.setState({referralAvatar: `https://cabinet.giq-group.com/back/storage/app/${res.refer.avatar}`})
-        else
+        if(res.refer){
+          this.setState({referral: res.refer})
+          if (res.refer.avatar)
+            this.setState({referralAvatar: `https://cabinet.giq-group.com/back/storage/app/${res.refer.avatar}`})
+          else
+            this.setState({referralAvatar: img})
+        }
+        else{
+          this.setState({referral: {
+            firstName: "Нет",
+            lastName: "спонсора"
+          }})
           this.setState({referralAvatar: img})
+        }
       })
       .catch(err => console.log(err))
-
   }
 
     render(){
-        const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : 'Без статуса' : 'Без статуса'
+        const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : 'Без статуса' : null
 
         return (
         <React.Fragment>
-            <Row>
-            <Col className="match-height" lg="6" md="12" sm="12">
-                <RevenueChart
-                primary={$primary}
-                dangerLight={$danger_light}
-                strokeColor={$stroke_color}
-                labelColor={$label_color}
-                />
-            </Col>
-            <Col className="match-height" lg="3" md="6" sm="12">
-                <Funds />
-            </Col>
-            <Col lg="3" md="6" sm="12">
-                <SuberscribersGained />
-                <UserCards
-                    hideChart
-                    iconBg="primary"
-                    iconLeft
-                    icon={this.state.userAvatar}
-                    stat={userStatus}
-                    statTitle="Мой статус"
-                />
-                <UserCards
-                    hideChart
-                    iconBg="primary"
-                    iconLeft
-                    icon={this.state.referralAvatar}
-                    stat={this.state.referral ? `${this.state.referral.firstName} ${this.state.referral.lastName}` : 'Нет спонсора'}
-                    statTitle="Мой спонсор"
-                />
-            </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <Sales
-                        strokeColor={$stroke_color}
-                        primary={$primary}
-                        purple={$purple}
-                        labelColor={$label_color}
-                    />
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <ReferralsReports 
-                        strokeColor={$stroke_color}
-                        primary={$primary}
-                        danger={$danger}
-                        labelColor={$label_color}
-                    />
-                </Col>
-            </Row>
+          <SkeletonTheme color="#283046" highlightColor="#3F4860">
+              <Row>
+              <Col className="match-height" lg="6" md="12" sm="12">
+                  <RevenueChart
+                  primary={$primary}
+                  dangerLight={$danger_light}
+                  strokeColor={$stroke_color}
+                  labelColor={$label_color}
+                  />
+              </Col>
+              <Col className="match-height" lg="3" md="6" sm="12">
+                  <Funds />
+              </Col>
+              <Col lg="3" md="6" sm="12">
+                  <SuberscribersGained />
+                  <UserCards
+                      hideChart
+                      iconBg="primary"
+                      iconLeft
+                      icon={this.state.userAvatar}
+                      stat={userStatus}
+                      statTitle="Мой статус"
+                  />
+                  <UserCards
+                      hideChart
+                      iconBg="primary"
+                      iconLeft
+                      icon={this.state.referralAvatar}
+                      stat={this.state.referral ? `${this.state.referral.firstName} ${this.state.referral.lastName}` : null}
+                      statTitle="Мой спонсор"
+                  />
+              </Col>
+              </Row>
+              <Row>
+                  <Col>
+                      <Sales
+                          strokeColor={$stroke_color}
+                          primary={$primary}
+                          purple={$purple}
+                          labelColor={$label_color}
+                      />
+                  </Col>
+              </Row>
+              <Row>
+                  <Col>
+                      <ReferralsReports 
+                          strokeColor={$stroke_color}
+                          primary={$primary}
+                          danger={$danger}
+                          labelColor={$label_color}
+                      />
+                  </Col>
+              </Row>
+            </SkeletonTheme>
         </React.Fragment>
     )}
 }

@@ -46,7 +46,8 @@ class AnalyticsDashboard extends React.Component {
     referral: null,
     userAvatar: null,
     referralAvatar: null,
-    balance: null
+    balance: null,
+    isResp: false
   }
 
   constructor(props) {
@@ -61,8 +62,7 @@ class AnalyticsDashboard extends React.Component {
   async getUserData() {
     this.userDataService.getUserData()
       .then(res => {
-        console.log('res.user', res.user);
-        this.setState({user: res.user, balance: res.balance});
+        this.setState({user: res.user, balance: res.balance, isResp: true});
         if (res.user.avatar)
           this.setState({userAvatar: `https://cabinet.giq-group.com/back/storage/app/${res.user.avatar}`})
         else
@@ -72,15 +72,22 @@ class AnalyticsDashboard extends React.Component {
 
     this.userDataService.getReferralData()
       .then(res => {
-        console.log('res.refer', res.refer);
-        this.setState({referral: res.refer})
-        if (res.refer.avatar)
-          this.setState({referralAvatar: `https://cabinet.giq-group.com/back/storage/app/${res.refer.avatar}`})
-        else
+        if(res.refer){
+          this.setState({referral: res.refer})
+          if (res.refer.avatar)
+            this.setState({referralAvatar: `https://cabinet.giq-group.com/back/storage/app/${res.refer.avatar}`})
+          else
+            this.setState({referralAvatar: img})
+        }
+        else{
+          this.setState({referral: {
+            firstName: "Нет",
+            lastName: "спонсора"
+          }})
           this.setState({referralAvatar: img})
+        }
       })
       .catch(err => console.log(err))
-
   }
 
   render() {
@@ -137,7 +144,7 @@ class AnalyticsDashboard extends React.Component {
           </Row>
           <Row className="match-height">
             <Col lg="8" md="12" sm="12">
-              <Statistics balance={this.state.balance}/>
+              <Statistics balance={this.state.balance} isResp = {this.state.isResp}/>
             </Col>
             <Col lg="2" md="6" sm="12">
               <Orders />
@@ -177,7 +184,7 @@ class AnalyticsDashboard extends React.Component {
                         <span>рефералов</span>
                       </div>
                       <div className="following">
-                        <p className="font-weight-bold font-medium-2 mb-0">{this.state.balance ? "$" + this.state.balance : <Skeleton />}</p>
+                        <p className="font-weight-bold font-medium-2 mb-0">{this.state.isResp ? "$" + this.state.balance : <Skeleton />}</p>
                         <span>заработано</span>
                       </div>
                     </div>

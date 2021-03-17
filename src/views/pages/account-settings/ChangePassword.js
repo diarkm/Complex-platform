@@ -54,7 +54,7 @@ class ChangePassword extends React.Component {
                   user_id:      this.state.id,
                   old_password: values.oldpass,
                   new_password: values.newpass,
-                }).then(res => console.log('OK', res))
+                }).then(res => this.onValidateSuccess('Данные успешно сохранены!'))
                   .catch(err => console.log(err))
               }}
               validationSchema={formSchema}

@@ -102,7 +102,6 @@ class NavbarUser extends React.PureComponent {
   async getUserData() {
     this.userDataService.getUserData()
       .then(res => {
-        console.log('res.user', res.user);
         this.setState({user: res.user})
         if (res.user.avatar)
           this.setState({userAvatar: `https://cabinet.giq-group.com/back/storage/app/${res.user.avatar}`})
