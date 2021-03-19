@@ -77,6 +77,7 @@ const FundsWallet = () => {
               let $date = new Date(deposit.created_at).setYear(
                 new Date().getFullYear()+1
               )
+              // Deposit Founds Wallet
               $date = new Date($date).toLocaleDateString()
 
               return (
