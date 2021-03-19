@@ -74,12 +74,16 @@ const FundsWallet = () => {
               if(parseInt(deposit.value) <= 0)
                 return ''
 
+              let $date = new Date(deposit.created_at).setYear(
+                new Date().getFullYear()+1
+              )
+              $date = new Date($date).toLocaleDateString()
+
               return (
                 <React.Fragment key={i}>
                   <div className="d-flex justify-content-between">
                     <p className="text-success">${deposit.value}</p>
-                    <p>{deposit.created_at
-                          .match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)}</p>
+                    <p>{$date}</p>
                   </div>
                   <hr className=" mt-0 mb-1" />
                 </React.Fragment>
