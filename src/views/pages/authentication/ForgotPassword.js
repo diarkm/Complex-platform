@@ -3,7 +3,10 @@ import {Button, Card, CardBody, CardHeader, CardTitle, Col, Form, FormGroup, Inp
 import UserDataService from "../../../api/user-data-service"
 import fgImg from "../../../assets/img/pages/forgot-password.png"
 import "../../../assets/scss/pages/authentication.scss"
+import "react-toastify/dist/ReactToastify.css"
 import {history} from "../../../history"
+import {toast, ToastContainer} from "react-toastify"
+import { forgotPasswordFormSchema, onValidationError, onValidationSuccess} from "./AuthServices";
 
 class ForgotPassword extends React.Component {
   constructor(props) {
@@ -12,7 +15,8 @@ class ForgotPassword extends React.Component {
   }
 
   state = {
-    email: ''
+    email: '',
+    showSuccess: false,
   }
 
   handleChange(changeObject) {
@@ -20,16 +24,23 @@ class ForgotPassword extends React.Component {
   }
 
   handleSubmit(event) {
-    let data = {
-      email:       this.state.email,
-    }
-    this.userDataService.restorePassword(data)
-      .then(res => {
-        console.log('OK', res)
-        history.push("/")
+    forgotPasswordFormSchema.validate(this.state)
+      .then((val) => {
+        let data = {
+          email: val.email,
+        }
+        this.userDataService.restorePassword(data)
+          .then(res => {
+            onValidationSuccess('Отправили ссылку для восстановления')
+            console.log('OK', res)
+            history.push("/")
+          })
+          .catch(err => console.log(err))
       })
-      .catch(err => console.log(err))
-    event.preventDefault();
+      .catch((err)=> {
+      onValidationError(err.errors[0])
+    })
+        event.preventDefault();
   }
 
   render() {
@@ -95,6 +106,7 @@ class ForgotPassword extends React.Component {
             </Row>
           </Card>
         </Col>
+        <ToastContainer/>
       </Row>
     )
   }
