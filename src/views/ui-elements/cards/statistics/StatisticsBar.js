@@ -41,7 +41,7 @@ class StatisticsBar extends React.Component {
                 hideChart
                 iconBg="primary"
                 icon={<Activity className="primary" size={22} />}
-                stat="0"
+                stat="0$"
                 statTitle="Бонусы за день"
               />
             </Col>

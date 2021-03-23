@@ -98,15 +98,13 @@ class Revenue extends React.Component {
             <div className="mr-2">
               <p className="mb-50 text-bold-600">В этом месяце</p>
               <h2 className="text-bold-400">
-                <sup className="font-medium-1 mr-50">$</sup>
-                <span className="text-success">0</span>
+                <span className="text-success">0$</span>
               </h2>
             </div>
             <div>
               <p className="mb-50 text-bold-600">В прошлом месяце</p>
               <h2 className="text-bold-400">
-                <sup className="font-medium-1 mr-50">$</sup>
-                <span>0</span>
+                <span>0$</span>
               </h2>
             </div>
           </div>

@@ -37,14 +37,13 @@ const FundsWallet = () => {
       <SkeletonTheme color="#283046" highlightColor="#3F4860">
         <CardBody>
           <h1 className="mb-0">
-            <sup className="font-medium-3 mr-50">$</sup>
-            {isResp ? balance : <Skeleton width={100}/>}
+            {isResp ? balance : <Skeleton width={100}/>}$
           </h1>
           <small>
-            <span className="text-muted">Мой кошелек: </span>{isResp ? "$" + balance : <Skeleton width={60}/>}
+            <span className="text-muted">Мой кошелек: </span>{isResp ? balance + "$" : <Skeleton width={60}/>}
           </small>
           <h5 className="mt-1">
-            <span className="text-success">+0% ($0)</span>
+            <span className="text-success">+0% (0$)</span>
           </h5>
           <Button.Ripple
             block
@@ -55,10 +54,10 @@ const FundsWallet = () => {
             Пополнить счет <ChevronsRight size={15} />
           </Button.Ripple>
           <hr className="my-2" />
-          <small>Заработано: {isResp ? "$" + balance : <Skeleton width={60}/>}</small>
+          <small>Заработано: {isResp ? balance + "$" : <Skeleton width={60}/>}</small>
           <Progress className="mt-1 mb-2" color="success" value="100" />
 
-          <small>В заморозке: $0</small>
+          <small>В заморозке: 0$</small>
           <Progress className="mt-1" color="warning" value="0" />
           <hr className="my-2" />
           <h2>Мои депозиты</h2>
@@ -83,7 +82,7 @@ const FundsWallet = () => {
               return (
                 <React.Fragment key={i}>
                   <div className="d-flex justify-content-between">
-                    <p className="text-success">${deposit.value}</p>
+                    <p className="text-success">{deposit.value}$</p>
                     <p>{$date}</p>
                   </div>
                   <hr className=" mt-0 mb-1" />

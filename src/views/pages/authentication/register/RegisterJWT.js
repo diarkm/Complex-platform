@@ -11,6 +11,7 @@ import TokenStorage from '../../../../api/tokenStorage';
 import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "../../../../assets/scss/plugins/extensions/toastr.scss"
+import "../../../../assets/scss/pages/register.scss"
 
 class RegisterJWT extends React.Component {
   storage = new TokenStorage()

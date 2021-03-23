@@ -46,7 +46,7 @@ class buyPack extends React.Component {
             <p>Выберите на какую сумму вы хотите приобрести пакет и приобретаемое количество</p>
             <Row className="justify-align-center">
               <Col>
-                  <h2 className='mb-2 text-success'>${this.state.value}</h2>
+                  <h2 className='mb-2 text-success'>{this.state.value}$</h2>
                   <Slider
                     min={1}
                     max={8}
@@ -70,7 +70,7 @@ class buyPack extends React.Component {
                 />
               </Col>
               <Col className="mt-sm-1 mt-lg-0 mt-md-0" lg="6" md="6" sm="12">
-                <h3>Итого: ${this.state.value * this.state.amount}</h3>
+                <h3>Итого: {this.state.value * this.state.amount}$</h3>
               </Col>
             </Row>
             <Row className="mt-2">
