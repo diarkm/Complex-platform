@@ -33,7 +33,7 @@ class UserDataService {
     })
       .then(response => {
         console.log(response);
-        if (!response.response) {
+        if (!response) {
           this.handleResponseError(response)
         }
         return response
