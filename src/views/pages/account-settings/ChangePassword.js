@@ -48,13 +48,12 @@ class ChangePassword extends React.Component {
                 newpass:     "",
                 confirmpass: ""
               }}
-              onSubmit={async (values) => {
-                await new Promise((r) => setTimeout(r, 500));
+              onSubmit={(values) => {
                 this.userDataService.changePassword({
-                  user_id:      this.state.id,
+                  user_id:      1,
                   old_password: values.oldpass,
                   new_password: values.newpass,
-                }).then(res => this.onValidateSuccess('Данные успешно сохранены!'))
+                }).then(res => this.onValidationSuccess('Данные успешно сохранены!'))
                   .catch(err => console.log(err))
               }}
               validationSchema={formSchema}
