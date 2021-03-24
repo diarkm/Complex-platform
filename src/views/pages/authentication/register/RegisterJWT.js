@@ -53,7 +53,6 @@ class RegisterJWT extends React.Component {
           .then((response) => {
             if (response.data.response) {
               this.setState({showSuccess: true})
-              history.push('/');
             } else return onValidationError(response.data.errors);
           }).catch((err) => console.log(err))
 
