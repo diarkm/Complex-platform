@@ -53,6 +53,7 @@ class RegisterJWT extends React.Component {
           .then((response) => {
             if (response.data.response) {
               this.setState({showSuccess: true})
+              setTimeout(() => history.go('/'),2000 )
             } else return onValidationError(response.data.errors);
           }).catch((err) => console.log(err))
 
@@ -85,8 +86,8 @@ class RegisterJWT extends React.Component {
   render() {
     return (
       <Form action="/" onSubmit={this.handleRegister}>
-        <Alert color="success" style={{display: this.state.showSuccess ? 'block' : 'none'}}>
-          Вы успешно зарегестрировали свой аккаунт! Пройдите авторизацию
+        <Alert color="success" style={{display: this.state.showSuccess ? 'block' : 'none', marginBottom: 15}}>
+          Вы успешно зарегестрировали свой аккаунт!
         </Alert>
         <Alert color="primary" style={{display: this.state.refererName ? 'block' : 'none'}}>
           <strong>Ваш спонсор: </strong>{this.state.refererName ? this.state.refererName : ''}
