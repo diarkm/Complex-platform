@@ -151,7 +151,7 @@ class DataTableOrders extends React.Component {
                 columns={columns}
                 noHeader
                 pagination
-                noDataComponent={<h3>Нету</h3>}
+                noDataComponent={<h4>У вас нету заказов</h4>}
                 onChangePage={() => {
 
                 }}

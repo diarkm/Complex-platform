@@ -115,9 +115,10 @@ class RegisterJWT extends React.Component {
                 type="tel"
                 placeholder="+7 777 777 7777"
                 required
-                value={this.state.phoneNumber}
+                value={this.state.showPhoneNumber}
                 onChange={e => this.setState({
-                  phoneNumber: normalizePhoneInput(e.target.value, this.state.phoneNumber)
+                  showPhoneNumber: normalizePhoneInput(e.target.value, this.state.phoneNumber),
+                  phoneNumber: e.target.value.replace(/[^\d+]/g, '')
                 })}
               />
               <Label>Телефон</Label>
