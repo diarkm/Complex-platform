@@ -198,7 +198,7 @@ class InfoTab extends React.Component {
             </p>
             <QRImage text={this.state.qr}/>
             <Row>
-              <Col sm="12">
+              <Col sm="6">
                 <Form>
                   <FormGroup>
                     <Label for="rek">Введите код из приложения</Label>
@@ -206,9 +206,9 @@ class InfoTab extends React.Component {
                       type="text"
                       name="code"
                       id="code"
-                      rows="3"
+                      rows="2"
                       value={this.state.googleCode}
-                      onChange={(e) => this.handleChange({googleCode: this.state.googleCode.length < 6 ? e.target.value :  this.state.googleCode })}
+                      onChange={(e) => this.handleChange({googleCode: e.target.value.slice(0,6)})}
                       placeholder="000 000"
                     />
                   </FormGroup>
@@ -236,7 +236,7 @@ class InfoTab extends React.Component {
           </ModalHeader>
           <ModalBody>
           <Row>
-            <Col sm="12">
+            <Col sm="6">
               <Form>
                 <FormGroup>
                   <Label for="rek">Введите код из приложения</Label>

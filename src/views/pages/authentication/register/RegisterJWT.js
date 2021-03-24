@@ -199,7 +199,7 @@ class RegisterJWT extends React.Component {
           <CustomInput
             required={false}
             type="file"
-            accept="image/*"
+            accept="image/x-png,image/gif,image/jpeg"
             label="Выберите файл"
             id="exampleCustomFileBrowser"
             name="customFile"
