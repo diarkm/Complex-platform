@@ -51,11 +51,11 @@ class RegisterJWT extends React.Component {
 
         axios.post('https://cabinet.giq-group.com/back/public/user/signup', fd)
           .then((response) => {
-          if (response.data.response) {
-            this.setState({showSuccess: true})
-            history.push('/');
-          } else return onValidationError(response.data.errors);
-        }).catch((err) => console.log(err))
+            if (response.data.response) {
+              this.setState({showSuccess: true})
+              history.push('/');
+            } else return onValidationError(response.data.errors);
+          }).catch((err) => console.log(err))
 
       }).catch((err) => {
       onValidationError(err.errors[0])
@@ -117,7 +117,7 @@ class RegisterJWT extends React.Component {
                 required
                 value={this.state.phoneNumber}
                 onChange={e => this.setState({
-                  showPhoneNumber: normalizePhoneInput(e.target.value, this.state.phoneNumber)
+                  phoneNumber: normalizePhoneInput(e.target.value, this.state.phoneNumber)
                 })}
               />
               <Label>Телефон</Label>
