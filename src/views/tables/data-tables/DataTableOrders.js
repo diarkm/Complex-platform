@@ -62,7 +62,7 @@ class DataTableOrders extends React.Component {
         selector: "created_at",
         sortable: true,
         sortFunction: (a, b) =>{
-              return new Date(b.created_at) - new Date(a.created_at);
+          return new Date(b.created_at) - new Date(a.created_at);
         },
         cell: row => (
           <p className="text-bold-500 text-truncate mb-0">{row.created_at.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)}</p>
@@ -120,8 +120,35 @@ class DataTableOrders extends React.Component {
       .catch(err => console.log(err))
   }
 
+  handleFilter = e => {
+    let value = e.target.value
+    let data = this.state.data
+    let filteredData = this.state.filteredData
+    this.setState({ value })
+
+    if (value.length) {
+      filteredData = data.filter(item => {
+        let startsWithCondition =
+          item.date.toLowerCase().startsWith(value.toLowerCase()) ||
+          item.revenue.toLowerCase().startsWith(value.toLowerCase()) ||
+          item.status.toLowerCase().startsWith(value.toLowerCase())
+        let includesCondition =
+          item.date.toLowerCase().includes(value.toLowerCase()) ||
+          item.revenue.toLowerCase().includes(value.toLowerCase()) ||
+          item.status.toLowerCase().includes(value.toLowerCase())
+
+        if (startsWithCondition) {
+          return startsWithCondition
+        } else if (!startsWithCondition && includesCondition) {
+          return includesCondition
+        } else return null
+      })
+      this.setState({ filteredData })
+    }
+  }
+
   render() {
-    let { data, columns } = this.state
+    let { data, columns, value, filteredData } = this.state
     return (
       <Card>
         <SkeletonTheme color="#283046" highlightColor="#3F4860">
@@ -132,7 +159,7 @@ class DataTableOrders extends React.Component {
             {data ?
               <DataTable
                 className="dataTable-custom"
-                data={data}
+                data={value.length ? filteredData : data}
                 columns={columns}
                 noHeader
                 pagination
@@ -143,6 +170,9 @@ class DataTableOrders extends React.Component {
                 subHeader
                 theme="dark-giq"
                 onSort={(c, dir) => console.log(c + ' ' + dir) }
+                subHeaderComponent={
+                  <CustomHeader value={value} handleFilter={this.handleFilter} />
+                }
               /> : <Skeleton height={35} count={10}/>
             }
           </CardBody>
