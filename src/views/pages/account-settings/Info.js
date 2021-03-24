@@ -69,6 +69,7 @@ class InfoTab extends React.Component {
   }
 
   handleChange(changeObject) {
+
     this.setState(changeObject);
   }
 
@@ -207,7 +208,7 @@ class InfoTab extends React.Component {
                       id="code"
                       rows="3"
                       value={this.state.googleCode}
-                      onChange={(e) => this.handleChange({googleCode: e.target.value})}
+                      onChange={(e) => this.handleChange({googleCode: this.state.googleCode.length < 6 ? e.target.value :  this.state.googleCode })}
                       placeholder="000 000"
                     />
                   </FormGroup>

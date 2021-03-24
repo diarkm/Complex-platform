@@ -5,6 +5,10 @@ import img from "../../../assets/img/portrait/small/avatar-s-11.jpg";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 
+function onCopyRef(login) {
+  navigator.clipboard.writeText(`https://cabinet.giq-group.com/register/${login}` );
+}
+
 class ReferralLink extends React.Component {
 
   state = {
@@ -45,10 +49,12 @@ class ReferralLink extends React.Component {
                         id="basicInput"
                         value={this.state.user ? `https://cabinet.giq-group.com/register/${this.state.user.login}` : ''}
                         disabled /> : <Skeleton height={35}/>}
-                  
+
                 </Col>
                 <Col lg="2" md="2" sm="12">
-                  <Button.Ripple color="primary">Скопировать</Button.Ripple>
+                  {this.state.user &&
+                  <Button.Ripple color="primary" onClick={onCopyRef(this.state.user.login)}>Скопировать</Button.Ripple>
+                  }
                 </Col>
               </Row>
             </div>
