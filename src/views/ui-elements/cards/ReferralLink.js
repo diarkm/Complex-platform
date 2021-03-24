@@ -52,9 +52,7 @@ class ReferralLink extends React.Component {
 
                 </Col>
                 <Col lg="2" md="2" sm="12">
-                  {this.state.user &&
-                  <Button.Ripple color="primary" onClick={onCopyRef(this.state.user.login)}>Скопировать</Button.Ripple>
-                  }
+                  <Button.Ripple color="primary" onClick={onCopyRef(this.state?.user?.login)}>Скопировать</Button.Ripple>
                 </Col>
               </Row>
             </div>

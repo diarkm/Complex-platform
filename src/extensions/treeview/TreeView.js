@@ -82,8 +82,9 @@ class TreeView extends React.Component {
       this.setState(() => ({ cursor, active: false }))
     }
 
-    node.active = !node.active
-    if (node.children) {
+    console.log(node.children);
+    if (node.children.length >= 1) {
+      node.active = !node.active
       node.toggled = toggled
     }
     this.setState(() => ({ cursor: node, data }))
@@ -179,7 +180,7 @@ class TreeView extends React.Component {
                       }) : 'У вас нет рефералов' :
                       <Skeleton count={5}/>
                       }
-                      
+
                     </Col>
                   </Row>
                 </CardBody>
