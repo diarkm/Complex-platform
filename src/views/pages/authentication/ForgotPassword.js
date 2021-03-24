@@ -33,7 +33,6 @@ class ForgotPassword extends React.Component {
           .then(res => {
             onValidationSuccess('Отправили ссылку для восстановления')
             console.log('OK', res)
-            history.push("/")
           })
           .catch(err => console.log(err))
       })

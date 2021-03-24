@@ -16,7 +16,6 @@ import {normalizePhoneInput, onValidationError, registerFormSchema} from "../Aut
 
 class RegisterJWT extends React.Component {
   storage = new TokenStorage()
-
   state = {
     login: "",
     firstName: "",
@@ -26,6 +25,7 @@ class RegisterJWT extends React.Component {
     email: "",
     avatar: "",
     phoneNumber: "",
+    showPhoneNumber: "",
     accept: false,
     ref_id: '',
     showError: false,
@@ -41,8 +41,6 @@ class RegisterJWT extends React.Component {
   signup = async () => {
     registerFormSchema.validate(this.state)
       .then((valid) => {
-        console.log(valid)
-
         let fd = new FormData();
         for (let item in Object.values(this.state)) {
           let $keyItem = Object.keys(this.state)[item]
@@ -118,7 +116,9 @@ class RegisterJWT extends React.Component {
                 placeholder="+7 777 777 7777"
                 required
                 value={this.state.phoneNumber}
-                onChange={e => this.setState({phoneNumber: normalizePhoneInput(e.target.value, this.state.phoneNumber)})}
+                onChange={e => this.setState({
+                  showPhoneNumber: normalizePhoneInput(e.target.value, this.state.phoneNumber)
+                })}
               />
               <Label>Телефон</Label>
             </FormGroup>
