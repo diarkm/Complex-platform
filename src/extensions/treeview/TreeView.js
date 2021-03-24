@@ -8,19 +8,19 @@ import {
   CardTitle,
   Spinner
 } from "reactstrap"
-import { Treebeard, decorators } from "react-treebeard"
+import {Treebeard, decorators} from "react-treebeard"
 import Prism from "prismjs"
-import { connect } from "react-redux"
+import {connect} from "react-redux"
 import UserDataService from "../../api/user-data-service";
 import * as filters from "./Filter"
-import { styleLight, styleDark } from "./Styles"
+import {styleLight, styleDark} from "./Styles"
 import avatarImg from "../../assets/img/portrait/small/avatar_none.jpeg"
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import Skeleton, {SkeletonTheme} from 'react-loading-skeleton';
 
 const Loading = props => {
   return (
     <div style={props.style.wrapper}>
-      <Spinner size="sm" color="primary" style={props.style.arrow} />
+      <Spinner size="sm" color="primary" style={props.style.arrow}/>
     </div>
   )
 }
@@ -51,7 +51,7 @@ const data = []/*{
 }*/
 
 class TreeView extends React.Component {
-  state={
+  state = {
     data: null
   }
 
@@ -76,38 +76,45 @@ class TreeView extends React.Component {
   }
 
   onToggle = (node, toggled) => {
-    const { cursor, data } = this.state
+    const {cursor, data} = this.state
 
     if (cursor) {
-      this.setState(() => ({ cursor, active: false }))
+      this.setState(() => ({cursor, active: false}))
     }
 
-    console.log(node.children);
-    if (node.children.length >= 1) {
-      node.active = !node.active
+    node.active = !node.active
+    if (node.children) {
       node.toggled = toggled
     }
-    this.setState(() => ({ cursor: node, data }))
+    this.setState(() => ({cursor: node, data}))
   }
 
-  onFilterMouseUp = ({ target: { value } }) => {
+  onFilterMouseUp = ({target: {value}}) => {
     const filter = value.trim()
     if (!filter) {
-      return this.setState(() => ({ data }))
+      return this.setState(() => ({data}))
     }
     let filtered = filters.filterTree(data, filter)
     filtered = filters.expandFilteredNodes(filtered, filter)
-    this.setState(() => ({ data: filtered }))
+    this.setState(() => ({data: filtered}))
   }
 
-  getReferrals (data) {
+  getReferrals(data) {
     let referrals = [],
       showUser = (currentItem, children) => {
-        return {
-          name: currentItem.data.firstName + ' ' + currentItem.data.lastName,
-          avatar: currentItem.data.avatar,
-          id: currentItem.data.id,
-          children
+        if (children.length < 1) {
+          return {
+            name: currentItem.data.firstName + ' ' + currentItem.data.lastName,
+            avatar: currentItem.data.avatar,
+            id: currentItem.data.id
+          }
+        }else {
+          return {
+            name: currentItem.data.firstName + ' ' + currentItem.data.lastName,
+            avatar: currentItem.data.avatar,
+            id: currentItem.data.id,
+            children
+          }
         }
       },
       /**
@@ -124,12 +131,12 @@ class TreeView extends React.Component {
         return $tree
       }
 
-    if(data) {
+    if (data) {
       data.forEach((item, i) => {
         let children = childrenReferral(item)
 
         // УРОВЕНЬ 1
-        if(item.depth === 1) {
+        if (item.depth === 1) {
           referrals.push(showUser(item, children))
         }
       })
@@ -139,14 +146,14 @@ class TreeView extends React.Component {
   }
 
   render() {
-    const { data, cursor } = this.state
+    const {data, cursor} = this.state
     decorators.Loading = Loading
-    decorators.Header =  ({ node, style, prefix }) => {
+    decorators.Header = ({node, style, prefix}) => {
       const avatar = node.avatar ? `http://cabinet.giq-group.com/back/storage/app/${node.avatar}` : avatarImg
       return (
         <div style={style.base}>
-          <div style={{ ...style.title, display: "flex" }}>
-            <img className="mr-1 rounded-circle" src={avatar} width="32" height="32" /> {`${node.name}`}
+          <div style={{...style.title, display: "flex"}}>
+            <img className="mr-1 rounded-circle" src={avatar} width="32" height="32"/> {`${node.name}`}
           </div>
         </div>
       )
@@ -179,7 +186,7 @@ class TreeView extends React.Component {
                         />
                       }) : 'У вас нет рефералов' :
                       <Skeleton count={5}/>
-                      }
+                    }
 
                     </Col>
                   </Row>
