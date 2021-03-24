@@ -57,7 +57,7 @@ class RegisterJWT extends React.Component {
             this.setState({showSuccess: true})
             alert('Вы успешно зарегестрировали свой аккаунт! Пройдите авторизацию');
             history.push('/');
-          } else return this.onValidationError(response.data.errors);
+          } else return onValidationError(response.data.errors);
         }).catch((err) => console.log(err))
 
       }).catch((err) => {

@@ -19,8 +19,8 @@ export const normalizePhoneInput = (value, previousValue) => {
   if (!previousValue || value.length > previousValue.length || !value) {
     if(cvLength === 1) return `+7${currentValue}`;
     if (cvLength < 6) return currentValue;
-    if (cvLength < 9) return `${currentValue.slice(0, 2)} (${currentValue.slice(2, 5)}) ${currentValue.slice(5)}`;
-    return `${currentValue.slice(0, 2)} (${currentValue.slice(2, 5)}) ${currentValue.slice(5, 8)}-${currentValue.slice(8, 12)}`;
+    if (cvLength < 9) return `${currentValue.slice(0, 2)} ${currentValue.slice(2, 5)} ${currentValue.slice(5)}`;
+    return `${currentValue.slice(0, 2)} ${currentValue.slice(2, 5)} ${currentValue.slice(5, 8)} ${currentValue.slice(8, 12)}`;
   }
   return value;
 };
