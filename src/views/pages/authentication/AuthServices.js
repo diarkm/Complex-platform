@@ -26,8 +26,10 @@ export const normalizePhoneInput = (value, previousValue) => {
 };
 
 export const registerFormSchema = Yup.object().shape({
-  firstName: Yup.string().required("Введите ваше имя").min(2),
-  lastName: Yup.string().required("Введите вашу фамилию").min(2),
+  firstName: Yup.string().required("Введите ваше имя").min(2, 'Имя должна состоять минимум из 2 букв')
+    .matches(/^[a-zA-Zа-яёА-ЯЁ]+$/u,'Имя неправильная'),
+  lastName: Yup.string().required("Введите вашу фамилию").min(2,'Фамилия должна состоять минимум из 2 букв')
+    .matches(/^[a-zA-Zа-яёА-ЯЁ]+$/u,'Фамилия неправильная'),
   password: Yup.string().required("Введите пароль")
     .min(8, "Пароль должен состоять минимум из 8 символов и одной буквы")
     .matches(/(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i, "Пароль должен состоять минимум из 8 символов и одной буквы"),
