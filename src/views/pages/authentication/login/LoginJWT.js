@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { CardBody, FormGroup, Form, Input, Button, Label } from "reactstrap"
+import {CardBody, FormGroup, Form, Input, Button, Label, FormFeedback} from "reactstrap"
 import Checkbox from "../../../../components/@vuexy/checkbox/CheckboxesVuexy"
 import { Mail, Lock, Check } from "react-feather"
 import { loginForm } from "../../../../server"
@@ -26,7 +26,8 @@ class LoginJWT extends React.Component {
     googleAuth: {
       active: false,
       token: undefined
-    }
+    },
+    loginError: false,
   }
 
   handleLogin = e => {
@@ -46,8 +47,12 @@ class LoginJWT extends React.Component {
         remember: this.remember
       });
 
-      if (!response.data.response)
+      if (!response.data.response){
+        if(response.data.errors === "User is not found"){
+          this.setState({loginError: true });
+        }
         return this.onValidationError(handleErrorFromBD(response.data.errors));
+      }
 
       if (response.data["2FA"] === true) {
         this.setState({
@@ -105,12 +110,16 @@ class LoginJWT extends React.Component {
           <Form action="/" onSubmit={this.handleLogin}>
             <FormGroup className="form-label-group position-relative has-icon-left">
               <Input
+                className={ this.state.loginError && "is-invalid" }
                 type="text"
                 placeholder="Логин"
                 value={this.state.login}
                 onChange={e => this.setState({ login: e.target.value })}
                 required
               />
+              {this.state.loginError && (
+                <FormFeedback>Пользователь не найден</FormFeedback>
+              )}
               <div className="form-control-position">
                 <Mail size={15} />
               </div>
