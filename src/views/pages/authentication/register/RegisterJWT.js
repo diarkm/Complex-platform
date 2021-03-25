@@ -29,6 +29,18 @@ class RegisterJWT extends React.Component {
     this.userDataService = new UserDataService()
   }
 
+  handleImage = (e,setField, setError) => {
+    e.preventDefault();
+    const fileTm = e.target.files[0];
+    const extFile = fileTm.type.split("/").pop();
+    console.log(extFile);
+    if (extFile !== 'jpg' && extFile !== 'gif' && extFile !== 'png') {
+      setError('avatar','Разрешается JPG, GIF или PNG' )
+      onValidationError('Разрешается JPG, GIF или PNG')
+    }
+      setField('avatar',fileTm);
+  }
+
   signup = async (values) => {
     registerFormSchema.validate(values)
       .then((valid) => {
@@ -92,7 +104,7 @@ class RegisterJWT extends React.Component {
           this.signup(values);
         }}
       >
-        {({errors, touched, values, setFieldValue}) => (
+        {({errors, touched, values, setFieldValue, setFieldError}) => (
           <Form>
             <Alert color="success" style={{display: this.state.showSuccess ? 'block' : 'none', marginBottom: 20}}>
               Вы успешно зарегестрировали свой аккаунт!
@@ -226,12 +238,15 @@ class RegisterJWT extends React.Component {
                 accept="image/x-png,image/gif,image/jpeg"
                 label="Выберите файл"
                 id="exampleCustomFileBrowser"
-                name="customFile"
+                name="avatar"
                 onChange={e => {
-                  setFieldValue('avatar', e.target.files[0]);
+                  this.handleImage(e, setFieldValue, setFieldError);
                   console.log(e.target.value)
                 }}
               />
+              {errors.avatar ? (
+                <div className="text-danger small">{errors.avatar}</div>
+              ) : null}
             </FormGroup>
             <FormGroup className="mt-1">
               <Checkbox
@@ -246,7 +261,7 @@ class RegisterJWT extends React.Component {
               />
               {errors.accept &&
               (
-                <div className="text-danger">{errors.accept})</div>
+                <div className="text-danger small">{errors.accept})</div>
               )
               }
             </FormGroup>

@@ -8,8 +8,12 @@ import "react-toastify/dist/ReactToastify.css"
 import "../../../assets/scss/plugins/extensions/toastr.scss"
 
 const formSchema = Yup.object().shape({
-  oldpass:     Yup.string().required("Это поле должно быть заполнено"),
-  newpass:     Yup.string().required("Это поле должно быть заполнено"),
+  oldpass:     Yup.string().required("Это поле должно быть заполнено")
+    .min(8, "Пароль должен состоять минимум из 8 символов и одной буквы")
+    .matches(/(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i, "Пароль должен состоять минимум из 8 символов и одной буквы"),
+  newpass:     Yup.string().required("Это поле должно быть заполнено")
+    .min(8, "Пароль должен состоять минимум из 8 символов и одной буквы")
+    .matches(/(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i, "Пароль должен состоять минимум из 8 символов и одной буквы"),
   confirmpass: Yup.string()
                  .oneOf([Yup.ref("newpass"), null], "Пароли должны совпадать")
                  .required("Это поле должно быть заполнено")
