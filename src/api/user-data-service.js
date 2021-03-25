@@ -134,11 +134,8 @@ class UserDataService {
 
     return this.client.post('/user/password/restore', formData)
       .then(response => {
-        if (response) {
           console.log(response)
           return response.data
-        }
-        this.handleResponseError(response)
       })
       .catch(error => {
         this.handleError(error)

@@ -1,6 +1,24 @@
 import * as Yup from "yup";
 import {toast} from "react-toastify";
 
+const errors = {
+  "The login has already been taken.": "Логин уже занят",
+  "Email is not valid string": "Электронная почта не является допустимой строкой",
+  "Password is not valid": "Пароль недействителен",
+  "This mail is already taken": 'Это почта уже занята',
+  "Server cannot upload user's avatar": 'Сервер не может загрузить вашу аватарию',
+  "User is not found": "Пользователь не найден",
+  "Entered password is not right": "Пароль неправильный",
+  "Incorrect code" : "Неправильный код",
+  "Please enter the code of your mail" : "Пожалуйста, введите код вашей почты",
+  "Email is required field": "Электронная почта обязательное поле",
+  "User with this email is not found": "Пользователь с этим адресом электронной почты не найден",
+};
+export function handleErrorFromBD(error) {
+  const err = errors[error];
+  return err ?? 'Произошла ошибка';
+}
+
 export const onValidationError = errors => {
   toast.error(errors, {
     position: toast.POSITION.TOP_RIGHT

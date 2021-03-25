@@ -11,6 +11,7 @@ import TokenStorage from '../../../../api/tokenStorage';
 import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "../../../../assets/scss/plugins/extensions/toastr.scss"
+import {handleErrorFromBD} from "../AuthServices";
 
 const apiURL = 'https://cabinet.giq-group.com/back/public'
 
@@ -45,8 +46,8 @@ class LoginJWT extends React.Component {
         remember: this.remember
       });
 
-      if (response.data.response === false)
-        return this.onValidationError('Вы ввели неверно логин или пароль');
+      if (!response.data.response)
+        return this.onValidationError(handleErrorFromBD(response.data.errors));
 
       if (response.data["2FA"] === true) {
         this.setState({
@@ -82,8 +83,8 @@ class LoginJWT extends React.Component {
           Authorization: `${this.state.googleAuth.token}`
         }
       });
-      if (response.data.response === false){
-        return this.onValidationError('Неверно введен код подтверждения');
+      if (!response.data.response){
+        return this.onValidationError(handleErrorFromBD(response.data.errors));
       }
       this.createToken(response.data.token);
       window.location.href = '/dashboard'

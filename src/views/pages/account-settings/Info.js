@@ -198,11 +198,12 @@ class InfoTab extends React.Component {
             </p>
             <QRImage text={this.state.qr}/>
             <Row>
-              <Col sm="6">
+              <Col sm="12">
                 <Form>
                   <FormGroup>
                     <Label for="rek">Введите код из приложения</Label>
                     <Input
+                      style={{ width: 100 }}
                       type="text"
                       name="code"
                       id="code"
@@ -236,11 +237,12 @@ class InfoTab extends React.Component {
           </ModalHeader>
           <ModalBody>
           <Row>
-            <Col sm="6">
+            <Col sm="12">
               <Form>
                 <FormGroup>
                   <Label for="rek">Введите код из приложения</Label>
                   <Input
+                    style={{ width: 100 }}
                     type="text"
                     name="code"
                     id="code_"

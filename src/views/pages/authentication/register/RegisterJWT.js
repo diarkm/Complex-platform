@@ -12,7 +12,7 @@ import {toast, ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "../../../../assets/scss/plugins/extensions/toastr.scss"
 import "../../../../assets/scss/pages/register.scss"
-import {normalizePhoneInput, onValidationError, registerFormSchema} from "../AuthServices";
+import {handleErrorFromBD, normalizePhoneInput, onValidationError, registerFormSchema} from "../AuthServices";
 import {Formik, Field, Form} from "formik";
 
 class RegisterJWT extends React.Component {
@@ -39,13 +39,15 @@ class RegisterJWT extends React.Component {
           if (valid[$keyItem])
             fd.append($keyItem, valid[$keyItem])
         }
-
         axios.post('https://cabinet.giq-group.com/back/public/user/signup', fd)
           .then((response) => {
             if (response.data.response) {
               this.setState({showSuccess: true})
               setTimeout(() => history.push('/'), 2000)
-            } else return onValidationError(response.data.errors);
+            } else{
+              console.log(response.data.errors);
+              return onValidationError(handleErrorFromBD(response.data.errors));
+            }
           }).catch((err) => console.log(err))
       }).catch((err) => {
       onValidationError(err.errors[0])

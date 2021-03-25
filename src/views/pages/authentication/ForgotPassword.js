@@ -6,7 +6,7 @@ import "../../../assets/scss/pages/authentication.scss"
 import "react-toastify/dist/ReactToastify.css"
 import {history} from "../../../history"
 import {toast, ToastContainer} from "react-toastify"
-import { forgotPasswordFormSchema, onValidationError, onValidationSuccess} from "./AuthServices";
+import {forgotPasswordFormSchema, handleErrorFromBD, onValidationError, onValidationSuccess} from "./AuthServices";
 
 class ForgotPassword extends React.Component {
   constructor(props) {
@@ -31,15 +31,19 @@ class ForgotPassword extends React.Component {
         }
         this.userDataService.restorePassword(data)
           .then(res => {
-            onValidationSuccess('Отправили ссылку для восстановления')
-            console.log('OK', res)
+            if (!res.response) {
+              onValidationError(handleErrorFromBD(res.errors));
+            } else {
+              onValidationSuccess('Отправили ссылку для восстановления')
+              console.log('OK', res)
+            }
           })
           .catch(err => console.log(err))
       })
-      .catch((err)=> {
-      onValidationError(err.errors[0])
-    })
-        event.preventDefault();
+      .catch((err) => {
+        onValidationError(err.errors[0])
+      })
+    event.preventDefault();
   }
 
   render() {
