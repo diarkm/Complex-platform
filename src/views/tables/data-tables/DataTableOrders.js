@@ -167,6 +167,7 @@ class DataTableOrders extends React.Component {
                 onChangePage={() => {
 
                 }}
+                paginationComponentOptions={{ rowsPerPageText: 'Строк на странице:', rangeSeparatorText: 'из' }}
                 subHeader
                 theme="dark-giq"
                 onSort={(c, dir) => console.log(c + ' ' + dir) }

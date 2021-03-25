@@ -3,7 +3,7 @@ import {toast} from "react-toastify";
 
 const errors = {
   "The login has already been taken.": "Логин уже занят",
-  "Email is not valid string": "Электронная почта не является допустимой строкой",
+  "Email is not valid string": "Электронная почта не является допустимой",
   "Password is not valid": "Пароль недействителен",
   "This mail is already taken": 'Это почта уже занята',
   "Server cannot upload user's avatar": 'Сервер не может загрузить вашу аватарию',
