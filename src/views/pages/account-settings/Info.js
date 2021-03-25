@@ -186,18 +186,18 @@ class InfoTab extends React.Component {
         <Modal
           isOpen={this.state.add2faModal}
           toggle={this.toggleModal}
-          className="modal-dialog-centered"
+          className="modal-dialog-centered "
         >
           <ModalHeader toggle={this.toggleModal}>
             Просканируйте код
           </ModalHeader>
-          <ModalBody>
-            <p>
+          <ModalBody  className="d-flex flex-column align-items-center">
+            <p className="text-center">
               Для подтверждения двухфакторной аутентификации необходимо
               скачать приложение Authenticator и просканировать код ниже
             </p>
-            <QRImage text={this.state.qr}/>
-            <Row>
+            <QRImage  text={this.state.qr}/>
+            <Row className="mt-sm-1">
               <Col sm="12">
                 <Form>
                   <FormGroup>

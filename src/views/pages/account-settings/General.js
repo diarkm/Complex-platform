@@ -36,6 +36,7 @@ class General extends React.Component {
     confirmed: 1,
     selectedFile: null,
     isFilePicked: false,
+    avatarError: false
   }
 
   componentDidMount() {
@@ -69,15 +70,22 @@ class General extends React.Component {
   handleImgChange(e) {
     if (!e.target.files.length) return
     let self = this
-    this.setState({
-      selectedFile: e.target.files[0],
-      isFilePicked: true
-    })
-    let reader = new FileReader();
-    reader.onload = function (e) {
-      self.setState({img: e.target.result})
+    const fileTm = e.target.files[0];
+    const extFile = fileTm.type.split("/").pop();
+    if (extFile === 'jpg' || extFile === 'gif' || extFile === 'png') {
+      this.setState({
+        selectedFile: e.target.files[0],
+        isFilePicked: true,
+        avatarError: false,
+      })
+      let reader = new FileReader();
+      reader.onload = function (e) {
+        self.setState({img: e.target.result})
+      }
+      reader.readAsDataURL(e.target.files[0])
+    }else {
+      this.setState({ avatarError: true });
     }
-    reader.readAsDataURL(e.target.files[0])
   }
 
   refreshPage() {
@@ -128,12 +136,13 @@ class General extends React.Component {
                   outline
                 >
                   Загрузить
-                  <Input type="file" name="file" id="uploadImg" onChange={(e) => this.handleImgChange(e)} hidden/>
+                  <Input type="file" name="file" id="uploadImg" accept="image/x-png,image/gif,image/jpg"
+                         onChange={(e) => this.handleImgChange(e)} hidden/>
                 </Button.Ripple>
                 <Button.Ripple color="flat-danger">Удалить</Button.Ripple>
               </div>
-              <p className="text-muted mt-50">
-                <small>Разрешается JPG, GIF или PNG. Максимальный размер: 1мб</small>
+              <p className={`text-muted mt-50 `}>
+                <small className={`${this.state.avatarError && 'text-danger' }`}>Разрешается JPG, GIF или PNG. Максимальный размер: 1мб</small>
               </p>
             </Media>
           </Media>
