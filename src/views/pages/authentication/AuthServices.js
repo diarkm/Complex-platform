@@ -70,7 +70,6 @@ export const registerFormSchema = Yup.object().shape({
         SUPPORTED_FORMATS_IMAGES.includes(value.type.split("/").pop()))
     }
     ).test("FILE_SIZE", "Максимальный размер: 1мб", (value) => {
-      console.log(((value.size/1024)/1024).toFixed(4));
     return (
       !value || (value && ((value.size/1024)/1024).toFixed(4) <= FILE_SIZE) //mb
     );
