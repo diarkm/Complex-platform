@@ -1,6 +1,8 @@
 import * as Yup from "yup";
 import {toast} from "react-toastify";
 
+const SUPPORTED_FORMATS_IMAGES = ["gif", "jpg", "png","jpeg"];
+const FILE_SIZE = 1;
 const errors = {
   "The login has already been taken.": "Логин уже занят",
   "Email is not valid string": "Электронная почта не является допустимой",
@@ -17,20 +19,20 @@ const errors = {
 export function handleErrorFromBD(error) {
   const err = errors[error];
   return err ?? 'Произошла ошибка';
-}
 
+}
 export const onValidationError = errors => {
   toast.error(errors, {
     position: toast.POSITION.TOP_RIGHT
   })
-}
 
+}
 export const onValidationSuccess = message => {
   toast.success(message, {
     position: toast.POSITION.TOP_RIGHT
   })
-}
 
+}
 export const normalizePhoneInput = (value, previousValue) => {
   const currentValue = value.replace(/[^\d+]/g, '');
   const cvLength = currentValue.length;
@@ -41,9 +43,8 @@ export const normalizePhoneInput = (value, previousValue) => {
     return `${currentValue.slice(0, 2)} ${currentValue.slice(2, 5)} ${currentValue.slice(5, 8)} ${currentValue.slice(8, 12)}`;
   }
   return value;
-};
 
-const SUPPORTED_FORMATS_IMAGES = ["gif", "jpg", "png"];
+};
 export const registerFormSchema = Yup.object().shape({
   firstName: Yup.string().required("Введите ваше имя").min(2, 'Имя должна состоять минимум из 2 букв')
     .matches(/^[a-zA-Zа-яёА-ЯЁ]+$/u,'Имя неправильная'),
@@ -57,19 +58,23 @@ export const registerFormSchema = Yup.object().shape({
     .required("Введите пароль"),
   email: Yup.string().email('Неправильная почта').required("Введите почту"),
   showPhoneNumber: Yup.string().required("Введите номер телефона")
-    .matches(/^\+(?:[0-9] ?){6,14}[0-9]$/,'Не правильный номер'),
+    .matches(/^\+(?:[0-9] ?){6,14}[0-9]$/,'Неправильный номер'),
   login: Yup.string().required("Введите логин").min(4,'Короткий логин'),
   accept: Yup.bool().oneOf([true], 'Пожалуйста примите пользовательское соглашение'),
   avatar: Yup.mixed().nullable().notRequired().test(
     "FILE_FORMAT",
     "Разрешается JPG, GIF или PNG",
     (value) =>{
-      console.log(value)
       return !value ||
       (value &&
         SUPPORTED_FORMATS_IMAGES.includes(value.type.split("/").pop()))
     }
-    )
+    ).test("FILE_SIZE", "Максимальный размер: 1мб", (value) => {
+      console.log(((value.size/1024)/1024).toFixed(4));
+    return (
+      !value || (value && ((value.size/1024)/1024).toFixed(4) <= FILE_SIZE) //mb
+    );
+  })
 });
 
 export const forgotPasswordFormSchema = Yup.object().shape({

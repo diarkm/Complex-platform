@@ -32,13 +32,7 @@ class RegisterJWT extends React.Component {
   handleImage = (e,setField, setError) => {
     e.preventDefault();
     const fileTm = e.target.files[0];
-    const extFile = fileTm.type.split("/").pop();
-    console.log(extFile);
-    if (extFile !== 'jpg' && extFile !== 'gif' && extFile !== 'png') {
-      setError('avatar','Разрешается JPG, GIF или PNG' )
-      onValidationError('Разрешается JPG, GIF или PNG')
-    }
-      setField('avatar',fileTm);
+    setField('avatar',fileTm);
   }
 
   signup = async (values) => {

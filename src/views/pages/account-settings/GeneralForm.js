@@ -14,6 +14,7 @@ export default function GeneralForm (props){
         firstName: props.firstName ,
         lastName: props.lastName,
         phoneNumber: props.phoneNumber,
+        disabled: true,
       }}
       validationSchema={props.schema}
       onSubmit={values => {
@@ -26,7 +27,7 @@ export default function GeneralForm (props){
         }
         props.submit(userData)
       }}>
-      {({errors, touched, values}) => (
+      {({errors, touched, values, dirty}) => (
         <Form className="mt-2">
           <Row>
             <Col lg="6" md="6" sm="12">
@@ -123,7 +124,7 @@ export default function GeneralForm (props){
               </Alert>
             </Col>
             <Col className="d-flex justify-content-start flex-wrap" sm="12">
-              <Button.Ripple className="mr-50" type="submit" color="primary">
+              <Button.Ripple className="mr-50" type="submit" color="primary" disabled={!(props.isFilePicked || dirty)}>
                 Сохранить изменения
               </Button.Ripple>
               <Button.Ripple onClick={() => props.refreshPage()} type="reset" color="danger">

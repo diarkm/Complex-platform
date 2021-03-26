@@ -17,7 +17,7 @@ const formSchema = Yup.object().shape({
     .matches(/^[a-zA-Zа-яёА-ЯЁ]+$/u,'Фамилия неправильная'),
  email: Yup.string().email('Неправильная почта').required("Введите почту"),
  phoneNumber: Yup.string().required("Введите номер телефона")
-    .matches(/^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/,'Неправильный номер'),
+   .matches(/^\+(?:[0-9] ?){6,14}[0-9]$/,'Неправильный номер')
 });
 
 class General extends React.Component {
@@ -72,7 +72,8 @@ class General extends React.Component {
     let self = this
     const fileTm = e.target.files[0];
     const extFile = fileTm.type.split("/").pop();
-    if (extFile === 'jpg' || extFile === 'gif' || extFile === 'png') {
+    if ((extFile === 'jpg' || extFile === 'gif' || extFile === 'png' || extFile === 'jpeg')
+      && ((fileTm.size/1024)/1024).toFixed(4) <= 1) {
       this.setState({
         selectedFile: e.target.files[0],
         isFilePicked: true,
