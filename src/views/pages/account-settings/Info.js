@@ -188,7 +188,7 @@ class InfoTab extends React.Component {
           toggle={this.toggleModal}
           className="modal-dialog-centered "
         >
-          <ModalHeader toggle={this.toggleModal}>
+          <ModalHeader toggle={this.toggleModal} className="d-flex flex-column align-items-center">
             Просканируйте код
           </ModalHeader>
           <ModalBody  className="d-flex flex-column align-items-center">
@@ -200,7 +200,7 @@ class InfoTab extends React.Component {
             <Row className="mt-sm-1">
               <Col sm="12">
                 <Form>
-                  <FormGroup>
+                  <FormGroup className="d-flex flex-column align-items-center">
                     <Label for="rek">Введите код из приложения</Label>
                     <Input
                       style={{ width: 100 }}
