@@ -7,6 +7,7 @@ const errors = {
   "The login has already been taken.": "Логин уже занят",
   "Email is not valid string": "Электронная почта не является допустимой",
   "Password is not valid": "Пароль недействителен",
+  "Password is not correct": "Пароль неправильный",
   "This mail is already taken": 'Это почта уже занята',
   "Server cannot upload user's avatar": 'Сервер не может загрузить вашу аватарию',
   "User is not found": "Пользователь не найден",
@@ -52,7 +53,7 @@ export const registerFormSchema = Yup.object().shape({
     .matches(/^[a-zA-Zа-яёА-ЯЁ]+$/u,'Фамилия неправильная'),
   password: Yup.string().required("Введите пароль")
     .min(8, "Пароль должен состоять минимум из 8 символов и одной буквы")
-    .matches(/(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i, "Пароль должен состоять минимум из 8 символов и одной буквы"),
+    .matches(/(?=.*[A-Za-z-яёА-ЯЁ])(?=.*\d)[A-Za-z-яёА-ЯЁ\d]{8,}$/i, "Пароль должен состоять минимум из 8 символов и одной буквы"),
   confirmPass: Yup.string()
     .oneOf([Yup.ref("password"), null], "Пароли не совпадают")
     .required("Введите пароль"),

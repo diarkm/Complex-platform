@@ -31,16 +31,6 @@ class UserDataService {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     })
-      .then(response => {
-        console.log(response);
-        if (!response) {
-          this.handleResponseError(response)
-        }
-        return response
-      })
-      .catch(error => {
-        this.handleError(error)
-      })
   }
 
   async getUserData() {
@@ -63,7 +53,7 @@ class UserDataService {
       }
     })
       .then(response => {
-        if (!response.response) {
+        if (!response.data.response) {
           this.handleResponseError(response)
         }
         return response.json()
@@ -101,7 +91,7 @@ class UserDataService {
       }
     })
       .then(response => {
-        if (!response.response) {
+        if (!response.data.response) {
           this.handleResponseError(response)
         }
         return response.json()
@@ -119,7 +109,7 @@ class UserDataService {
       }
     })
       .then(response => {
-        if (!response.response) {
+        if (!response.data.response) {
           this.handleResponseError(response)
         }
         return response.json()
@@ -147,7 +137,7 @@ class UserDataService {
 
     return this.client.post('/password/restore/check', formData)
       .then(response => {
-        if (!response.response) {
+        if (!response.data.response) {
           this.handleResponseError(response)
         }
         return response.data
@@ -162,7 +152,7 @@ class UserDataService {
 
     return this.client.post('/password/restore/set', formData)
       .then(response => {
-        if (!response.response) {
+        if (!response.data.response) {
           this.handleResponseError(response)
         }
         return response.data
