@@ -255,7 +255,7 @@ class RegisterJWT extends React.Component {
               />
               {errors.accept &&
               (
-                <div className="text-danger small">{errors.accept})</div>
+                <div className="text-danger small">{errors.accept}</div>
               )
               }
             </FormGroup>
