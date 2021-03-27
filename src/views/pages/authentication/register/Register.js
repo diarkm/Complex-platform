@@ -45,15 +45,7 @@ class Register extends React.Component {
                 <img className="mr-1" src={registerImg} alt="registerImg" />
               </Col>
               <Col lg="6" md="12" className="p-0">
-                <Card className="rounded-0 mb-0 p-2">
-                  <CardHeader className="pb-1 pt-50">
-                    <CardTitle>
-                      <h4 className="mb-0">Регистрация</h4>
-                    </CardTitle>
-                  </CardHeader>
-                  <p className="px-2 auth-title mb-2">
-                    Пожалуйста, заполните все необходимые поля для регистрации
-                  </p>
+                <Card className="rounded-0 mb-0 px-3 py-2">
                   <RegisterJWT referer={this.props.match ? this.props.match.params.referer : null}/>
                 </Card>
               </Col>

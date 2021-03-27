@@ -1,5 +1,6 @@
 import React from "react"
 import { Form, FormGroup, Input, Label, Button, CustomInput, Alert, Row, Col } from "reactstrap"
+import { Formik, ErrorMessage, Field } from 'formik'
 import UserDataService from "../../../../api/user-data-service";
 import Checkbox from "../../../../components/@vuexy/checkbox/CheckboxesVuexy"
 import { Check } from "react-feather"
@@ -12,6 +13,21 @@ import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "../../../../assets/scss/plugins/extensions/toastr.scss"
 import "../../../../assets/scss/pages/register.scss"
+import * as Yup from "yup"
+
+const SignUpSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Почта неверно введена")
+    .required("Поле должно быть заполнено"),
+  firstName: Yup.string()
+    .min(2, "Должно быть больше 2 символов")
+    .max(20, "Слишком большое имя")
+    .required("Поле должно быть заполнено"),
+  lastName: Yup.string()
+    .min(2, "Должно быть больше 2 символов")
+    .max(20, "Слишком большая фамилия")
+    .required("Поле должно быть заполнено")
+})
 
 class RegisterJWT extends React.Component {
   storage = new TokenStorage()
@@ -121,140 +137,156 @@ class RegisterJWT extends React.Component {
 
   render() {
     return (
-      <Form action="/" onSubmit={this.handleRegister}>
-        <Alert color="primary" style={{display: this.state.refererName ? 'block' : 'none' }}>
-          <strong>Ваш спонсор: </strong>{this.state.refererName ? this.state.refererName : ''}
-        </Alert>
-        <Alert color="danger" style={{display: this.state.showError ? 'block' : 'none' }}>
-          {this.state.errorMessage}
-        </Alert>
-        <Row>
-          <Col lg="6" md="6" sm="12">
-            <FormGroup className="form-label-group">
-              <Input
-                type="text"
-                placeholder="Логин"
-                required
-                value={this.state.login}
-                onChange={e => this.setState({ login: e.target.value.replace(/[^\w\s]/gi, "") })}
-              />
-              <Label>Логин</Label>
+      <Formik 
+        validationSchema={SignUpSchema}
+        render={({errors, touched}) => (
+          <Form action="/" onSubmit={this.handleRegister}>
+            <h4 className="mb-0">Регистрация</h4>
+            <p className="auth-title mt-1 mb-2">
+              Пожалуйста, заполните все необходимые поля для регистрации
+            </p>
+            <Alert color="primary" style={{display: this.state.refererName ? 'block' : 'none' }}>
+              <strong>Ваш спонсор: </strong>{this.state.refererName ? this.state.refererName : ''}
+            </Alert>
+            <Alert color="danger" style={{display: this.state.showError ? 'block' : 'none' }}>
+              {this.state.errorMessage}
+            </Alert>
+            <Row>
+              <Col lg="6" md="6" sm="12">
+                <FormGroup className="form-label-group">
+                  <Input
+                    type="text"
+                    placeholder="Логин"
+                    required
+                    value={this.state.login}
+                    onChange={e => this.setState({ login: e.target.value.replace(/[^\w\s]/gi, "") })}
+                  />
+                  <Label>Логин</Label>
+                </FormGroup>
+              </Col>
+              <Col lg="6" md="6" sm="12">
+                <FormGroup className="form-label-group">
+                  <Input
+                    type="tel"
+                    placeholder="+7 777 777 7777"
+                    required
+                    value={this.state.phoneNumber}
+                    onChange={e => this.setState({ phoneNumber: e.target.value })}
+                  />
+                  <Label>Телефон</Label>
+                </FormGroup>
+              </Col>
+              <Col lg="12" md="12" sm="12">
+                <FormGroup className="form-label-group">
+                  <Input
+                    type="email"
+                    placeholder="Почта"
+                    required
+                    value={this.state.email}
+                    onChange={e => this.setState({ email: e.target.value })}
+                  />
+                  <Label>Почта</Label>
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col lg="6" md="6" sm="12">
+                <FormGroup className="form-label-group">
+                  <Input
+                    type="password"
+                    placeholder="Пароль"
+                    required
+                    value={this.state.password}
+                    onChange={e => this.setState({ password: e.target.value })}
+                  />
+                  <Label>Пароль</Label>
+                </FormGroup>
+              </Col>
+              <Col lg="6" md="6" sm="12">
+                <FormGroup className="form-label-group">
+                  <Input
+                    type="password"
+                    placeholder="Подтвердите пароль"
+                    required
+                    value={this.state.confirmPass}
+                    onChange={
+                      e => { this.setState({ confirmPass: e.target.value }) }
+                    }
+                  />
+                  <Label>Подтвердите пароль</Label>
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col lg="6" md="6" sm="12">
+                <FormGroup className="form-label-group">
+                  <Input
+                    type="text"
+                    placeholder="Имя"
+                    required
+                    value={this.state.firstName}
+                    onChange={e => this.setState({ firstName: e.target.value })}
+                  />
+                  <Label>Имя</Label>
+                </FormGroup>
+              </Col>
+              <Col lg="6" md="6" sm="12">
+                <FormGroup className="form-label-group">
+                  <Input
+                    type="text"
+                    placeholder="Фамилия"
+                    required
+                    name="lastName"
+                    value={this.state.lastName}
+                    onChange={e => this.setState({ lastName: e.target.value })}
+                  />
+                  <Label>Фамилия</Label>
+                  <ErrorMessage name="lastName">
+                    {(msg) => (
+                      <div className="field-error text-danger">{msg}</div>
+                    )}
+                  </ErrorMessage>
+                </FormGroup>
+              </Col>
+            </Row>
+            <FormGroup>
+              <CustomInput
+                required={false}
+                type="file"
+                label="Выберите файл"
+                id="exampleCustomFileBrowser"
+                name="customFile"
+                onChange={e => {this.setState({avatar: e.target.files[0]}); console.log(e.target.value)}}
+                />
             </FormGroup>
-          </Col>
-          <Col lg="6" md="6" sm="12">
-            <FormGroup className="form-label-group">
-              <Input
-                type="tel"
-                placeholder="+7 777 777 7777"
-                required
-                value={this.state.phoneNumber}
-                onChange={e => this.setState({ phoneNumber: e.target.value })}
+            <FormGroup className="mt-1">
+              <Checkbox
+                color="primary"
+                icon={<Check className="vx-icon" size={16} />}
+                label=" Я прочитал и принимаю пользовательское соглашение."
+                defaultChecked={false}
+                onClick={e => {this.setState({accept: true})}}
               />
-              <Label>Телефон</Label>
             </FormGroup>
-          </Col>
-          <Col lg="12" md="12" sm="12">
-            <FormGroup className="form-label-group">
-              <Input
-                type="email"
-                placeholder="Почта"
-                required
-                value={this.state.email}
-                onChange={e => this.setState({ email: e.target.value })}
-              />
-              <Label>Почта</Label>
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg="6" md="6" sm="12">
-            <FormGroup className="form-label-group">
-              <Input
-                type="password"
-                placeholder="Пароль"
-                required
-                value={this.state.password}
-                onChange={e => this.setState({ password: e.target.value })}
-              />
-              <Label>Пароль</Label>
-            </FormGroup>
-          </Col>
-          <Col lg="6" md="6" sm="12">
-            <FormGroup className="form-label-group">
-              <Input
-                type="password"
-                placeholder="Подтвердите пароль"
-                required
-                value={this.state.confirmPass}
-                onChange={
-                  e => { this.setState({ confirmPass: e.target.value }) }
-                }
-              />
-              <Label>Подтвердите пароль</Label>
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg="6" md="6" sm="12">
-            <FormGroup className="form-label-group">
-              <Input
-                type="text"
-                placeholder="Имя"
-                required
-                value={this.state.firstName}
-                onChange={e => this.setState({ firstName: e.target.value })}
-              />
-              <Label>Имя</Label>
-            </FormGroup>
-          </Col>
-          <Col lg="6" md="6" sm="12">
-            <FormGroup className="form-label-group">
-              <Input
-                type="text"
-                placeholder="Фамилия"
-                required
-                value={this.state.lastName}
-                onChange={e => this.setState({ lastName: e.target.value })}
-              />
-              <Label>Фамилия</Label>
-            </FormGroup>
-          </Col>
-        </Row>
-        <FormGroup>
-          <CustomInput
-            required={false}
-            type="file"
-            label="Выберите файл"
-            id="exampleCustomFileBrowser"
-            name="customFile"
-            onChange={e => {this.setState({avatar: e.target.files[0]}); console.log(e.target.value)}}
-            />
-        </FormGroup>
-        <FormGroup className="mt-1">
-          <Checkbox
-            color="primary"
-            icon={<Check className="vx-icon" size={16} />}
-            label=" Я прочитал и принимаю пользовательское соглашение."
-            defaultChecked={false}
-            onClick={e => {this.setState({accept: true})}}
-          />
-        </FormGroup>
-        <div className="d-flex justify-content-between">
-          <Button.Ripple
-            color="primary"
-            outline
-            onClick={() => {
-              history.push("/")
-            }}
-          >
-            Войти
-          </Button.Ripple>
-          <Button.Ripple color="primary" type="button" onClick={this.signup}>
-            Регистрация
-          </Button.Ripple>
-        </div>
-        <ToastContainer />
-      </Form>
+            <div className="d-flex justify-content-between">
+              <Button.Ripple
+                color="primary"
+                outline
+                onClick={() => {
+                  history.push("/")
+                }}
+              >
+                Войти
+              </Button.Ripple>
+              <Button.Ripple color="primary" type="button" onClick={this.signup}>
+                Регистрация
+              </Button.Ripple>
+            </div>
+            <ToastContainer />
+          </Form>
+        )}>
+        
+      </Formik>
     )
   }
 }
