@@ -230,7 +230,7 @@ class RegisterJWT extends React.Component {
                 required={false}
                 type="file"
                 accept="image/x-png,image/gif,image/jpeg"
-                label="Выберите файл"
+                label="Загрузить аватар"
                 id="exampleCustomFileBrowser"
                 name="avatar"
                 onChange={e => {
