@@ -6,10 +6,16 @@ import UserDataService from "../../../api/user-data-service";
 import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "../../../assets/scss/plugins/extensions/toastr.scss"
+import {history} from "../../../history";
+import {handleErrorFromBD, onValidationError} from "../authentication/AuthServices";
 
 const formSchema = Yup.object().shape({
-  oldpass:     Yup.string().required("Это поле должно быть заполнено"),
-  newpass:     Yup.string().required("Это поле должно быть заполнено"),
+  oldpass:     Yup.string().required("Это поле должно быть заполнено")
+    .min(8, "Пароль должен состоять минимум из 8 символов и одной буквы")
+    .matches(/(?=.*[A-Za-z-яёА-ЯЁ])(?=.*\d)[A-Za-z-яёА-ЯЁ\d]{8,}$/i, "Пароль должен состоять минимум из 8 символов и одной буквы"),
+  newpass:     Yup.string().required("Это поле должно быть заполнено")
+    .min(8, "Пароль должен состоять минимум из 8 символов и одной буквы")
+    .matches(/(?=.*[A-Za-z-яёА-ЯЁ])(?=.*\d)[A-Za-z-яёА-ЯЁ\d]{8,}$/i, "Пароль должен состоять минимум из 8 символов и одной буквы"),
   confirmpass: Yup.string()
                  .oneOf([Yup.ref("newpass"), null], "Пароли должны совпадать")
                  .required("Это поле должно быть заполнено")
@@ -48,14 +54,17 @@ class ChangePassword extends React.Component {
                 newpass:     "",
                 confirmpass: ""
               }}
-              onSubmit={async (values) => {
-                await new Promise((r) => setTimeout(r, 500));
+              onSubmit={(values) => {
                 this.userDataService.changePassword({
-                  user_id:      this.state.id,
+                  user_id:      1,
                   old_password: values.oldpass,
                   new_password: values.newpass,
-                }).then(res => this.onValidateSuccess('Данные успешно сохранены!'))
-                  .catch(err => console.log(err))
+                }).then(response => {
+                    if (!response.data.response) {
+                      throw new Error(response.data.errors)
+                    }
+                  this.onValidationSuccess('Данные успешно сохранены!')
+                }).catch((err) => onValidationError(handleErrorFromBD(err.message)))
               }}
               validationSchema={formSchema}
             >

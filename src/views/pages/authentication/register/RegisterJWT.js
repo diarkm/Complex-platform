@@ -1,50 +1,27 @@
 import React from "react"
-import { Form, FormGroup, Input, Label, Button, CustomInput, Alert, Row, Col } from "reactstrap"
-import { Formik, ErrorMessage, Field } from 'formik'
+import {FormGroup, Input, Label, Button, CustomInput, Alert, Row, Col, FormFeedback} from "reactstrap"
 import UserDataService from "../../../../api/user-data-service";
 import Checkbox from "../../../../components/@vuexy/checkbox/CheckboxesVuexy"
-import { Check } from "react-feather"
-import { connect } from "react-redux"
-import { signupForm } from "../../../../server"
-import { history } from "../../../../history"
+import {Check} from "react-feather"
+import {connect} from "react-redux"
+import {signupForm} from "../../../../server"
+import {history} from "../../../../history"
 import axios from 'axios';
 import TokenStorage from '../../../../api/tokenStorage';
-import { toast, ToastContainer } from "react-toastify"
+import {toast, ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "../../../../assets/scss/plugins/extensions/toastr.scss"
 import "../../../../assets/scss/pages/register.scss"
-import * as Yup from "yup"
-
-const SignUpSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Почта неверно введена")
-    .required("Поле должно быть заполнено"),
-  firstName: Yup.string()
-    .min(2, "Должно быть больше 2 символов")
-    .max(20, "Слишком большое имя")
-    .required("Поле должно быть заполнено"),
-  lastName: Yup.string()
-    .min(2, "Должно быть больше 2 символов")
-    .max(20, "Слишком большая фамилия")
-    .required("Поле должно быть заполнено")
-})
+import {handleErrorFromBD, normalizePhoneInput, onValidationError, registerFormSchema} from "../AuthServices";
+import {Formik, Field, Form} from "formik";
 
 class RegisterJWT extends React.Component {
   storage = new TokenStorage()
-
   state = {
-    login: "",
-    firstName: "",
-    lastName: "",
-    password: "",
-    confirmPass: "",
-    email: "",
-    avatar: "",
-    phoneNumber: "",
-    accept: false,
     ref_id: '',
     showError: false,
-    errorMessage: ''
+    errorMessage: '',
+    showSuccess: false,
   }
 
   constructor(props) {
@@ -52,70 +29,35 @@ class RegisterJWT extends React.Component {
     this.userDataService = new UserDataService()
   }
 
-  onValidationError = errors => {
-    toast.error(errors, {
-      position: toast.POSITION.TOP_RIGHT
+  handleImage = (e,setField, setError) => {
+    e.preventDefault();
+    const fileTm = e.target.files[0];
+    setField('avatar',fileTm);
+  }
+
+  signup = async (values) => {
+    registerFormSchema.validate(values)
+      .then((valid) => {
+        let fd = new FormData();
+        for (let item in Object.values(valid)) {
+          let $keyItem = Object.keys(valid)[item]
+
+          if (valid[$keyItem])
+            fd.append($keyItem, valid[$keyItem])
+        }
+        axios.post('https://cabinet.giq-group.com/back/public/user/signup', fd)
+          .then((response) => {
+            if (response.data.response) {
+              this.setState({showSuccess: true})
+              setTimeout(() => history.push('/'), 2000)
+            } else{
+              console.log(response.data.errors);
+              return onValidationError(handleErrorFromBD(response.data.errors));
+            }
+          }).catch((err) => console.log(err))
+      }).catch((err) => {
+      onValidationError(err.errors[0])
     })
-  }
-
-  onValidationSuccess = message => {
-    toast.success(message, {
-      position: toast.POSITION.TOP_RIGHT
-    })
-  }
-
-  signup = async () => {
-    if (!this.state.accept){
-      this.onValidationError('Пожалуйста примите пользовательское соглашение');
-      return
-    }
-
-    if (this.state.password != this.state.confirmPass){
-      this.onValidationError('Пароли не совпадают');
-      return
-    }
-
-    if (this.state.login.length == 0) {
-      this.onValidationError('Введите логин');
-      return
-    }
-
-    if (this.state.email.length == 0) {
-      this.onValidationError('Введите почту');
-      return
-    }
-
-    if (this.state.phoneNumber.length == 0) {
-      this.onValidationError('Введите номер телефона');
-      return
-    }
-
-    if (this.state.firstName.length == 0 || this.state.lastName.length == 0) {
-      this.onValidationError('Введите имя и фамилию');
-      return
-    }
-
-    try {
-      let fd = new FormData();
-      for (let item in Object.values(this.state)) {
-        let $keyItem = Object.keys(this.state)[item]
-
-        if(this.state[$keyItem])
-          fd.append($keyItem, this.state[$keyItem])
-      }
-
-      const response = await axios.post('https://cabinet.giq-group.com/back/public/user/signup', fd);
-      if (response.data.response) {
-        alert('Вы успешно зарегестрировали свой аккаунт! Пройдите авторизацию');
-        history.push('/');
-      } else return this.onValidationError(response.data.errors);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  handleRegister = e => {
-    e.preventDefault()
   }
 
   componentDidMount() {
@@ -137,115 +79,149 @@ class RegisterJWT extends React.Component {
 
   render() {
     return (
-      <Formik 
-        validationSchema={SignUpSchema}
-        render={({errors, touched}) => (
-          <Form action="/" onSubmit={this.handleRegister}>
-            <h4 className="mb-0">Регистрация</h4>
-            <p className="auth-title mt-1 mb-2">
-              Пожалуйста, заполните все необходимые поля для регистрации
-            </p>
-            <Alert color="primary" style={{display: this.state.refererName ? 'block' : 'none' }}>
+      <Formik
+        initialValues={{
+          login: "",
+          firstName: "",
+          lastName: "",
+          password: "",
+          confirmPass: "",
+          email: "",
+          avatar: "",
+          phoneNumber: "",
+          showPhoneNumber: "",
+          accept: false,
+        }}
+        validationSchema={registerFormSchema}
+        onSubmit={values => {
+          console.log(values);
+          this.signup(values);
+        }}
+      >
+        {({errors, touched, values, setFieldValue, setFieldError}) => (
+          <Form>
+            <Alert color="success" style={{display: this.state.showSuccess ? 'block' : 'none', marginBottom: 20}}>
+              Вы успешно зарегестрировали свой аккаунт!
+            </Alert>
+            <Alert color="primary" style={{display: this.state.refererName ? 'block' : 'none'}}>
               <strong>Ваш спонсор: </strong>{this.state.refererName ? this.state.refererName : ''}
             </Alert>
-            <Alert color="danger" style={{display: this.state.showError ? 'block' : 'none' }}>
+            <Alert color="danger" style={{display: this.state.showError ? 'block' : 'none'}}>
               {this.state.errorMessage}
             </Alert>
             <Row>
               <Col lg="6" md="6" sm="12">
                 <FormGroup className="form-label-group">
-                  <Input
+                  <Field
+                    className={`form-control
+                    ${errors.login && touched.login && "is-invalid"}`}
+                    name="login"
                     type="text"
                     placeholder="Логин"
-                    required
-                    value={this.state.login}
-                    onChange={e => this.setState({ login: e.target.value.replace(/[^\w\s]/gi, "") })}
                   />
                   <Label>Логин</Label>
+                {errors.login && touched.login ? (
+                  <FormFeedback>{errors.login} </FormFeedback>
+                ) : null}
                 </FormGroup>
               </Col>
               <Col lg="6" md="6" sm="12">
                 <FormGroup className="form-label-group">
-                  <Input
+                  <Field
+                    className={`form-control
+                    ${errors.showPhoneNumber && touched.showPhoneNumber && "is-invalid"}`}
+                    name="showPhoneNumber"
                     type="tel"
                     placeholder="+7 777 777 7777"
-                    required
-                    value={this.state.phoneNumber}
-                    onChange={e => this.setState({ phoneNumber: e.target.value })}
+                    onChange={e => {
+                        setFieldValue('showPhoneNumber', normalizePhoneInput(e.target.value, values.phoneNumber));
+                        setFieldValue('phoneNumber', e.target.value.replace(/[^\d+]/g, ''));
+                    }}
                   />
                   <Label>Телефон</Label>
+                  {errors.showPhoneNumber && touched.showPhoneNumber ? (
+                    <FormFeedback>{errors.showPhoneNumber}</FormFeedback>
+                  ) : null}
                 </FormGroup>
               </Col>
               <Col lg="12" md="12" sm="12">
                 <FormGroup className="form-label-group">
-                  <Input
+                  <Field
+                    className={`form-control
+                    ${errors.email && touched.email && "is-invalid"}`}
+                    name="email"
                     type="email"
                     placeholder="Почта"
-                    required
-                    value={this.state.email}
-                    onChange={e => this.setState({ email: e.target.value })}
                   />
                   <Label>Почта</Label>
+                  {errors.email && touched.email ? (
+                    <FormFeedback>{errors.email}</FormFeedback>
+                  ) : null}
                 </FormGroup>
               </Col>
             </Row>
             <Row>
               <Col lg="6" md="6" sm="12">
                 <FormGroup className="form-label-group">
-                  <Input
+                  <Field
+                    className={`form-control
+                    ${errors.password && touched.password && "is-invalid"}`}
+                    name="password"
                     type="password"
                     placeholder="Пароль"
-                    required
-                    value={this.state.password}
-                    onChange={e => this.setState({ password: e.target.value })}
                   />
                   <Label>Пароль</Label>
+                  {errors.password && touched.password ? (
+                    <FormFeedback>{errors.password}</FormFeedback>
+                  ) : null}
                 </FormGroup>
               </Col>
               <Col lg="6" md="6" sm="12">
                 <FormGroup className="form-label-group">
-                  <Input
+                  <Field
+                    className={`form-control
+                    ${errors.confirmPass && touched.confirmPass && "is-invalid"}`}
+                    name="confirmPass"
                     type="password"
                     placeholder="Подтвердите пароль"
-                    required
-                    value={this.state.confirmPass}
-                    onChange={
-                      e => { this.setState({ confirmPass: e.target.value }) }
-                    }
                   />
                   <Label>Подтвердите пароль</Label>
+                  {errors.confirmPass && touched.confirmPass ? (
+                    <FormFeedback>{errors.confirmPass}</FormFeedback>
+                  ) : null}
                 </FormGroup>
               </Col>
             </Row>
             <Row>
               <Col lg="6" md="6" sm="12">
                 <FormGroup className="form-label-group">
-                  <Input
+                  <Field
+                    className={`form-control
+                    ${errors.firstName && touched.firstName && "is-invalid"}`}
+                    name="firstName"
                     type="text"
                     placeholder="Имя"
-                    required
-                    value={this.state.firstName}
-                    onChange={e => this.setState({ firstName: e.target.value })}
                   />
                   <Label>Имя</Label>
+                  {errors.firstName && touched.firstName ? (
+                    <FormFeedback>{errors.firstName}</FormFeedback>
+                  ) : null}
                 </FormGroup>
               </Col>
               <Col lg="6" md="6" sm="12">
                 <FormGroup className="form-label-group">
-                  <Input
+                  <Field
+                    className={`form-control
+                    ${errors.lastName && touched.lastName && "is-invalid"}`}
+                    name="lastName"
                     type="text"
                     placeholder="Фамилия"
-                    required
-                    name="lastName"
-                    value={this.state.lastName}
-                    onChange={e => this.setState({ lastName: e.target.value })}
                   />
                   <Label>Фамилия</Label>
-                  <ErrorMessage name="lastName">
-                    {(msg) => (
-                      <div className="field-error text-danger">{msg}</div>
-                    )}
-                  </ErrorMessage>
+                  {errors.lastName && touched.lastName ? (
+                    <FormFeedback>{errors.lastName}</FormFeedback>
+                  ) : null}
+
                 </FormGroup>
               </Col>
             </Row>
@@ -253,20 +229,35 @@ class RegisterJWT extends React.Component {
               <CustomInput
                 required={false}
                 type="file"
-                label="Выберите файл"
+                accept="image/x-png,image/gif,image/jpeg"
+                label="Загрузить аватар"
                 id="exampleCustomFileBrowser"
-                name="customFile"
-                onChange={e => {this.setState({avatar: e.target.files[0]}); console.log(e.target.value)}}
-                />
+                name="avatar"
+                onChange={e => {
+                  this.handleImage(e, setFieldValue, setFieldError);
+                  console.log(e.target.value)
+                }}
+              />
+              {errors.avatar ? (
+                <div className="text-danger small">{errors.avatar}</div>
+              ) : null}
             </FormGroup>
             <FormGroup className="mt-1">
               <Checkbox
-                color="primary"
-                icon={<Check className="vx-icon" size={16} />}
+                color={`primary`}
+                icon={<Check className="vx-icon" size={16}/>}
                 label=" Я прочитал и принимаю пользовательское соглашение."
                 defaultChecked={false}
-                onClick={e => {this.setState({accept: true})}}
+                onClick={e => {
+                  setFieldValue('accept', true)
+                }}
+                error={errors.accept}
               />
+              {errors.accept &&
+              (
+                <div className="text-danger small">{errors.accept}</div>
+              )
+              }
             </FormGroup>
             <div className="d-flex justify-content-between">
               <Button.Ripple
@@ -278,21 +269,26 @@ class RegisterJWT extends React.Component {
               >
                 Войти
               </Button.Ripple>
-              <Button.Ripple color="primary" type="button" onClick={this.signup}>
+              <Button.Ripple color="primary" type="submit">
                 Регистрация
               </Button.Ripple>
             </div>
-            <ToastContainer />
+            <ToastContainer/>
           </Form>
-        )}>
-        
+        )}
       </Formik>
     )
   }
+
 }
+
 const mapStateToProps = state => {
   return {
-    values: state.auth.register
-  }
+  values: state.auth.register
 }
-export default connect(mapStateToProps, { signupForm })(RegisterJWT)
+}
+export default connect(mapStateToProps,
+{
+  signupForm
+}
+)(RegisterJWT)

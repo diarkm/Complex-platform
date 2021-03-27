@@ -50,6 +50,9 @@ class DataTableOrders extends React.Component {
         name: "ID транзакции",
         selector: "id",
         sortable: true,
+        sortFunction: (a, b) =>{
+          return b.id - a.id;
+        },
         cell: row => (
           <p className="text-bold-500 text-truncate mb-0">{row.id}</p>
         )
@@ -58,6 +61,9 @@ class DataTableOrders extends React.Component {
         name: "Дата",
         selector: "created_at",
         sortable: true,
+        sortFunction: (a, b) =>{
+          return new Date(b.created_at) - new Date(a.created_at);
+        },
         cell: row => (
           <p className="text-bold-500 text-truncate mb-0">{row.created_at.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)}</p>
         )
@@ -65,6 +71,9 @@ class DataTableOrders extends React.Component {
       {
         name: "Сумма",
         selector: "value",
+        sortFunction: (a, b) =>{
+          return b.value - a.value;
+        },
         sortable: true,
         cell: row => <p className="text-bold-500 mb-0">{row.value}</p>
       },
@@ -72,6 +81,9 @@ class DataTableOrders extends React.Component {
         name: "Статус ID",
         selector: "status",
         sortable: true,
+        sortFunction: (a, b) =>{
+          return  a.status.id - b.status.id;
+        },
         cell: row => (
           <Badge
             color={getColor(row)}
@@ -151,11 +163,14 @@ class DataTableOrders extends React.Component {
                 columns={columns}
                 noHeader
                 pagination
+                noDataComponent={<h4>У вас нет заказов</h4>}
                 onChangePage={() => {
 
                 }}
+                paginationComponentOptions={{ rowsPerPageText: 'Строк на странице:', rangeSeparatorText: 'из' }}
                 subHeader
                 theme="dark-giq"
+                onSort={(c, dir) => console.log(c + ' ' + dir) }
                 subHeaderComponent={
                   <CustomHeader value={value} handleFilter={this.handleFilter} />
                 }

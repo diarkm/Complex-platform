@@ -69,6 +69,7 @@ class InfoTab extends React.Component {
   }
 
   handleChange(changeObject) {
+
     this.setState(changeObject);
   }
 
@@ -185,29 +186,30 @@ class InfoTab extends React.Component {
         <Modal
           isOpen={this.state.add2faModal}
           toggle={this.toggleModal}
-          className="modal-dialog-centered"
+          className="modal-dialog-centered "
         >
-          <ModalHeader toggle={this.toggleModal}>
+          <ModalHeader toggle={this.toggleModal} className="d-flex flex-column align-items-center">
             Просканируйте код
           </ModalHeader>
-          <ModalBody>
-            <p>
+          <ModalBody  className="d-flex flex-column align-items-center">
+            <p className="text-center">
               Для подтверждения двухфакторной аутентификации необходимо
               скачать приложение Authenticator и просканировать код ниже
             </p>
-            <QRImage text={this.state.qr}/>
-            <Row>
+            <QRImage  text={this.state.qr}/>
+            <Row className="mt-sm-1">
               <Col sm="12">
                 <Form>
-                  <FormGroup>
+                  <FormGroup className="d-flex flex-column align-items-center">
                     <Label for="rek">Введите код из приложения</Label>
                     <Input
+                      style={{ width: 70 }}
                       type="text"
                       name="code"
                       id="code"
-                      rows="3"
+                      rows="2"
                       value={this.state.googleCode}
-                      onChange={(e) => this.handleChange({googleCode: e.target.value})}
+                      onChange={(e) => this.handleChange({googleCode: e.target.value.slice(0,6)})}
                       placeholder="000 000"
                     />
                   </FormGroup>
@@ -240,6 +242,7 @@ class InfoTab extends React.Component {
                 <FormGroup>
                   <Label for="rek">Введите код из приложения</Label>
                   <Input
+                    style={{ width: 100 }}
                     type="text"
                     name="code"
                     id="code_"

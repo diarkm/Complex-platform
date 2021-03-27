@@ -1,5 +1,5 @@
 /*const User = props => {
-    let 
+    let
         username = "",
         name = "",
         avatar = "",
