@@ -154,8 +154,8 @@ export const loginForm = user => {
           if(isLogged){
             dispatch({
               type: "LOGIN_WITH_LOGIN",
-              payload: { 
-                isLogged, 
+              payload: {
+                isLogged,
                 loggedInWith: "login",
                 name: "Кундакбаев Диар"
               }

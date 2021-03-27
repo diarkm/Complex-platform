@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { CardBody, FormGroup, Form, Input, Button, Label } from "reactstrap"
+import {CardBody, FormGroup, Form, Input, Button, Label, FormFeedback} from "reactstrap"
 import Checkbox from "../../../../components/@vuexy/checkbox/CheckboxesVuexy"
 import { Mail, Lock, Check } from "react-feather"
 import { loginForm } from "../../../../server"
@@ -11,6 +11,7 @@ import TokenStorage from '../../../../api/tokenStorage';
 import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "../../../../assets/scss/plugins/extensions/toastr.scss"
+import {handleErrorFromBD} from "../AuthServices";
 
 const apiURL = 'https://cabinet.giq-group.com/back/public'
 
@@ -25,7 +26,8 @@ class LoginJWT extends React.Component {
     googleAuth: {
       active: false,
       token: undefined
-    }
+    },
+    loginError: false,
   }
 
   handleLogin = e => {
@@ -45,8 +47,12 @@ class LoginJWT extends React.Component {
         remember: this.remember
       });
 
-      if (response.data.response === false)
-        return this.onValidationError('Вы ввели неверно логин или пароль');
+      if (!response.data.response){
+        if(response.data.errors === "User is not found"){
+          this.setState({loginError: true });
+        }
+        return this.onValidationError(handleErrorFromBD(response.data.errors));
+      }
 
       if (response.data["2FA"] === true) {
         this.setState({
@@ -82,8 +88,8 @@ class LoginJWT extends React.Component {
           Authorization: `${this.state.googleAuth.token}`
         }
       });
-      if (response.data.response === false){
-        return this.onValidationError('Неверно введен код подтверждения');
+      if (!response.data.response){
+        return this.onValidationError(handleErrorFromBD(response.data.errors));
       }
       this.createToken(response.data.token);
       window.location.href = '/dashboard'
@@ -104,12 +110,16 @@ class LoginJWT extends React.Component {
           <Form action="/" onSubmit={this.handleLogin}>
             <FormGroup className="form-label-group position-relative has-icon-left">
               <Input
+                className={ this.state.loginError && "is-invalid" }
                 type="text"
                 placeholder="Логин"
                 value={this.state.login}
                 onChange={e => this.setState({ login: e.target.value })}
                 required
               />
+              {this.state.loginError && (
+                <FormFeedback>Пользователь не найден</FormFeedback>
+              )}
               <div className="form-control-position">
                 <Mail size={15} />
               </div>
