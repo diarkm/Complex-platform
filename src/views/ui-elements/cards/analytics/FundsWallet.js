@@ -9,7 +9,7 @@ import UserDataService from "../../../../api/user-data-service";
 const FundsWallet = () => {
   const [balance, setbalance] = useState(0)
   const [isResp, setResp] = useState(0);
-  const [deposits, setdeposits] = useState([])
+  const [deposits, setdeposits] = useState(null)
   const [depositsloaded, setdepositsloaded] = useState(false)
 
   let UserAPI = new UserDataService()
@@ -24,12 +24,47 @@ const FundsWallet = () => {
   }
 
   // Депозиты
-  if(!deposits.length && !depositsloaded) {
+  if(!deposits?.length && !depositsloaded) {
     UserAPI.getDeposits()
       .then(response => {
         setdeposits(response.deposits.collection)
         setdepositsloaded(true)
       })
+  }
+  const renderDeposites = () => {
+
+    if(deposits === null){
+      return (
+        <Skeleton count={3}/>
+      )
+    }
+    if (deposits.length){
+      return deposits.map((deposit, i) => {
+
+        if(parseInt(deposit.value) <= 0)
+          return ''
+
+        let $date = new Date(deposit.created_at).setYear(
+          new Date().getFullYear()+1
+        )
+        // Deposit Founds Wallet
+        $date = new Date($date).toLocaleDateString()
+
+        return (
+          <React.Fragment key={i}>
+            <div className="d-flex justify-content-between">
+              <p className="text-success">{deposit.value}$</p>
+              <p>{$date}</p>
+            </div>
+            <hr className=" mt-0 mb-1" />
+          </React.Fragment>
+        )
+      })
+    }
+
+    return (
+      <h5>У вас нет депозитов </h5>
+    )
   }
 
   return (
@@ -68,27 +103,7 @@ const FundsWallet = () => {
               <small>Срок депозита</small>
             </div>
             <hr className="my-1" />
-            {deposits.length ? deposits.map((deposit, i) => {
-
-              if(parseInt(deposit.value) <= 0)
-                return ''
-
-              let $date = new Date(deposit.created_at).setYear(
-                new Date().getFullYear()+1
-              )
-              // Deposit Founds Wallet
-              $date = new Date($date).toLocaleDateString()
-
-              return (
-                <React.Fragment key={i}>
-                  <div className="d-flex justify-content-between">
-                    <p className="text-success">{deposit.value}$</p>
-                    <p>{$date}</p>
-                  </div>
-                  <hr className=" mt-0 mb-1" />
-                </React.Fragment>
-              )
-            }) : <Skeleton count={3}/>}
+            {renderDeposites()}
           </div>
         </CardBody>
       </SkeletonTheme>
