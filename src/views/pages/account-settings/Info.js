@@ -179,6 +179,7 @@ class InfoTab extends React.Component {
               </Button.Ripple>
               <Button.Ripple type="submit" color="danger">
                 Отмена
+                
               </Button.Ripple>
             </Col>
           </Row>

@@ -112,23 +112,16 @@ class ChangePassword extends React.Component {
                       <div className="text-danger">{errors.confirmpass}</div>
                     ) : null}
                   </FormGroup>
-                  <div className="d-flex justify-content-start flex-wrap">
-                    <Button.Ripple
-                      className="mr-1 mb-1"
-                      color="primary"
-                      type="submit"
-                    >
+                  <Col className="d-flex justify-content-start flex-wrap" >
+                    <Button.Ripple className="mr-50" type="submit" color="primary">
                       Сохранить изменения
                     </Button.Ripple>
-                    <Button.Ripple
-                      className="mb-1"
-                      color="danger"
-                      type="reset"
-                      outline
-                    >
+                    <Button.Ripple type="reset" color="danger" outline>
                       Отмена
+                      
                     </Button.Ripple>
-                  </div>
+                  </Col>
+
                 </Form>
               )}
             </Formik>
