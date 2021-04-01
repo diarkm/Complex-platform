@@ -59,7 +59,7 @@ export const registerFormSchema = Yup.object().shape({
     .required("Введите пароль"),
   email: Yup.string().email('Неправильная почта').required("Введите почту"),
   showPhoneNumber: Yup.string().required("Введите номер телефона")
-    .matches(/^\+(?:[0-9] ?){6,14}[0-9]$/,'Неправильный номер'),
+    .matches(/^\+{1,}(?:[0-9] ?){6,14}[0-9]$/,'Неправильный номер'),
   login: Yup.string().required("Введите логин").min(4,'Короткий логин'),
   accept: Yup.bool().oneOf([true], 'Пожалуйста примите пользовательское соглашение'),
   avatar: Yup.mixed().nullable().notRequired().test(
