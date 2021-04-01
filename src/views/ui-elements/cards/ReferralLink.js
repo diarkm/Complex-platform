@@ -39,7 +39,7 @@ class ReferralLink extends React.Component {
     return (
       <Card>
         <SkeletonTheme color="#283046" highlightColor="#3F4860">
-          <CardBody className="m-3">
+          <CardBody className="m-2">
             <div className="text-center">
               <h4>Ваша ссылка для приглашения</h4>
               <p>Скопируйте ссылку и получайте бонусы за приглашенных рефералов!</p>
@@ -52,7 +52,7 @@ class ReferralLink extends React.Component {
 
                 </Col>
                 <Col lg="2" md="2" sm="12">
-                  <Button.Ripple color="primary" onClick={onCopyRef(this.state?.user?.login)}>Скопировать</Button.Ripple>
+                  <Button.Ripple className="mt-2" color="primary" onClick={onCopyRef(this.state?.user?.login)}>Скопировать</Button.Ripple>
                 </Col>
               </Row>
             </div>
