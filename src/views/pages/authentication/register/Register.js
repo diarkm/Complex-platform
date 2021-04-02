@@ -46,10 +46,6 @@ class Register extends React.Component {
               </Col>
               <Col lg="6" md="12" className="p-0">
                 <Card className="rounded-0 mb-0 px-3 py-2">
-                  <h4 className="mb-2">Регистрация</h4>
-                  <p className="auth-title">
-                    Пожалуйста, заполните все необходимые поля для регистрации
-                  </p>
                   <RegisterJWT referer={this.props.match ? this.props.match.params.referer : null}/>
                 </Card>
               </Col>
