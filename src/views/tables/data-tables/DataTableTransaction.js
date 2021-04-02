@@ -261,11 +261,11 @@ class DataTableCustom extends React.Component {
     return (
       <Card>
         <CardHeader>
-          <CardTitle >История транзакций</CardTitle>
+          <CardTitle>История транзакций</CardTitle>
         </CardHeader>
         <CardBody className="rdt_Wrapper">
           <DataTable
-            className="dataTable-custom justify-content-center"
+            className="dataTable-custom"
             data={value.length ? filteredData : data}
             columns={columns}
             noHeader

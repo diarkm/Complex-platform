@@ -103,6 +103,7 @@ class Sales2 extends React.Component {
           <div className="title">
             <CardTitle>Всего заработано</CardTitle>
           </div>
+          <Settings className="text-muted cursor-pointer" size={20} />
         </CardHeader>
         <CardBody>
           <Chart

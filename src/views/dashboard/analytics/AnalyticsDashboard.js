@@ -171,8 +171,8 @@ class AnalyticsDashboard extends React.Component {
                   {console.log(this.state.user)}
                     <h5>{this.state.user ? `${this.state.user.firstName} ${this.state.user.lastName}` : <Skeleton width={100}/>}</h5>
                     <p>{userStatus || <Skeleton width={60}/>}</p>
-                    <div className="avatar" style={{width:200,height:200}}>
-                      {this.state.userAvatar ? <img style={{height:"100%",width:"100%"}}  src={this.state.userAvatar} alt="avatarImg" /> : <Skeleton width={200} height={200} circle={true}/>}
+                    <div className="avatar">
+                      {this.state.userAvatar ? <img width="200" height="200" src={this.state.userAvatar} alt="avatarImg" /> : <Skeleton width={200} height={200} circle={true}/>}
                     </div>
                     <div className="d-flex justify-content-around mt-2">
                       <div className="uploads">
@@ -189,10 +189,10 @@ class AnalyticsDashboard extends React.Component {
                       </div>
                     </div>
                     <Button.Ripple 
-                      className="btn-block gradient-light-primary mt-2 mb-2"
+                      className="btn-block gradient-light-primary mt-2"
                       onClick={() => history.push("/referrals")}
                       >
-                      Посмотреть структуру
+                    Посмотреть структуру
                     </Button.Ripple>
                 </div>
               </Card>
