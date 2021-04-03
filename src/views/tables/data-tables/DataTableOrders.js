@@ -22,7 +22,7 @@ createTheme('dark-giq', {
 
 const CustomHeader = props => {
   return (
-    <div className="d-flex flex-wrap justify-content-end">
+    <div className="d-flex flex-wrap justify-content-center">
       <div className="position-relative has-icon-left mb-1">
         <Input value={props.value} onChange={e => props.handleFilter(e)} />
         <div className="form-control-position">
