@@ -131,11 +131,17 @@ class InfoTab extends React.Component {
       code:   this.state.googleCode,
     }
     this.userDataService.disable2fa(googleData)
+      .then(response => {
+        if(response.data.response === true)
+          return response.data
+        else
+          throw new Error(response.data.errors)
+      })
       .then(res => {
         this.setState({remove2faModal: false})
+        this.onValidationSuccess('Вы деактивировали двухфакторную аутентификацию')
       })
-      .catch(err => console.log(err))
-      this.onValidationSuccess('Вы деактивировали двухфакторную аутентификацию')
+      .catch(err => this.onValidationError('Неправильный код'))
   }
 
   render() {

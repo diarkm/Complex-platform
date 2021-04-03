@@ -126,16 +126,18 @@ class DataTableOrders extends React.Component {
     let filteredData = this.state.filteredData
     this.setState({ value })
 
-    if (value.length) {
+    if (value.length && data) {
       filteredData = data.filter(item => {
         let startsWithCondition =
-          item.date.toLowerCase().startsWith(value.toLowerCase()) ||
-          item.revenue.toLowerCase().startsWith(value.toLowerCase()) ||
-          item.status.toLowerCase().startsWith(value.toLowerCase())
+          item.value.toLowerCase().startsWith(value.toLowerCase()) ||
+          item.created_at.toString().toLowerCase().startsWith(value.toLowerCase())||
+          item.id.toString().toLowerCase().startsWith(value.toLowerCase())||
+          item.status.name.toLowerCase().startsWith(value.toLowerCase())
         let includesCondition =
-          item.date.toLowerCase().includes(value.toLowerCase()) ||
-          item.revenue.toLowerCase().includes(value.toLowerCase()) ||
-          item.status.toLowerCase().includes(value.toLowerCase())
+          item.value.toLowerCase().includes(value.toLowerCase()) ||
+          item.created_at.toString().toLowerCase().startsWith(value.toLowerCase())||
+          item.id.toString().toLowerCase().startsWith(value.toLowerCase()) ||
+          item.status.name.toLowerCase().startsWith(value.toLowerCase())
 
         if (startsWithCondition) {
           return startsWithCondition
@@ -172,7 +174,7 @@ class DataTableOrders extends React.Component {
                 theme="dark-giq"
                 onSort={(c, dir) => console.log(c + ' ' + dir) }
                 subHeaderComponent={
-                  <CustomHeader value={value} handleFilter={this.handleFilter} />
+                  <CustomHeader value={value} handleFilter={(e) => this.handleFilter(e)} />
                 }
               /> : <Skeleton height={35} count={10}/>
             }

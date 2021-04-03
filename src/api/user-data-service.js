@@ -54,7 +54,8 @@ class UserDataService {
     })
       .then(response => {
         if (!response.data.response) {
-          this.handleResponseError(response)
+          console.log(response)
+          this.handleResponseError(response.data.response.errors)
         }
         return response.json()
       })
@@ -259,17 +260,9 @@ class UserDataService {
       })
   }
 
-  async disable2fa() {
-    return this.client.post(`/user/2fa/disable`, {})
-      .then(response => {
-        if(response.data.response === true)
-          return response.data
-        else
-          console.log(response.data.errors)
-      })
-      .catch(error => {
-        this.handleError(error)
-      })
+  async disable2fa(data) {
+    let formData = this.getFormData(data)
+    return this.client.post(`/user/2fa/disable`, formData)
   }
 
   handleResponseError(response) {

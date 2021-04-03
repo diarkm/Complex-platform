@@ -88,7 +88,7 @@ const Checkout = () => {
     })
 
     if(payment.response && payment.link)
-      window.location.href = payment.link
+      window.open(payment.link,'_blank');
   }
 
   return (

@@ -60,6 +60,7 @@ class ChangePassword extends React.Component {
                   old_password: values.oldpass,
                   new_password: values.newpass,
                 }).then(response => {
+                  console.log(response);
                     if (!response.data.response) {
                       throw new Error(response.data.errors)
                     }
