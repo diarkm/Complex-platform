@@ -123,8 +123,8 @@ export default function GeneralForm (props){
                 </p>
               </Alert>
             </Col>
-            <Col className="d-flex justify-content-start flex-wrap" sm="12">
-              <Button.Ripple className="mr-50" type="submit" color="primary" disabled={!(props.isFilePicked || dirty)}>
+            <Col className="d-flex justify-content-between flex-wrap" sm="12">
+              <Button.Ripple  type="submit" color="primary" disabled={!(props.isFilePicked || dirty)}>
                 Сохранить изменения
               </Button.Ripple>
               <Button.Ripple onClick={() => props.refreshPage()} type="reset" color="danger">

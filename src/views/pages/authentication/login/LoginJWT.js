@@ -165,10 +165,12 @@ class LoginJWT extends React.Component {
                 <Link to="/forgot-password">Забыли пароль?</Link>
               </div>
             </FormGroup>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between" style={{flexFlow: "row",
+                                                                    flexWrap: "wrap"}}>
               <Button.Ripple
                 color="primary"
                 outline
+                className="mt-1"
                 onClick={() => {
                   history.push("/register")
                 }}
@@ -176,12 +178,12 @@ class LoginJWT extends React.Component {
                 Регистрация
               </Button.Ripple>
               {!this.state.googleAuth.active &&
-                <Button.Ripple color="primary" type="submit" onClick={this.auth}>
+                <Button.Ripple className="mt-1" color="primary" type="submit" onClick={this.auth} style={{}}>
                   Войти
                 </Button.Ripple>
               }
               {this.state.googleAuth.active &&
-                <Button.Ripple color="primary" type="submit" onClick={this.googleAuth}>
+                <Button.Ripple className="mt-1" color="primary" type="submit" onClick={this.googleAuth}>
                   Войти
                 </Button.Ripple>
               }

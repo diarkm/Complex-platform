@@ -179,8 +179,8 @@ class InfoTab extends React.Component {
                 />
               </FormGroup>
             </Col>
-            <Col className="d-flex justify-content-start flex-wrap" sm="12">
-              <Button.Ripple className="mr-50" type="submit" color="primary" disabled={this.state.block}>
+            <Col className="d-flex justify-content-between flex-wrap" sm="12">
+              <Button.Ripple type="submit" color="primary" disabled={this.state.block}>
                 Сохранить изменения
               </Button.Ripple>
               <Button.Ripple type="submit" color="danger">

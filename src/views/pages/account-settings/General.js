@@ -115,16 +115,14 @@ class General extends React.Component {
       <React.Fragment>
         <SkeletonTheme color="#283046" highlightColor="#3F4860">
           <Media>
-            <Media className="mr-1" left href="#">
+            <Media className="mr-1 avatar" left href="#" style={{height:64,width:64,overflow:"hidden"}}>
               {this.state.img ?
                 <Media
                   id="user-avatar"
-                  className="rounded-circle"
                   object
                   src={this.state.img}
                   alt="User"
-                  height="64"
-                  width="64"
+                  style={{borderRadius:0}}
                 /> : <Skeleton circle={true} height={64} width={64}/>
               }
             </Media>
