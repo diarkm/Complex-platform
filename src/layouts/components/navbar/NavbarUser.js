@@ -355,13 +355,12 @@ class NavbarUser extends React.PureComponent {
                 </span>
                 <span className="user-status">{userStatus || <Skeleton width={40}/>}</span>
               </div>
-              <span data-tour="user">
+              <span data-tour="user" className="avatar" style={{height:40,width:40,overflow:"hidden"}}>
                 {this.state.userAvatar ?
                 <img
                   src={this.state.userAvatar}
-                  className="round"
-                  height="40"
-                  width="40"
+                  className="round" 
+                  style={{borderRadius:0}}         
                   alt="avatar"
                 /> : <Skeleton width={40} height={40} circle={true}/>}
               </span>

@@ -2,7 +2,7 @@ export const mobileStyle = {
   wrap: {
     background: "#E2E2E2",
     fontSize: 14,
-    right:"50%"
+    right: "50%"
   },
   "input.mobile": {
     color: "5f5f5f",
@@ -12,7 +12,7 @@ export const mobileStyle = {
     fontWeight: 400,
     backgroundColor: "#f8f8f8",
     height: "26px"
-    
+
   },
   "input:focus": {
     outline: "none"

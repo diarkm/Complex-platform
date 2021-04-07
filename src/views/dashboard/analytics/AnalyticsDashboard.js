@@ -171,8 +171,8 @@ class AnalyticsDashboard extends React.Component {
                   {console.log(this.state.user)}
                     <h5>{this.state.user ? `${this.state.user.firstName} ${this.state.user.lastName}` : <Skeleton width={100}/>}</h5>
                     <p>{userStatus || <Skeleton width={60}/>}</p>
-                    <div className="avatar" style={{width:200,height:200}}>
-                      {this.state.userAvatar ? <img style={{height:"100%",width:"100%"}}  src={this.state.userAvatar} alt="avatarImg" /> : <Skeleton width={200} height={200} circle={true}/>}
+                    <div className="avatar" style={{width:200,height:200,overflow:"hidden"}}>
+                      {this.state.userAvatar ? <img style={{borderRadius:0}}  src={this.state.userAvatar} alt="avatarImg" /> : <Skeleton width={200} height={200} circle={true}/>}
                     </div>
                     <div className="d-flex justify-content-around mt-2">
                       <div className="uploads">
