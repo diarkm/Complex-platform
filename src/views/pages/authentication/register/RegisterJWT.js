@@ -127,6 +127,7 @@ class RegisterJWT extends React.Component {
               </Col>
               <Col lg="6" md="6" sm="12">
                 <FormGroup className="form-label-group">
+                  {console.log(values.phoneNumber)}
                   <Field
                     className={`form-control
                     ${errors.showPhoneNumber && touched.showPhoneNumber && "is-invalid"}`}
