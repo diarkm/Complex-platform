@@ -110,7 +110,7 @@ class LoginJWT extends React.Component {
           <Form action="/" onSubmit={this.handleLogin}>
             <FormGroup className="form-label-group position-relative has-icon-left">
               <Input
-                className={ this.state.loginError && "is-invalid" }
+                className={ this.state.loginError ? "is-invalid" : "" }
                 type="text"
                 placeholder="Логин"
                 value={this.state.login}
