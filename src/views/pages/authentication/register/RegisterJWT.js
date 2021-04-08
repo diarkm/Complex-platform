@@ -134,8 +134,15 @@ class RegisterJWT extends React.Component {
                     type="tel"
                     placeholder="+7 777 777 7777"
                     onChange={e => {
-                        setFieldValue('showPhoneNumber', normalizePhoneInput(e.target.value, values.phoneNumber));
-                        setFieldValue('phoneNumber', e.target.value.replace(/[^\d+]/g, ''));
+                        let currentValue = e.target.value;
+                        if(currentValue.substr(currentValue.length-1) === '+' && currentValue.length !== 1){
+                          currentValue = currentValue.slice(0,currentValue.length-1);
+                        }
+                        if (currentValue.length > 15){
+                          currentValue = currentValue.slice(0,15);
+                        }
+                        setFieldValue('showPhoneNumber', normalizePhoneInput(currentValue, values.phoneNumber));
+                        setFieldValue('phoneNumber', currentValue.replace(/[^\d+]/g, ''));
                     }}
                   />
                   <Label>Телефон</Label>
@@ -266,6 +273,7 @@ class RegisterJWT extends React.Component {
                 onClick={() => {
                   history.push("/")
                 }}
+                className="auth-btn"
               >
                 Войти
               </Button.Ripple>

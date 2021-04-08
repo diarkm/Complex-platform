@@ -35,7 +35,7 @@ const UserDropdown = props => {
 
   const exit = () => {
     localStorage.removeItem('token');
-    window.location.href = '/';
+    window.location.href = 'https://giq-group.com/';
   }
   return (
     <DropdownMenu right>
@@ -50,7 +50,7 @@ const UserDropdown = props => {
       <DropdownItem divider />
       <DropdownItem
         tag="a"
-        href="#"
+        href="https://giq-group.com/"
         onClick={e => {
           e.preventDefault()
 
