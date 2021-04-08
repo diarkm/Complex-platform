@@ -136,7 +136,7 @@ class RegisterJWT extends React.Component {
                     placeholder="+7 777 777 7777"
                     onChange={e => {
                         let currentValue = e.target.value;
-                        if(currentValue.substr(currentValue.length-1) === '+'){
+                        if(currentValue.substr(currentValue.length-1) === '+' && currentValue.length !== 1){
                           currentValue = currentValue.slice(0,currentValue.length-1);
                         }
                         if (currentValue.length > 15){
