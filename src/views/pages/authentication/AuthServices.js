@@ -38,7 +38,7 @@ export const normalizePhoneInput = (value, previousValue) => {
   const currentValue = value.replace(/[^\d+]/g, '');
   const cvLength = currentValue.length;
   if (!previousValue || value.length > previousValue.length || !value) {
-    if(cvLength === 1) return `+${currentValue}`;
+    if(cvLength === 1 && currentValue !=='+') return `+${currentValue}`;
     if (cvLength < 6) return currentValue;
     if (cvLength < 9) return `${currentValue.slice(0, 2)} ${currentValue.slice(2, 5)} ${currentValue.slice(5)}`;
     return `${currentValue.slice(0, 2)} ${currentValue.slice(2, 5)} ${currentValue.slice(5, 8)} ${currentValue.slice(8, 12)}`;
