@@ -224,7 +224,7 @@ html {
           align-items: center;
           height: 100vh;
           justify-content: center;
-          overflow: hidden;
+          overflow: scroll;
         }
       }
     }
@@ -402,4 +402,8 @@ html {
       }
     }
   }
+  .flexbox-container.regist{
+      height: auto !important;
+      overflow: scroll !important;
+    }
 }

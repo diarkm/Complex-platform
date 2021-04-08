@@ -26,9 +26,11 @@ class Register extends React.Component {
       })
     }
   }
+
   render() {
     return (
-      <Row className="m-0 justify-content-center">
+      <Row className="m-0 justify-content-center  flex-column"  style={{flexFlow: "row",
+      flexWrap: "wrap"}}>
         <Col
           sm="8"
           xl="7"

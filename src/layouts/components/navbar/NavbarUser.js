@@ -35,7 +35,7 @@ const UserDropdown = props => {
 
   const exit = () => {
     localStorage.removeItem('token');
-    window.location.href = '/';
+    window.location.href = 'http://giq-group.com/';
   }
   return (
     <DropdownMenu right>
