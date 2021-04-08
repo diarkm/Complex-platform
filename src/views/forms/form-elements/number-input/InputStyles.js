@@ -2,7 +2,7 @@ export const mobileStyle = {
   wrap: {
     background: "#E2E2E2",
     fontSize: 14,
-    right: "50%"
+    right: "100%"
   },
   "input.mobile": {
     color: "5f5f5f",

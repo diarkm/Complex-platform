@@ -62,6 +62,7 @@ class buyPack extends React.Component {
               <Col lg="6" md="6" sm="12">
                 <p className="mr-1 d-inline">Кол-во</p>
                 <NumericInput
+                  
                   min={1}
                   max={100}
                   mobile

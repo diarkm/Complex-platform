@@ -167,16 +167,6 @@ class LoginJWT extends React.Component {
             </FormGroup>
             <div className="d-flex justify-content-between" style={{flexFlow: "row",
                                                                     flexWrap: "wrap"}}>
-              <Button.Ripple
-                color="primary"
-                outline
-                className="mt-1"
-                onClick={() => {
-                  history.push("/register")
-                }}
-              >
-                Регистрация
-              </Button.Ripple>
               {!this.state.googleAuth.active &&
                 <Button.Ripple className="mt-1" color="primary" type="submit" onClick={this.auth} style={{}}>
                   Войти
@@ -187,6 +177,17 @@ class LoginJWT extends React.Component {
                   Войти
                 </Button.Ripple>
               }
+              <Button.Ripple
+                color="primary"
+                outline
+                style={{width:"100%"}}
+                className="mt-1"
+                onClick={() => {
+                  history.push("/register")
+                }}
+              >
+                Регистрация
+              </Button.Ripple>
             </div>
           </Form>
           <ToastContainer />
