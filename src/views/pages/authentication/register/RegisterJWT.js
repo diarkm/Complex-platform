@@ -266,7 +266,7 @@ class RegisterJWT extends React.Component {
               )
               }
             </FormGroup>
-            <div className="d-flex justify-content-between" style={{flexFlow: "row",
+            <div className="d-flex justify-content-between flex-column" style={{flexFlow: "row",
                                                                     flexWrap: "wrap"}}>
               <Button.Ripple
                 color="primary"
