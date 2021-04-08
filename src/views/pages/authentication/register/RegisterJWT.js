@@ -266,13 +266,14 @@ class RegisterJWT extends React.Component {
               )
               }
             </FormGroup>
-            <div>
+            <div className="d-flex justify-content-between">
               <Button.Ripple
                 color="primary"
                 outline
                 onClick={() => {
                   history.push("/")
                 }}
+                className="auth-btn"
               >
                 Войти
               </Button.Ripple>

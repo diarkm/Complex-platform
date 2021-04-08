@@ -224,7 +224,7 @@ html {
           align-items: center;
           height: 100vh;
           justify-content: center;
-          overflow: scroll;
+          overflow: hidden;
         }
       }
     }
@@ -337,14 +337,14 @@ html {
 }
 
 .vertical-layout {
-  .main-menu{
-    .navigation{
-      .menu-content{
-        li a{
-          svg:first-child{
+  .main-menu {
+    .navigation {
+      .menu-content {
+        li a {
+          svg:first-child {
             margin-right: 1.38rem !important;
           }
-          .menu-toggle-icon{
+          .menu-toggle-icon {
             right: 9px;
           }
         }
@@ -402,8 +402,14 @@ html {
       }
     }
   }
-  .flexbox-container.regist{
-      height: auto !important;
-      overflow: scroll !important;
-    }
+  .flexbox-container.regist {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: auto !important;
+    overflow-y: auto !important;
+  }
+  .content-body.regist {
+    padding-bottom: 90px;
+  }
 }

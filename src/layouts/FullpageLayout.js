@@ -15,8 +15,7 @@ const FullPageLayout = ({ children, ...rest }) => {
     >
       <div className="app-content">
         <div className="content-wrapper">
-          <div className="content-body">
-            {console.log(window.location.href)}
+          <div className={window.location.href == 'https://cabinet.giq-group.com/register' ? "content-body pt-2 regist" : "content-body"}>
             <div className={window.location.href == 'https://cabinet.giq-group.com/register' ? "flexbox-container regist" : "flexbox-container"}>
               <main className="main w-100">{children}</main>
             </div>
