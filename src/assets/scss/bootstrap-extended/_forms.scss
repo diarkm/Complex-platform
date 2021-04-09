@@ -333,6 +333,7 @@ select.form-control {
     border-radius: 2px;
     transform: rotate(-90deg);
     transition: all 0.2s ease;
+    flex-shrink: 0;
     overflow: hidden;
     margin-right: 0.5rem;
     &.vx-checkbox-sm {

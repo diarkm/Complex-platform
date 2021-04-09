@@ -167,19 +167,19 @@ class LoginJWT extends React.Component {
             </FormGroup>
             <Row className="justify-content-between">
                 {!this.state.googleAuth.active &&
-                  <Button.Ripple className="mt-1 col-md-4 col-sm-12" color="primary" type="submit" onClick={this.auth} style={{}}>
+                  <Button.Ripple className="mt-1 mx-1 auth-btn" color="primary" type="submit" onClick={this.auth} style={{}}>
                     Войти
                   </Button.Ripple>
                 }
                 {this.state.googleAuth.active &&
-                  <Button.Ripple className="mt-1 col-md-4 col-sm-12" color="primary" type="submit" onClick={this.googleAuth}>
+                  <Button.Ripple className="mt-1 mx-1 auth-btn" color="primary" type="submit" onClick={this.googleAuth}>
                     Войти
                   </Button.Ripple>
                 }
                   <Button.Ripple
                     color="primary"
                     outline
-                    className="mt-1 col-md-5 col-sm-12"
+                    className="mt-1 mx-1 auth-btn"
                     onClick={() => {
                       history.push("/register")
                     }}

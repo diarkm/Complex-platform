@@ -59,7 +59,7 @@ class buyPack extends React.Component {
               </Col>
             </Row>
             <Row className="mt-3 flex-column justify-align-center align-items-center mx-auto">
-              <Col lg="6" md="6" sm="12" className= "d-flex flex-column align-items-center">
+              <Col lg="6" md="6" sm="12" className= "d-flex flex-column align-items-center mb-1">
                 <p className="mr-1 d-inline">Кол-во</p>
                 <NumericInput
                   min={1}

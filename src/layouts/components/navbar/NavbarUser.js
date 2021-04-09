@@ -360,7 +360,7 @@ class NavbarUser extends React.PureComponent {
                 <img
                   src={this.state.userAvatar}
                   className="round"
-                  style={{borderRadius:0, width: "100%"}}
+                  style={{borderRadius:0, width: "100%", objectFit:"cover"}}
                   alt="avatar"
                 /> : <Skeleton width={40} height={40} circle={true}/>}
               </span>

@@ -13,3 +13,12 @@
 .custom-file-label:after{
   content: 'Выбрать' !important;
 }
+
+@media screen and (max-width: 479px) {
+  .btns-reg{
+    flex-direction: column-reverse;
+  }
+  .reg-btn{
+    margin-top: 13px;
+  }
+}

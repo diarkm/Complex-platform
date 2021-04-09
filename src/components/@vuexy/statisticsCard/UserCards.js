@@ -11,7 +11,7 @@ class UserCards extends React.Component {
            ${!this.props.hideChart ? "pb-0" : "pb-2"} pt-2`}
         >
         <div className={`avatar mr-2`} style={{height:45,width:45,overflow:"hidden"}}>
-          {this.props.icon ? <img style={{borderRadius:0, width: "100%"}} src={this.props.icon} /> : <Skeleton circle={true} width={45} height={45}/>}
+          {this.props.icon ? <img style={{borderRadius:0, width: "100%", objectFit:"cover"}} src={this.props.icon} /> : <Skeleton circle={true} width={45} height={45}/>}
 
         </div>
         <div className="title-section">

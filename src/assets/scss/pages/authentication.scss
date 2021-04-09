@@ -54,3 +54,11 @@
     margin-top: 1rem;
   }
 }
+
+@media screen and (max-width: 479px) {
+  .auth-btn{
+    width: 100%;
+  }
+}
+
+
