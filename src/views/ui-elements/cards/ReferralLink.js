@@ -6,7 +6,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 
 function onCopyRef(login) {
-  navigator.clipboard.writeText(`https://cabinet.giq-group.com/register/${login}` );
+
 }
 
 class ReferralLink extends React.Component {
