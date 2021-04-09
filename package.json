@@ -45,7 +45,7 @@
     "react-chartjs": "^1.2.0",
     "react-chartjs-2": "^2.9.0",
     "react-contexify": "~4.1.1",
-    "react-copy-to-clipboard": "~5.0.2",
+    "react-copy-to-clipboard": "^5.0.3",
     "react-countdown-now": "~2.1.2",
     "react-country-flag": "^2.0.1",
     "react-data-table-component": "^6.2.3",

@@ -3,10 +3,10 @@ import {Button, Card, CardBody, Col, Input, Row} from "reactstrap"
 import UserDataService from "../../../api/user-data-service"
 import img from "../../../assets/img/portrait/small/avatar-s-11.jpg";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 function onCopyRef(login) {
-  navigator.clipboard.writeText(`https://cabinet.giq-group.com/register/${login}` );
+  return `https://cabinet.giq-group.com/register/${login}`;
 }
 
 class ReferralLink extends React.Component {
@@ -52,7 +52,9 @@ class ReferralLink extends React.Component {
 
                 </Col>
                 <Col lg="2" md="2" sm="12">
-                  <Button.Ripple className="mt-2" color="primary" onClick={onCopyRef(this.state?.user?.login)}>Скопировать</Button.Ripple>
+                  <CopyToClipboard text={onCopyRef(this.state?.user?.login)}>
+                   <Button.Ripple color="primary"  >Скопировать</Button.Ripple>
+                  </CopyToClipboard>
                 </Col>
               </Row>
             </div>
