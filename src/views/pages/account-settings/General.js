@@ -122,7 +122,7 @@ class General extends React.Component {
                   object
                   src={this.state.img}
                   alt="User"
-                  style={{borderRadius:0}}
+                  style={{borderRadius:0, width: "100%"}}
                 /> : <Skeleton circle={true} height={64} width={64}/>
               }
             </Media>
