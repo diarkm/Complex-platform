@@ -43,7 +43,10 @@
 .position-left-0 {
   left: 0;
 }
-
+.flexbox-container{
+  min-height: 750px;
+  overflow: auto;
+}
 // Z-index
 
 .zindex-1 {

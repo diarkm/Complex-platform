@@ -40,7 +40,7 @@ const RouteConfig = ({ component: Component, fullLayout, ...rest }) => (
     {...rest}
     render={props => {
       return (
-        <ContextLayout.Consumer>
+        <ContextLayout.Consumer >
           {context => {
             let LayoutTag =
               fullLayout === true
@@ -49,9 +49,9 @@ const RouteConfig = ({ component: Component, fullLayout, ...rest }) => (
                 ? context.horizontalLayout
                 : context.VerticalLayout
             return (
-              <LayoutTag {...props} permission={props.user}>
-                <Suspense fallback={<Spinner />}>
-                  <Component {...props} />
+              <LayoutTag {...props} permission={props.user} >
+                <Suspense fallback={<Spinner />}  >
+                  <Component {...props}  />
                 </Suspense>
               </LayoutTag>
             )

@@ -109,7 +109,7 @@ class RegisterJWT extends React.Component {
             <Alert color="danger" style={{display: this.state.showError ? 'block' : 'none'}}>
               {this.state.errorMessage}
             </Alert>
-            <Row>
+            <Row className="dropdown">
               <Col lg="6" md="6" sm="12">
                 <FormGroup className="form-label-group">
                   <Field

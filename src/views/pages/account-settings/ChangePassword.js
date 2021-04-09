@@ -6,7 +6,6 @@ import UserDataService from "../../../api/user-data-service";
 import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "../../../assets/scss/plugins/extensions/toastr.scss"
-import {history} from "../../../history";
 import {handleErrorFromBD, onValidationError} from "../authentication/AuthServices";
 
 const formSchema = Yup.object().shape({
@@ -55,8 +54,10 @@ class ChangePassword extends React.Component {
                 confirmpass: ""
               }}
               onSubmit={(values) => {
+                console.log(this.state.id);
+                console.log(values);
                 this.userDataService.changePassword({
-                  user_id:      1,
+                  user_id:      this.state.id,
                   old_password: values.oldpass,
                   new_password: values.newpass,
                 }).then(response => {
@@ -119,7 +120,7 @@ class ChangePassword extends React.Component {
                     </Button.Ripple>
                     <Button.Ripple type="reset" color="danger" outline>
                       Отмена
-                      
+
                     </Button.Ripple>
                   </div>
 
