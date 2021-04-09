@@ -1,14 +1,14 @@
 import React from "react"
-import { Link } from "react-router-dom"
-import {CardBody, FormGroup, Form, Input, Button, Label, FormFeedback} from "reactstrap"
+import {Link} from "react-router-dom"
+import {CardBody, FormGroup, Form, Input, Button, Label, FormFeedback, Row, Col} from "reactstrap"
 import Checkbox from "../../../../components/@vuexy/checkbox/CheckboxesVuexy"
-import { Mail, Lock, Check } from "react-feather"
-import { loginForm } from "../../../../server"
-import { connect } from "react-redux"
-import { history } from "../../../../history"
+import {Mail, Lock, Check} from "react-feather"
+import {loginForm} from "../../../../server"
+import {connect} from "react-redux"
+import {history} from "../../../../history"
 import axios from 'axios';
 import TokenStorage from '../../../../api/tokenStorage';
-import { toast, ToastContainer } from "react-toastify"
+import {toast, ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "../../../../assets/scss/plugins/extensions/toastr.scss"
 import {handleErrorFromBD} from "../AuthServices";
@@ -47,9 +47,9 @@ class LoginJWT extends React.Component {
         remember: this.remember
       });
 
-      if (!response.data.response){
-        if(response.data.errors === "User is not found"){
-          this.setState({loginError: true });
+      if (!response.data.response) {
+        if (response.data.errors === "User is not found") {
+          this.setState({loginError: true});
         }
         return this.onValidationError(handleErrorFromBD(response.data.errors));
       }
@@ -88,7 +88,7 @@ class LoginJWT extends React.Component {
           Authorization: `${this.state.googleAuth.token}`
         }
       });
-      if (!response.data.response){
+      if (!response.data.response) {
         return this.onValidationError(handleErrorFromBD(response.data.errors));
       }
       this.createToken(response.data.token);
@@ -110,18 +110,18 @@ class LoginJWT extends React.Component {
           <Form action="/" onSubmit={this.handleLogin}>
             <FormGroup className="form-label-group position-relative has-icon-left">
               <Input
-                className={ this.state.loginError ? "is-invalid" : "" }
+                className={this.state.loginError ? "is-invalid" : ""}
                 type="text"
                 placeholder="Логин"
                 value={this.state.login}
-                onChange={e => this.setState({ login: e.target.value })}
+                onChange={e => this.setState({login: e.target.value})}
                 required
               />
               {this.state.loginError && (
                 <FormFeedback>Пользователь не найден</FormFeedback>
               )}
               <div className="form-control-position">
-                <Mail size={15} />
+                <Mail size={15}/>
               </div>
               <Label>Логин</Label>
             </FormGroup>
@@ -130,33 +130,33 @@ class LoginJWT extends React.Component {
                 type="password"
                 placeholder="Пароль"
                 value={this.state.password}
-                onChange={e => this.setState({ password: e.target.value })}
+                onChange={e => this.setState({password: e.target.value})}
                 required
               />
               <div className="form-control-position">
-                <Lock size={15} />
+                <Lock size={15}/>
               </div>
               <Label>Пароль</Label>
             </FormGroup>
             {this.state.googleAuth.active &&
-              <FormGroup className="form-label-group position-relative has-icon-left">
-                <Input
-                  type="text"
-                  placeholder="Код подтверждения"
-                  value={this.state.code}
-                  onChange={e => this.setState({ code: e.target.value })}
-                  required
-                />
-                <div className="form-control-position">
-                  <Lock size={15} />
-                </div>
-                <Label>Код подтверждения</Label>
-              </FormGroup>
+            <FormGroup className="form-label-group position-relative has-icon-left">
+              <Input
+                type="text"
+                placeholder="Код подтверждения"
+                value={this.state.code}
+                onChange={e => this.setState({code: e.target.value})}
+                required
+              />
+              <div className="form-control-position">
+                <Lock size={15}/>
+              </div>
+              <Label>Код подтверждения</Label>
+            </FormGroup>
             }
             <FormGroup className="d-flex justify-content-between align-items-center">
               <Checkbox
                 color="primary"
-                icon={<Check className="vx-icon" size={16} />}
+                icon={<Check className="vx-icon" size={16}/>}
                 label="Запомнить меня"
                 defaultChecked={false}
                 onChange={this.handleRemember}
@@ -165,39 +165,39 @@ class LoginJWT extends React.Component {
                 <Link to="/forgot-password">Забыли пароль?</Link>
               </div>
             </FormGroup>
-            <div className="d-flex justify-content-between ">
-              {!this.state.googleAuth.active &&
-                <Button.Ripple className="mt-1" color="primary" type="submit" onClick={this.auth} style={{}}>
-                  Войти
-                </Button.Ripple>
-              }
-              {this.state.googleAuth.active &&
-                <Button.Ripple className="mt-1" color="primary" type="submit" onClick={this.googleAuth}>
-                  Войти
-                </Button.Ripple>
-              }
-              <Button.Ripple
-                color="primary"
-                outline
-                style={{width:"100%"}}
-                className="mt-1"
-                onClick={() => {
-                  history.push("/register")
-                }}
-              >
-                Регистрация
-              </Button.Ripple>
-            </div>
+            <Row className="justify-content-between">
+                {!this.state.googleAuth.active &&
+                  <Button.Ripple className="mt-1 col-md-4 col-sm-12" color="primary" type="submit" onClick={this.auth} style={{}}>
+                    Войти
+                  </Button.Ripple>
+                }
+                {this.state.googleAuth.active &&
+                  <Button.Ripple className="mt-1 col-md-4 col-sm-12" color="primary" type="submit" onClick={this.googleAuth}>
+                    Войти
+                  </Button.Ripple>
+                }
+                  <Button.Ripple
+                    color="primary"
+                    outline
+                    className="mt-1 col-md-5 col-sm-12"
+                    onClick={() => {
+                      history.push("/register")
+                    }}
+                  >
+                    Регистрация
+                  </Button.Ripple>
+            </Row>
           </Form>
-          <ToastContainer />
+          <ToastContainer/>
         </CardBody>
       </React.Fragment>
     )
   }
 }
+
 const mapStateToProps = state => {
   return {
     values: state.auth.login
   }
 }
-export default connect(mapStateToProps, { loginForm })(LoginJWT)
+export default connect(mapStateToProps, {loginForm})(LoginJWT)
