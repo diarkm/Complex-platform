@@ -134,7 +134,7 @@ class NavbarUser extends React.PureComponent {
     const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : 'Без статуса' : null
 
     return (
-      
+
       <SkeletonTheme color="#283046" highlightColor="#3F4860">
         <ul className="nav navbar-nav navbar-nav-user float-right">
           <IntlContext.Consumer>
@@ -359,8 +359,8 @@ class NavbarUser extends React.PureComponent {
                 {this.state.userAvatar ?
                 <img
                   src={this.state.userAvatar}
-                  className="round" 
-                  style={{borderRadius:0}}         
+                  className="round"
+                  style={{borderRadius:0, width: "100%"}}
                   alt="avatar"
                 /> : <Skeleton width={40} height={40} circle={true}/>}
               </span>
