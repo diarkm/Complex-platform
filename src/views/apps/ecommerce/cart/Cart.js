@@ -132,7 +132,7 @@ const Checkout = () => {
                       <span className="vx-radio--border"></span>
                       <span className="vx-radio--circle"></span>
                     </span>
-                    <img className="rounded-circle mx-1" src={require(`./payment-logos/${item[0]}.png`)} alt="img-placeholder" width="35" />
+                    <img className="rounded-circle mx-1" src={require(`./payment-logos/${item[0]}.png`).default} alt="img-placeholder" width="35" />
                     <span>{item[1]}</span>
                   </div>
                 })}
