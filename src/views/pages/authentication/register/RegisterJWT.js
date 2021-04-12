@@ -98,7 +98,6 @@ class RegisterJWT extends React.Component {
             values['referer'] = this.state.referer;
             values['ref_id'] = this.state.ref_id;
           }
-          console.log(values);
           this.signup(values);
         }}
       >
