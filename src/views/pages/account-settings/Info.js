@@ -210,7 +210,7 @@ class InfoTab extends React.Component {
                   <FormGroup className="d-flex flex-column align-items-center">
                     <Label for="rek">Введите код из приложения</Label>
                     <Input
-                      style={{ width: 100 }}
+                      style={{ width: 70 }}
                       type="text"
                       name="code"
                       id="code"
