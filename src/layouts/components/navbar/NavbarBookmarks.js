@@ -3,15 +3,9 @@ import {
   NavItem,
   NavLink,
   UncontrolledTooltip,
-  UncontrolledDropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle
+  DropdownItem
 } from "reactstrap"
 import * as Icon from "react-feather"
-import { Link } from "react-router-dom"
-import classnames from "classnames"
-import AutoComplete from "../../../components/@vuexy/autoComplete/AutoCompleteComponent"
 import { history } from "../../../history"
 import { connect } from "react-redux"
 import {
@@ -137,10 +131,8 @@ class NavbarBookmarks extends React.PureComponent {
 
   render() {
     let {
-      bookmarks: { extraStarred, suggestions },
-      sidebarVisibility,
-      updateStarred,
-      handleAppOverlay
+      bookmarks: { extraStarred },
+      sidebarVisibility
     } = this.props
 
     const renderExtraStarred =

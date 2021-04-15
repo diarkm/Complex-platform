@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react"
-import { Router, Switch, Route, Redirect } from "react-router-dom"
+import { Router, Switch, Route } from "react-router-dom"
 import { history } from "./history"
 import { connect } from "react-redux"
 import Spinner from "./components/@vuexy/spinner/Loading-spinner"
@@ -33,9 +33,6 @@ const resetPassword = lazy(() =>
 )
 const register = lazy(() =>
   import("./views/pages/authentication/register/Register")
-)
-const politics = lazy(() =>
-  import("./views/pages/Politics")
 )
 // Set Layout and Component Using App Route
 const RouteConfig = ({ component: Component, fullLayout, ...rest }) => (

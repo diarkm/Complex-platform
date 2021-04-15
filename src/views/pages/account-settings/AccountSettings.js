@@ -9,11 +9,11 @@ import {
   CardBody
 } from "reactstrap"
 import classnames from "classnames"
-import { Settings, Lock, Info, Instagram, Link, Bell } from "react-feather"
+import { Settings, Lock, Info } from "react-feather"
 import GeneralTab from "./General"
 import ChangePassword from "./ChangePassword"
 import InfoTab from "./Info"
-
+import { FormattedMessage } from "react-intl";
 import "../../../assets/scss/pages/account-settings.scss"
 
 class AccountSettings extends React.Component {
@@ -56,7 +56,7 @@ class AccountSettings extends React.Component {
                 }}
               >
                 <Settings size={16} />
-                <span className="d-md-inline-block d-none align-middle ml-1">Основное</span>
+                <span className="d-md-inline-block d-none align-middle ml-1"><FormattedMessage id="Основное"/></span>
               </NavLink>
             </NavItem>
             <NavItem>
@@ -69,7 +69,7 @@ class AccountSettings extends React.Component {
                 }}
               >
                 <Lock size={16} />
-                <span className="d-md-inline-block d-none align-middle ml-1">Поменять пароль</span>
+                <span className="d-md-inline-block d-none align-middle ml-1"><FormattedMessage id="Поменять пароль"/></span>
               </NavLink>
             </NavItem>
             <NavItem>
@@ -82,7 +82,7 @@ class AccountSettings extends React.Component {
                 }}
               >
                 <Info size={16} />
-                <span className="d-md-inline-block d-none align-middle ml-1">Дополнительно</span>
+                <span className="d-md-inline-block d-none align-middle ml-1"><FormattedMessage id="Дополнительно"/></span>
               </NavLink>
             </NavItem>
           </Nav>

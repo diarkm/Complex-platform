@@ -1,9 +1,21 @@
 import React from "react"
 import { Card, CardHeader, CardTitle, CardBody } from "reactstrap"
 import Chart from "react-apexcharts"
-import { Settings } from "react-feather"
+
+import { FormattedMessage, useIntl } from "react-intl";
+
+function withLocale(Component) {
+  return function WrappedComponent(props) {
+    const intl = useIntl();
+    return <Component {...props} intl={intl} />;
+  };
+}
 
 class Revenue extends React.Component {
+  constructor(props){
+    super(props);
+    this._isMounted = false;
+  }
   state = {
     options: {
       chart: {
@@ -87,22 +99,37 @@ class Revenue extends React.Component {
       }
     ]
   }
+
+  componentDidMount() {
+    this._isMounted = true;
+    if(this._isMounted) {
+      this.setState((state) => {
+        state.series[0].name = this.props.intl.formatMessage({ id: "В этом месяце" });
+        state.series[1].name = this.props.intl.formatMessage({ id: "В прошлом месяце" });
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   render() {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Заработано</CardTitle>
+          <CardTitle><FormattedMessage id="Заработано"/></CardTitle>
         </CardHeader>
         <CardBody>
           <div className="d-flex justify-content-start mb-1">
             <div className="mr-2">
-              <p className="mb-50 text-bold-600">В этом месяце</p>
+              <p className="mb-50 text-bold-600"><FormattedMessage id="В этом месяце"/></p>
               <h2 className="text-bold-400">
                 <span className="text-success">0$</span>
               </h2>
             </div>
             <div>
-              <p className="mb-50 text-bold-600">В прошлом месяце</p>
+              <p className="mb-50 text-bold-600"><FormattedMessage id="В прошлом месяце"/></p>
               <h2 className="text-bold-400">
                 <span>0$</span>
               </h2>
@@ -119,4 +146,4 @@ class Revenue extends React.Component {
     )
   }
 }
-export default Revenue
+export default withLocale(Revenue)

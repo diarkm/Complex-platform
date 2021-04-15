@@ -5,6 +5,7 @@ import { history } from "../../../../history"
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import UserDataService from "../../../../api/user-data-service";
+import { FormattedMessage } from "react-intl";
 
 const FundsWallet = () => {
   const [balance, setbalance] = useState(0)
@@ -63,7 +64,7 @@ const FundsWallet = () => {
     }
 
     return (
-      <h5>У вас нет депозитов </h5>
+      <h5><FormattedMessage id="У вас нет депозитов"/> </h5>
     )
   }
 
@@ -75,7 +76,7 @@ const FundsWallet = () => {
             {isResp ? balance : <Skeleton width={100}/>}$
           </h1>
           <small>
-            <span className="text-muted">Мой кошелек: </span>{isResp ? balance + "$" : <Skeleton width={60}/>}
+            <span className="text-muted"><FormattedMessage id="Мой кошелек"/>: </span>{isResp ? balance + "$" : <Skeleton width={60}/>}
           </small>
           <h5 className="mt-1">
             <span className="text-success">+0% (0$)</span>
@@ -86,21 +87,21 @@ const FundsWallet = () => {
             className="w-100 box-shadow-1 mt-2"
             onClick={() => history.push("/buyPackages")}
           >
-            Пополнить счет <ChevronsRight size={15} />
+            <FormattedMessage id="Пополнить счет"/> <ChevronsRight size={15} />
           </Button.Ripple>
           <hr className="my-2" />
-          <small>Заработано: {isResp ? balance + "$" : <Skeleton width={60}/>}</small>
+          <small><FormattedMessage id="Заработано"/>: {isResp ? balance + "$" : <Skeleton width={60}/>}</small>
           <Progress className="mt-1 mb-2" color="success" value="100" />
 
-          <small>В заморозке: 0$</small>
+          <small><FormattedMessage id="В заморозке"/>: 0$</small>
           <Progress className="mt-1" color="warning" value="0" />
           <hr className="my-2" />
-          <h2>Мои депозиты</h2>
+          <h2><FormattedMessage id="Мои депозиты"/></h2>
           <div>
             <hr className="my-1" />
             <div className="d-flex justify-content-between">
-              <small>Сумма</small>
-              <small>Срок депозита</small>
+              <small><FormattedMessage id="Сумма"/></small>
+              <small><FormattedMessage id="Срок депозита"/></small>
             </div>
             <hr className="my-1" />
             {renderDeposites()}

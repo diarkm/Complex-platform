@@ -7,6 +7,14 @@ import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "../../../assets/scss/plugins/extensions/toastr.scss"
 import {handleErrorFromBD, onValidationError} from "../authentication/AuthServices";
+import { FormattedMessage, useIntl } from "react-intl";
+
+function withLocale(Component) {
+  return function WrappedComponent(props) {
+    const intl = useIntl();
+    return <Component {...props} intl={intl} />;
+  };
+}
 
 const formSchema = Yup.object().shape({
   oldpass:     Yup.string().required("Это поле должно быть заполнено")
@@ -79,7 +87,7 @@ class ChangePassword extends React.Component {
                       className={`form-control ${errors.oldpass &&
                                                  touched.oldpass &&
                                                  "is-invalid"}`}
-                      placeholder="Старый пароль"
+                      placeholder={this.props.intl.formatMessage({id: "Старый пароль"})}
                       type="password"
                     />
                     {errors.oldpass && touched.oldpass ? (
@@ -89,7 +97,7 @@ class ChangePassword extends React.Component {
                   <FormGroup>
                     <Field
                       name="newpass"
-                      placeholder="Новый пароль"
+                      placeholder={this.props.intl.formatMessage({id: "Новый пароль"})}
                       type="password"
                       id="newpass"
                       className={`form-control ${errors.newpass &&
@@ -107,7 +115,7 @@ class ChangePassword extends React.Component {
                       className={`form-control ${errors.confirmpass &&
                                                  touched.confirmpass &&
                                                  "is-invalid"}`}
-                      placeholder="Подтвердите пароль"
+                      placeholder={this.props.intl.formatMessage({id: "Подтвердите пароль"})}
                       type="password"
                     />
                     {errors.confirmpass && touched.confirmpass ? (
@@ -116,11 +124,10 @@ class ChangePassword extends React.Component {
                   </FormGroup>
                   <div className="d-flex justify-content-between flex-wrap" >
                     <Button.Ripple type="submit" color="primary">
-                      Сохранить изменения
+                      <FormattedMessage id="Сохранить изменения"/>
                     </Button.Ripple>
                     <Button.Ripple type="reset" color="danger" outline>
-                      Отмена
-
+                      <FormattedMessage id="Отмена"/>
                     </Button.Ripple>
                   </div>
 
@@ -135,4 +142,4 @@ class ChangePassword extends React.Component {
   }
 }
 
-export default ChangePassword
+export default withLocale(ChangePassword)

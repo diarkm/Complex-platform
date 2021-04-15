@@ -16,6 +16,14 @@ import * as filters from "./Filter"
 import {styleLight, styleDark} from "./Styles"
 import avatarImg from "../../assets/img/portrait/small/avatar_none.jpeg"
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton';
+import { FormattedMessage, useIntl } from "react-intl";
+
+function withLocale(Component) {
+  return function WrappedComponent(props) {
+    const intl = useIntl();
+    return <Component {...props} intl={intl} />;
+  };
+}
 
 const Loading = props => {
   return (
@@ -146,14 +154,14 @@ class TreeView extends React.Component {
   }
 
   render() {
-    const {data, cursor} = this.state
+    const {data} = this.state
     decorators.Loading = Loading
     decorators.Header = ({node, style, prefix}) => {
       const avatar = node.avatar ? `http://cabinet.giq-group.com/back/storage/app/${node.avatar}` : avatarImg
       return (
         <div style={style.base}>
           <div style={{...style.title, display: "flex"}}>
-            <img className="mr-1 rounded-circle" src={avatar} width="32" height="32"/> {`${node.name}`}
+            <img className="mr-1 rounded-circle" alt="ref" src={avatar} width="32" height="32"/> {`${node.name}`}
           </div>
         </div>
       )
@@ -166,7 +174,7 @@ class TreeView extends React.Component {
             <Col sm="12">
               <Card>
                 <CardHeader>
-                  <CardTitle>Структура сети</CardTitle>
+                  <CardTitle><FormattedMessage id="Структура сети"/></CardTitle>
                 </CardHeader>
                 <CardBody>
                   <Row>
@@ -184,7 +192,7 @@ class TreeView extends React.Component {
                           decorators={decorators}
                           animations={false}
                         />
-                      }) : 'У вас нет рефералов' :
+                      }) : this.props.intl.locale === 'ru' ? 'У вас нет рефералов' : 'There are no referrals' :
                       <Skeleton count={5}/>
                     }
 
@@ -206,4 +214,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(TreeView)
+export default withLocale(connect(mapStateToProps)(TreeView))

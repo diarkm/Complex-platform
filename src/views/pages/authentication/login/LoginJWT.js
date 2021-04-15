@@ -1,6 +1,6 @@
 import React from "react"
 import {Link} from "react-router-dom"
-import {CardBody, FormGroup, Form, Input, Button, Label, FormFeedback, Row, Col} from "reactstrap"
+import {CardBody, FormGroup, Form, Input, Button, Label, FormFeedback, Row} from "reactstrap"
 import Checkbox from "../../../../components/@vuexy/checkbox/CheckboxesVuexy"
 import {Mail, Lock, Check} from "react-feather"
 import {loginForm} from "../../../../server"

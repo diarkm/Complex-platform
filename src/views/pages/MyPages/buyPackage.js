@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Button } from 'reactstrap'
+import { Row, Col } from 'reactstrap'
 import ReferralLink from "../../ui-elements/cards/ReferralLink"
 import BuyPack from "../../ui-elements/cards/buyPack"
 import { ContextLayout } from "../../../utility/context/Layout"

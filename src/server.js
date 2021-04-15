@@ -86,7 +86,7 @@ export const signupForm = (
     phoneNumber
 ) => {
   return dispatch => {
-    if(password == confirmPass) {
+    if(password === confirmPass) {
       axios
         .post("http://79.143.31.221/user/signup", {
           login: login,

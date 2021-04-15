@@ -9,7 +9,15 @@ import UserCards from "../../../components/@vuexy/statisticsCard/UserCards"
 import img from "../../../assets/img/default-avatar.png"
 import TokenStorage from '../../../api/tokenStorage';
 import UserDataService from "../../../api/user-data-service"
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { SkeletonTheme } from 'react-loading-skeleton';
+import { useIntl } from "react-intl";
+
+function withLocale(Component) {
+  return function WrappedComponent(props) {
+    const intl = useIntl();
+    return <Component {...props} intl={intl} />;
+  };
+}
 
 let $primary = "#7367F0",
   $danger = "#EA5455",
@@ -60,10 +68,17 @@ class Analyze extends React.Component {
             this.setState({referralAvatar: img})
         }
         else{
-          this.setState({referral: {
-            firstName: "Нет",
-            lastName: "спонсора"
-          }})
+          if(this.props.intl.locale === 'ru'){
+            this.setState({referral: {
+              firstName: "Нет",
+              lastName: "спонсора"
+            }})
+          } else {
+            this.setState({referral: {
+              firstName: "No",
+              lastName: "sponsor"
+            }})
+          }
           this.setState({referralAvatar: img})
         }
       })
@@ -71,7 +86,7 @@ class Analyze extends React.Component {
   }
 
     render(){
-        const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : 'Без статуса' : null
+      const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : this.props.intl.locale === 'ru' ? 'Без статуса' : 'No status' : null;
 
         return (
         <React.Fragment>
@@ -91,20 +106,20 @@ class Analyze extends React.Component {
               <Col lg="3" md="6" sm="12">
                   <SuberscribersGained />
                   <UserCards
-                      hideChart
-                      iconBg="primary"
-                      iconLeft
-                      icon={this.state.userAvatar}
-                      stat={userStatus}
-                      statTitle="Мой статус"
+                    hideChart
+                    iconBg="primary"
+                    iconLeft
+                    icon={this.state.userAvatar}
+                    stat={userStatus}
+                    statTitle={this.props.intl.formatMessage({id: "Мой статус"})}
                   />
                   <UserCards
-                      hideChart
-                      iconBg="primary"
-                      iconLeft
-                      icon={this.state.referralAvatar}
-                      stat={this.state.referral ? `${this.state.referral.firstName} ${this.state.referral.lastName}` : null}
-                      statTitle="Мой спонсор"
+                    hideChart
+                    iconBg="primary"
+                    iconLeft
+                    icon={this.state.referralAvatar}
+                    stat={this.state.referral ? `${this.state.referral.firstName} ${this.state.referral.lastName}` : null}
+                    statTitle={this.props.intl.formatMessage({id: "Мой спонсор"})}
                   />
               </Col>
               </Row>
@@ -133,4 +148,4 @@ class Analyze extends React.Component {
     )}
 }
 
-export default Analyze
+export default withLocale(Analyze)

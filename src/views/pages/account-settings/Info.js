@@ -22,6 +22,15 @@ import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "../../../assets/scss/plugins/extensions/toastr.scss"
 
+import { FormattedMessage, useIntl } from "react-intl";
+
+function withLocale(Component) {
+  return function WrappedComponent(props) {
+    const intl = useIntl();
+    return <Component {...props} intl={intl} />;
+  };
+}
+
 class InfoTab extends React.Component {
   constructor() {
     super();
@@ -107,7 +116,7 @@ class InfoTab extends React.Component {
       secret: this.state.googleSecret,
       code:   this.state.googleCode,
     }
-    if(googleData.code.length==0){
+    if(googleData.code.length===0){
       this.setState({checked: false});
       this.setState({add2faModal: false});
       return;
@@ -158,7 +167,7 @@ class InfoTab extends React.Component {
               checked={this.state.checked}
               inline
             >
-              <span className="mb-0 switch-label">Двухфакторная аутентификация</span>
+              <span className="mb-0 switch-label"><FormattedMessage id="Двухфакторная аутентификация"/></span>
             </CustomInput>
           </Col>
         </Row>
@@ -166,7 +175,7 @@ class InfoTab extends React.Component {
           <Row>
             <Col sm="12">
               <FormGroup>
-                <Label for="rek">Реквизиты</Label>
+                <Label for="rek"><FormattedMessage id="Реквизиты"/></Label>
                 <Input
                   type="text"
                   name="rek"
@@ -181,10 +190,10 @@ class InfoTab extends React.Component {
             </Col>
             <Col className="d-flex justify-content-between flex-wrap" sm="12">
               <Button.Ripple type="submit" color="primary" disabled={this.state.block}>
-                Сохранить изменения
+              <FormattedMessage id="Сохранить изменения"/>
               </Button.Ripple>
               <Button.Ripple type="submit" color="danger">
-                Отмена
+              <FormattedMessage id="Отмена"/>
                 
               </Button.Ripple>
             </Col>
@@ -196,19 +205,18 @@ class InfoTab extends React.Component {
           className="modal-dialog-centered "
         >
           <ModalHeader toggle={this.toggleModal} className="d-flex flex-column align-items-center">
-            Просканируйте код
+          <FormattedMessage id="Просканируйте код"/>
           </ModalHeader>
           <ModalBody  className="d-flex flex-column align-items-center">
             <p className="text-center">
-              Для подтверждения двухфакторной аутентификации необходимо
-              скачать приложение Authenticator и просканировать код ниже
+            <FormattedMessage id="2fa.accept"/>
             </p>
             <QRImage  text={this.state.qr}/>
             <Row className="mt-sm-1">
               <Col sm="12">
                 <Form>
                   <FormGroup className="d-flex flex-column align-items-center">
-                    <Label for="rek">Введите код из приложения</Label>
+                    <Label for="rek"><FormattedMessage id="Введите код из приложения"/></Label>
                     <Input
                       style={{ width: 70 }}
                       type="text"
@@ -229,7 +237,7 @@ class InfoTab extends React.Component {
               ОК
             </Button>
             <Button color="danger" onClick={(e) => { this.setState({add2faModal: false}); this.setState({checked: false}) }}>
-              Закрыть
+            <FormattedMessage id="Закрыть"/>
             </Button>
           </ModalFooter>
         </Modal>
@@ -239,15 +247,14 @@ class InfoTab extends React.Component {
           className="modal-dialog-centered"
         >
           <ModalHeader toggle={this.toggleModal}>
-            Для отключения двухфакторной аутентификации
-            введите код из приложения
+          <FormattedMessage id="2fa.off"/>
           </ModalHeader>
           <ModalBody>
           <Row>
             <Col sm="12">
               <Form>
                 <FormGroup>
-                  <Label for="rek">Введите код из приложения</Label>
+                  <Label for="rek"><FormattedMessage id="Введите код из приложения"/></Label>
                   <Input
                     style={{ width: 100 }}
                     type="text"
@@ -265,10 +272,10 @@ class InfoTab extends React.Component {
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={(e) => this.disable2fa()}>
-              Отключить
+              <FormattedMessage id="Отключить"/>
             </Button>
             <Button color="danger" onClick={(e) => { this.setState({add2faModal: false}); this.setState({checked: false})}}>
-              Закрыть
+              <FormattedMessage id="Закрыть"/>
             </Button>
           </ModalFooter>
         </Modal>
@@ -278,4 +285,4 @@ class InfoTab extends React.Component {
   }
 }
 
-export default InfoTab
+export default withLocale(InfoTab)

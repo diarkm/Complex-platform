@@ -4,6 +4,7 @@ import { ChevronsRight } from "react-feather"
 import { history } from "../../../../history"
 import UserDataService from "../../../../api/user-data-service";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { FormattedMessage } from "react-intl";
 
 const Funds = () => {
   const [balance, setbalance] = useState(0);
@@ -28,7 +29,7 @@ const Funds = () => {
               {isResp ? balance : <Skeleton width={100}/>}$
             </h1>
             <small>
-              <span className="text-muted">Мой кошелек: </span>{isResp ? balance + "$" : <Skeleton width={60}/>}
+              <span className="text-muted"><FormattedMessage id="Мой кошелек"/>: </span>{isResp ? balance + "$" : <Skeleton width={60}/>}
             </small>
             <h5 className="mt-1">
               <span className="text-success">+0% (0$)</span>
@@ -39,13 +40,13 @@ const Funds = () => {
               className="w-100 box-shadow-1 mt-2"
               onClick={() => history.push("/buyPackages")}
             >
-              Пополнить счет <ChevronsRight size={15} />
+              <FormattedMessage id="Пополнить счет"/> <ChevronsRight size={15} />
             </Button.Ripple>
             <hr className="my-2" />
-            <small>Заработано: {isResp ? balance + "$" : <Skeleton width={60}/>}</small>
+            <small><FormattedMessage id="Заработано"/>: {isResp ? balance + "$" : <Skeleton width={60}/>}</small>
             <Progress className="mt-1 mb-2" color="success" value="100" />
 
-            <small>В заморозке: 0$</small>
+            <small><FormattedMessage id="В заморозке"/>: 0$</small>
             <Progress className="mt-1" color="warning" value="0" />
           </SkeletonTheme>
         </CardBody>

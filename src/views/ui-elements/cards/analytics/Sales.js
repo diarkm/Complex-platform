@@ -3,7 +3,21 @@ import { Card, CardHeader, CardTitle, CardBody } from "reactstrap"
 import Chart from "react-apexcharts"
 import { MoreVertical } from "react-feather"
 
+import { FormattedMessage, useIntl } from "react-intl";
+
+function withLocale(Component) {
+  return function WrappedComponent(props) {
+    const intl = useIntl();
+    return <Component {...props} intl={intl} />;
+  };
+}
 class Sales extends React.Component {
+  
+  constructor(props){
+    super(props);
+    this._isMounted = false;
+  }
+
   state = {
     options: {
       chart: {
@@ -86,13 +100,35 @@ class Sales extends React.Component {
       }
     ]
   }
+
+  
+  componentDidMount() {
+    this._isMounted = true;
+    if(this._isMounted) {
+      this.setState((state) => {
+        state.series[0].name = this.props.intl.formatMessage({id: "Бонусы за депозит"});
+        state.series[1].name = this.props.intl.formatMessage({id: "Бонусы за рефералов"});
+        state.options.labels[0] = this.props.intl.formatMessage({id: "Янв"});
+        state.options.labels[1] = this.props.intl.formatMessage({id: "Фев"});
+        state.options.labels[2] = this.props.intl.formatMessage({id: "Мар"});
+        state.options.labels[3] = this.props.intl.formatMessage({id: "Апр"});
+        state.options.labels[4] = this.props.intl.formatMessage({id: "Май"});
+        state.options.labels[5] = this.props.intl.formatMessage({id: "Июн"});
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   render() {
     return (
       <Card>
         <CardHeader>
           <div className="title">
-            <CardTitle>Бонусы</CardTitle>
-            <p className="text-muted mb-0">За полгода</p>
+            <CardTitle><FormattedMessage id="Бонусы"/></CardTitle>
+            <p className="text-muted mb-0"><FormattedMessage id="За полгода"/></p>
           </div>
           <MoreVertical className="cursor-pointer" size={20} />
         </CardHeader>
@@ -108,7 +144,7 @@ class Sales extends React.Component {
                 marginRight: "5px"
               }}
             />
-            <span>Бонусы за депозит</span>
+            <span><FormattedMessage id="Бонусы за депозит"/></span>
           </div>
           <div className="item-info d-inline-block">
             <div
@@ -121,7 +157,7 @@ class Sales extends React.Component {
                 marginRight: "5px"
               }}
             />
-            <span>Бонусы за рефералов</span>
+            <span><FormattedMessage id="Бонусы за рефералов"/></span>
           </div>
           <Chart
             options={this.state.options}
@@ -134,4 +170,4 @@ class Sales extends React.Component {
     )
   }
 }
-export default Sales
+export default withLocale(Sales)

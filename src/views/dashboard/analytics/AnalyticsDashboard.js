@@ -14,28 +14,29 @@ import ActivityTimeline from "./ActivityTimeline"
 import RevenueChart from "../../ui-elements/cards/analytics/Revenue"
 import ClientRetention from "../../ui-elements/cards/analytics/ClientRetention"
 import "../../../assets/scss/pages/dashboard-analytics.scss"
-import sponsorImg from "../../../assets/img/portrait/small/avatar-s-12.jpg"
 import ReferralLink from "../../ui-elements/cards/ReferralLink"
-import axios from 'axios';
 import TokenStorage from '../../../api/tokenStorage';
 import UserDataService from "../../../api/user-data-service"
-import defaultAvatar from "../../../assets/img/default-avatar.png"
 import { history } from "../../../history"
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { FormattedMessage, useIntl } from "react-intl";
+
+function withLocale(Component) {
+  return function WrappedComponent(props) {
+    const intl = useIntl();
+    return <Component {...props} intl={intl} />;
+  };
+}
 
 // const apiURL = 'https://cabinet.giq-group.com/back/public'
 
 let $primary = "#7367F0",
   $danger = "#EA5455",
-  $warning = "#FF9F43",
   $info = "#00cfe8",
-  $primary_light = "#9c8cfc",
-  $warning_light = "#FFC085",
   $danger_light = "#f29292",
   $info_light = "#1edec5",
   $stroke_color = "#e8e8e8",
-  $label_color = "#e7eef7",
-  $white = "#fff"
+  $label_color = "#e7eef7"
 
 class AnalyticsDashboard extends React.Component {
 
@@ -80,10 +81,17 @@ class AnalyticsDashboard extends React.Component {
             this.setState({referralAvatar: img})
         }
         else{
-          this.setState({referral: {
-            firstName: "Нет",
-            lastName: "спонсора"
-          }})
+          if(this.props.intl.locale === 'ru'){
+            this.setState({referral: {
+              firstName: "Нет",
+              lastName: "спонсора"
+            }})
+          } else {
+            this.setState({referral: {
+              firstName: "No",
+              lastName: "sponsor"
+            }})
+          }
           this.setState({referralAvatar: img})
         }
       })
@@ -91,7 +99,7 @@ class AnalyticsDashboard extends React.Component {
   }
 
   render() {
-    const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : 'Без статуса' : null
+    const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : this.props.intl.locale === 'ru' ? 'Без статуса' : 'No status' : null;
 
     return (
       <React.Fragment>
@@ -116,7 +124,7 @@ class AnalyticsDashboard extends React.Component {
                   iconLeft
                   icon={this.state.userAvatar}
                   stat={userStatus}
-                  statTitle="Мой статус"
+                  statTitle={this.props.intl.formatMessage({id: "Мой статус"})}
                 />
                 <UserCards
                   hideChart
@@ -124,7 +132,7 @@ class AnalyticsDashboard extends React.Component {
                   iconLeft
                   icon={this.state.referralAvatar}
                   stat={this.state.referral ? `${this.state.referral.firstName} ${this.state.referral.lastName}` : null}
-                  statTitle="Мой спонсор"
+                  statTitle={this.props.intl.formatMessage({id: "Мой спонсор"})}
                 />
             </Col>
           </Row>
@@ -143,13 +151,13 @@ class AnalyticsDashboard extends React.Component {
             </Col>
           </Row>
           <Row className="match-height">
-            <Col lg="8" md="12" sm="12">
+            <Col lg="8" md="10" sm="12">
               <Statistics balance={this.state.balance} isResp = {this.state.isResp}/>
             </Col>
-            <Col lg="2" md="6" sm="12">
+            <Col lg="2" md="7" sm="12">
               <Orders />
             </Col>
-            <Col lg="2" md="6" sm="12">
+            <Col lg="2" md="7" sm="12">
               <RevenueLastMonth />
             </Col>
           </Row>
@@ -165,10 +173,9 @@ class AnalyticsDashboard extends React.Component {
             <Col lg="4" md="6" sm="12">
               <Card>
                 <CardHeader className="mx-auto flex-column">
-                  <h4>Информация о пользователе</h4>
+                  <h4><FormattedMessage id="Информация о пользователе"/></h4>
                 </CardHeader>
                 <div className="text-center pt-0 my-auto">
-                  {console.log(this.state.user)}
                     <h5>{this.state.user ? `${this.state.user.firstName} ${this.state.user.lastName}` : <Skeleton width={100}/>}</h5>
                     <p>{userStatus || <Skeleton width={60}/>}</p>
                     <div className="avatar" style={{width:200,height:200,overflow:"hidden"}}>
@@ -177,15 +184,15 @@ class AnalyticsDashboard extends React.Component {
                     <div className="d-flex justify-content-around mt-2">
                       <div className="uploads">
                         <p className="font-weight-bold font-medium-2 mb-0">0</p>
-                        <span>заказов</span>
+                        <span><FormattedMessage id="заказов"/></span>
                       </div>
                       <div className="followers">
                         <p className="font-weight-bold font-medium-2 mb-0">0</p>
-                        <span>рефералов</span>
+                        <span><FormattedMessage id="рефераллов"/></span>
                       </div>
                       <div className="following">
                         <p className="font-weight-bold font-medium-2 mb-0">{this.state.isResp ? "$" + this.state.balance : <Skeleton />}</p>
-                        <span>заработано</span>
+                        <span><FormattedMessage id="заработано"/></span>
                       </div>
                     </div>
                     <Button.Ripple
@@ -193,7 +200,7 @@ class AnalyticsDashboard extends React.Component {
                       className="mt-2 mb-2"
                       onClick={() => history.push("/referrals")}
                       >
-                      Посмотреть структуру
+                      <FormattedMessage id="Посмотреть структуру"/>
                     </Button.Ripple>
                 </div>
               </Card>
@@ -213,4 +220,4 @@ class AnalyticsDashboard extends React.Component {
   }
 }
 
-export default AnalyticsDashboard
+export default withLocale(AnalyticsDashboard)

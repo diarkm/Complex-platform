@@ -1,6 +1,7 @@
 import React from "react"
 import { Card, CardHeader, CardTitle, CardBody } from "reactstrap"
-import { Plus, AlertCircle, Check, UserCheck, DollarSign } from "react-feather"
+import { Check } from "react-feather"
+import { FormattedMessage } from "react-intl";
 
 class ActivityTimeline extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class ActivityTimeline extends React.Component {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Уведомления</CardTitle>
+          <CardTitle><FormattedMessage id="Уведомления"/></CardTitle>
         </CardHeader>
         <CardBody>
           {/* <ul className="activity-timeline timeline-left list-unstyled">
@@ -69,9 +70,9 @@ class ActivityTimeline extends React.Component {
                 <Check size={16} />
               </div>
               <div className="timeline-info">
-                <p className="font-weight-bold mb-0">Вы создали аккаунт</p>
+                <p className="font-weight-bold mb-0"><FormattedMessage id="Вы создали аккаунт"/></p>
                 <span className="font-small-3">
-                  Добро пожаловать в систему, {this.props.name}!
+                <FormattedMessage id="Добро пожаловать в систему,"/> {this.props.name}!
                 </span>
               </div>
               {/* <small className="text-muted">28 дней назад</small> */}

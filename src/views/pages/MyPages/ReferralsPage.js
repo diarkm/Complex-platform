@@ -1,18 +1,9 @@
 import React from 'react'
 import { Row, Col, Button } from 'reactstrap'
-import {history} from "../../../history";
 import ReferralLink from "../../ui-elements/cards/ReferralLink"
 import SuberscribersGained from "../../ui-elements/cards/statistics/SubscriberGained"
 import TreeView from "../../../extensions/treeview/TreeView"
-import sponsorImg from "../../../assets/img/portrait/small/avatar-s-12.jpg"
-import UserDataService from "../../../api/user-data-service"
-
-let $primary = "#7367F0",
-  $danger = "#EA5455",
-  $danger_light = "#f29292",
-  $stroke_color = "#e8e8e8",
-  $label_color = "#e7eef7",
-  $purple = "#df87f2"
+import { FormattedMessage } from "react-intl";
 
 class ReferralsPage extends React.Component {
     render(){
@@ -25,9 +16,9 @@ class ReferralsPage extends React.Component {
             </Row>
             <Row>
                 <Col className="m-3 text-center">
-                    <h4>Cоздать уникальную страницу всех средств</h4>
-                    <p>Вы сможете приглашать своих рефераллов посредством вашей уникально спроектированной странице!</p>
-                    <Button.Ripple color="primary">Создать</Button.Ripple>
+                    <h4><FormattedMessage id="Cоздать уникальную страницу всех средств"/></h4>
+                    <p><FormattedMessage id="Вы сможете приглашать своих рефераллов посредством вашей уникально спроектированной странице!"/></p>
+                    <Button.Ripple color="primary"><FormattedMessage id="Создать"/></Button.Ripple>
                 </Col>
             </Row>
             <Row>

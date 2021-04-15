@@ -3,7 +3,7 @@ import { Col, Row, Card, CardBody, Button } from "reactstrap"
 import Slider from "rc-slider"
 import NumericInput from "react-numeric-input"
 import { mobileStyle } from "../../forms/form-elements/number-input/InputStyles"
-
+import { FormattedMessage } from "react-intl";
 import { Redirect } from "react-router-dom"
 
 const sliderObj = {values:{1: 500, 2: 1000, 3: 5000, 4: 10000, 5: 50000, 6: 100000, 7: 500000, 8: 1000000}}
@@ -42,8 +42,8 @@ class buyPack extends React.Component {
       <Card>
         <CardBody className="m-3">
           <div className="text-center">
-            <h4>Вложить в депозит</h4>
-            <p>Выберите на какую сумму вы хотите приобрести пакет и приобретаемое количество</p>
+            <h4><FormattedMessage id="Вложить в депозит"/></h4>
+            <p><FormattedMessage id="Выберите на какую сумму вы хотите приобрести пакет и приобретаемое количество"/></p>
             <Row className="justify-align-center">
               <Col>
                   <h2 className='mb-2 text-success'>{this.state.value}$</h2>
@@ -60,7 +60,7 @@ class buyPack extends React.Component {
             </Row>
             <Row className="mt-3 flex-column justify-align-center align-items-center mx-auto">
               <Col lg="6" md="6" sm="12" className= "d-flex flex-column align-items-center mb-1">
-                <p className="mr-1 d-inline">Кол-во</p>
+                <p className="mr-1 d-inline"><FormattedMessage id="Кол-во"/></p>
                 <NumericInput
                   min={1}
                   max={100}
@@ -70,12 +70,12 @@ class buyPack extends React.Component {
                 />
               </Col>
               <Col className="mt-sm-1 mt-lg-0 mt-md-0" lg="6" md="6" sm="12">
-                <h3>Итого: {this.state.value * this.state.amount}$</h3>
+                <h3><FormattedMessage id="Итого"/>: {this.state.value * this.state.amount}$</h3>
               </Col>
             </Row>
             <Row className="mt-2">
               <Col>
-                <Button.Ripple onClick={this.onTransactionSend} color="primary">Вложить</Button.Ripple>
+                <Button.Ripple onClick={this.onTransactionSend} color="primary"><FormattedMessage id="Вложить"/></Button.Ripple>
               </Col>
             </Row>
           </div>

@@ -1,7 +1,6 @@
 import axios from "axios"
 import {apiURL} from './config'
 import TokenStorage from './tokenStorage'
-import UserDataService from "./user-data-service";
 
 class AuthenticationService {
   constructor() {

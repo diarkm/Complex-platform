@@ -1,8 +1,6 @@
 import React from "react"
 import {
   Card,
-  CardHeader,
-  CardTitle,
   Row,
   Col,
 } from "reactstrap"
@@ -13,10 +11,6 @@ import "../../../../assets/scss/pages/authentication.scss"
 class Register extends React.Component {
   state = {
     activeTab: "1"
-  }
-
-  constructor(props) {
-    super(props)
   }
 
   toggle = tab => {

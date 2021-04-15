@@ -1,7 +1,9 @@
 import {Field, Form, Formik} from "formik";
 import {Alert, Button, Col, FormFeedback, FormGroup, Label, Row} from "reactstrap";
-import Skeleton, {SkeletonTheme} from "react-loading-skeleton";
+import Skeleton from "react-loading-skeleton";
 import React from "react";
+
+import { FormattedMessage } from "react-intl";
 
 export default function GeneralForm (props){
 
@@ -32,7 +34,7 @@ export default function GeneralForm (props){
           <Row>
             <Col lg="6" md="6" sm="12">
               <FormGroup>
-                <Label for="userName">Логин</Label>
+                <Label for="userName"><FormattedMessage id="Логин"/></Label>
                 {values.login !== null ?
                   <Field
                     className='form-control'
@@ -44,7 +46,7 @@ export default function GeneralForm (props){
             </Col>
             <Col lg="6" md="6" sm="12">
               <FormGroup>
-                <Label for="email">Почта</Label>
+                <Label for="email"><FormattedMessage id="Почта"/></Label>
                 {values.email !== null ?
                   <Field
                     name="email"
@@ -60,7 +62,7 @@ export default function GeneralForm (props){
             </Col>
             <Col lg="6" md="6" sm="12">
               <FormGroup>
-                <Label for="name">Имя</Label>
+                <Label for="name"><FormattedMessage id="Имя"/></Label>
                 {values.firstName !== null ?
                   <Field
                     className={`form-control
@@ -77,7 +79,7 @@ export default function GeneralForm (props){
             </Col>
             <Col lg="6" md="6" sm="12">
               <FormGroup>
-                <Label for="lastName">Фамилия</Label>
+                <Label for="lastName"><FormattedMessage id="Фамилия"/></Label>
                 {values.lastName !== null ?
                   <Field
                     className={`form-control
@@ -94,7 +96,7 @@ export default function GeneralForm (props){
             </Col>
             <Col lg="6" md="6" sm="12">
               <FormGroup>
-                <Label for="tel">Телефон</Label>
+                <Label for="tel"><FormattedMessage id="Телефон"/></Label>
                 {values.phoneNumber !== null ?
                   <Field
                     className={`form-control
@@ -118,17 +120,17 @@ export default function GeneralForm (props){
                 style={{display:  props.confirmed === 0 ? 'block' : 'none'}}
               >
                 <p className="mb-0">
-                  Ваша почта не подтверждена. Мы выслали вам код с дальнейшей инструкцией по активации.<br></br>
-                  <a className="text-primary" onClick={e => this.resendConfirmEmail()}>Отправить код повторно</a>
+                <FormattedMessage id="Ваша почта не подтверждена. Мы выслали вам код с дальнейшей инструкцией по активации"/>.<br></br>
+                  <a href="#sendCode" className="text-primary" onClick={e => this.resendConfirmEmail()}><FormattedMessage id="Отправить код повторно"/></a>
                 </p>
               </Alert>
             </Col>
             <Col className="d-flex justify-content-between flex-wrap" sm="12">
               <Button.Ripple  type="submit" color="primary" disabled={!(props.isFilePicked || dirty)}>
-                Сохранить изменения
+              <FormattedMessage id="Сохранить изменения"/>
               </Button.Ripple>
               <Button.Ripple onClick={() => props.refreshPage()} type="reset" color="danger">
-                Отмена
+              <FormattedMessage id="Отмена"/>
               </Button.Ripple>
             </Col>
           </Row>

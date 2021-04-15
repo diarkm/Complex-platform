@@ -186,7 +186,6 @@ class UserDataService {
   async getReferralTree() {
     return this.client.get('/user/referral/tree')
       .then(response => {
-        console.log('TREE', response.data)
         return response.data
       })
       .catch(error => {

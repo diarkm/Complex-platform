@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardHeader, CardTitle, Row, Col } from "reactstrap";
+import { Card, Row, Col } from "reactstrap";
 import "../../assets/scss/pages/authentication.scss";
 
 class Politics extends React.Component {

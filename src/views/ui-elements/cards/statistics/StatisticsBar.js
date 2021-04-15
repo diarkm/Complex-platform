@@ -1,24 +1,22 @@
 import React from "react"
-import { Row, Col, Card, CardBody, CardHeader, CardTitle } from "reactstrap"
+import { Row, Col, Card, CardBody, CardHeader } from "reactstrap"
 import StatisticsCard from "../../../../components/@vuexy/statisticsCard/StatisticsCard"
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import {
-    Monitor,
     UserCheck,
-    Mail,
-    Eye,
-    MessageSquare,
     ShoppingBag,
-    Heart,
-    Smile,
-    Truck,
-    Cpu,
-    Server,
     Activity,
-    AlertOctagon,
     DollarSign
   } from "react-feather"
 
+import { FormattedMessage, useIntl } from "react-intl";
+
+function withLocale(Component) {
+  return function WrappedComponent(props) {
+    const intl = useIntl();
+    return <Component {...props} intl={intl} />;
+  };
+}
 class StatisticsBar extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +30,7 @@ class StatisticsBar extends React.Component {
       <Card>
         <SkeletonTheme color="#283046" highlightColor="#3F4860">
           <CardHeader>
-              Статистика
+              <FormattedMessage id="Статистика"/>
           </CardHeader>
           <CardBody>
               <Row>
@@ -42,7 +40,7 @@ class StatisticsBar extends React.Component {
                 iconBg="primary"
                 icon={<Activity className="primary" size={22} />}
                 stat="0$"
-                statTitle="Бонусы за день"
+                statTitle={this.props.intl.formatMessage({id: "Бонусы за день"})}
               />
             </Col>
             <Col xl="3" lg="4" sm="6">
@@ -51,7 +49,7 @@ class StatisticsBar extends React.Component {
                 iconBg="info"
                 icon={<UserCheck className="info" size={22} />}
                 stat="0"
-                statTitle="Рефераллов"
+                statTitle={this.props.intl.formatMessage({id: "Рефераллов"})}
               />
             </Col>
             <Col xl="3" lg="4" sm="6">
@@ -60,7 +58,7 @@ class StatisticsBar extends React.Component {
                 iconBg="warning"
                 icon={<ShoppingBag className="warning" size={22} />}
                 stat="0"
-                statTitle="Заказов"
+                statTitle={this.props.intl.formatMessage({id: "Заказов"})}
               />
             </Col>
             <Col xl="3" lg="4" sm="6">
@@ -69,7 +67,7 @@ class StatisticsBar extends React.Component {
                 iconBg="success"
                 icon={<DollarSign className="success" size={22} />}
                 stat={this.props.isResp ? '$' + this.props.balance : <Skeleton width={60}/>}
-                statTitle="Кошелек"
+                statTitle={this.props.intl.formatMessage({id: "Кошелек"})}
               />
             </Col>
               </Row>
@@ -79,4 +77,4 @@ class StatisticsBar extends React.Component {
     )
   }
 }
-export default StatisticsBar
+export default withLocale(StatisticsBar)

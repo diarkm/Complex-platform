@@ -5,7 +5,7 @@ import fgImg from "../../../assets/img/pages/forgot-password.png"
 import "../../../assets/scss/pages/authentication.scss"
 import "react-toastify/dist/ReactToastify.css"
 import {history} from "../../../history"
-import {toast, ToastContainer} from "react-toastify"
+import {ToastContainer} from "react-toastify"
 import {forgotPasswordFormSchema, handleErrorFromBD, onValidationError, onValidationSuccess} from "./AuthServices";
 
 class ForgotPassword extends React.Component {

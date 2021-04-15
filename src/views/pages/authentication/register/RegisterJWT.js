@@ -1,5 +1,5 @@
 import React from "react"
-import {FormGroup, Input, Label, Button, CustomInput, Alert, Row, Col, FormFeedback} from "reactstrap"
+import {FormGroup, Label, Button, CustomInput, Alert, Row, Col, FormFeedback} from "reactstrap"
 import UserDataService from "../../../../api/user-data-service";
 import Checkbox from "../../../../components/@vuexy/checkbox/CheckboxesVuexy"
 import {Check} from "react-feather"
@@ -8,7 +8,7 @@ import {signupForm} from "../../../../server"
 import {history} from "../../../../history"
 import axios from 'axios';
 import TokenStorage from '../../../../api/tokenStorage';
-import {toast, ToastContainer} from "react-toastify"
+import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "../../../../assets/scss/plugins/extensions/toastr.scss"
 import "../../../../assets/scss/pages/register.scss"

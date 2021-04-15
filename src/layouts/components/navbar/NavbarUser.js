@@ -1,37 +1,33 @@
 import React from "react"
 import {
-  NavItem,
-  NavLink,
-  CustomInput,
   UncontrolledDropdown,
   Dropdown,
   DropdownMenu,
   DropdownItem,
-  DropdownToggle,
-  Media,
-  Badge
+  DropdownToggle
 } from "reactstrap"
-import PerfectScrollbar from "react-perfect-scrollbar"
-import axios from "axios"
 import * as Icon from "react-feather"
-import classnames from "classnames"
 import ReactCountryFlag from "react-country-flag"
-import Autocomplete from "../../../components/@vuexy/autoComplete/AutoCompleteComponent"
-import { useAuth0 } from "../../../authServices/auth0/auth0Service"
 import { history } from "../../../history"
 import { IntlContext } from "../../../utility/context/Internationalization"
-import TokenStorage from '../../../api/tokenStorage';
 import UserDataService from "../../../api/user-data-service"
 import img from "../../../assets/img/default-avatar.png"
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { FormattedMessage, useIntl } from "react-intl";
 
 const handleNavigation = (e, path) => {
   e.preventDefault()
   history.push(path)
 }
 
+function withLocale(Component) {
+  return function WrappedComponent(props) {
+    const intl = useIntl();
+    return <Component {...props} intl={intl} />;
+  };
+}
+
 const UserDropdown = props => {
-  const { logout, isAuthenticated } = useAuth0()
 
   const exit = () => {
     localStorage.removeItem('token');
@@ -45,7 +41,7 @@ const UserDropdown = props => {
         onClick={e => handleNavigation(e, "/settings")}
       >
         <Icon.User size={14} className="mr-50" />
-        <span className="align-middle">Настройки</span>
+        <span className="align-middle"><FormattedMessage id="Настройки"/></span>
       </DropdownItem>
       <DropdownItem divider />
       <DropdownItem
@@ -73,7 +69,7 @@ const UserDropdown = props => {
         }}
       >
         <Icon.Power size={14} className="mr-50" />
-        <span className="align-middle">Выйти</span>
+        <span className="align-middle"><FormattedMessage id="Выйти"/></span>
       </DropdownItem>
     </DropdownMenu>
   )
@@ -131,7 +127,7 @@ class NavbarUser extends React.PureComponent {
     this.setState({ langDropdown: !this.state.langDropdown })
 
   render() {
-    const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : 'Без статуса' : null
+    const userStatus = this.state.user ? this.state.user.status ? this.state.user.status.name : this.props.intl.locale === 'ru' ? 'Без статуса' : 'No status' : null;
 
     return (
 
@@ -372,4 +368,4 @@ class NavbarUser extends React.PureComponent {
     )
   }
 }
-export default NavbarUser
+export default withLocale(NavbarUser)

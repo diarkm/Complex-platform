@@ -5,6 +5,7 @@ import { Award } from "react-feather"
 import decorLeft from "../../../assets/img/elements/decore-left.png"
 import decorRight from "../../../assets/img/elements/decore-right.png"
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { FormattedMessage } from "react-intl";
 
 class SalesCard extends React.Component {
   constructor(props) {
@@ -26,9 +27,9 @@ class SalesCard extends React.Component {
               </div>
             </div>
             <div className="award-info text-center">
-              <h1 className="mb-2 text-white">Привет, 🎉 {this.props.name || <Skeleton width={80}/> }</h1>
+              <h1 className="mb-2 text-white"><FormattedMessage id="Привет, "/> <span role="img" aria-label="congrats">🎉</span> {this.props.name || <Skeleton width={80}/> }</h1>
               <p className="m-auto mb-0 w-75">
-                Добро пожаловать в систему GIQ GROUP!
+                <FormattedMessage id="Добро пожаловать в систему GIQ GROUP!"/>
               </p>
             </div>
           </CardBody>

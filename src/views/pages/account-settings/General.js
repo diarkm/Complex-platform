@@ -1,4 +1,3 @@
-import $ from "jquery"
 import React from "react"
 import { Button, Input, Media } from "reactstrap"
 import UserDataService from "../../../api/user-data-service"
@@ -10,9 +9,18 @@ import Skeleton, {SkeletonTheme} from 'react-loading-skeleton';
 import GeneralForm from "./GeneralForm";
 import * as Yup from "yup";
 
+import { FormattedMessage, useIntl } from "react-intl";
+
+function withLocale(Component) {
+  return function WrappedComponent(props) {
+    const intl = useIntl();
+    return <Component {...props} intl={intl} />;
+  };
+}
+
 const formSchema = Yup.object().shape({
   firstName: Yup.string().required("Введите ваше имя").min(2, 'Имя должна состоять минимум из 2 букв')
-    .matches(/^[a-zA-Zа-яёА-ЯЁ]+$/u,'Имя неправильная'),
+    .matches(/^[a-zA-Zа-яёА-ЯЁ]+$/u,'Неправильное имя'),
   lastName: Yup.string().required("Введите вашу фамилию").min(2,'Фамилия должна состоять минимум из 2 букв')
     .matches(/^[a-zA-Zа-яёА-ЯЁ]+$/u,'Фамилия неправильная'),
  email: Yup.string().email('Неправильная почта').required("Введите почту"),
@@ -134,14 +142,14 @@ class General extends React.Component {
                   color="primary"
                   outline
                 >
-                  Загрузить
+                  <FormattedMessage id="Загрузить"/>
                   <Input type="file" name="file" id="uploadImg" accept="image/x-png,image/gif,image/jpg"
                          onChange={(e) => this.handleImgChange(e)} hidden/>
                 </Button.Ripple>
-                <Button.Ripple color="flat-danger">Удалить</Button.Ripple>
+                <Button.Ripple color="flat-danger"><FormattedMessage id="Удалить"/></Button.Ripple>
               </div>
               <p className={`text-muted mt-50 `}>
-                <small className={`${this.state.avatarError && 'text-danger' }`}>Разрешается JPG, GIF или PNG. Максимальный размер: 1мб</small>
+                <small className={`${this.state.avatarError && 'text-danger' }`}><FormattedMessage id="Разрешается JPG, GIF или PNG. Максимальный размер: 1мб"/></small>
               </p>
             </Media>
           </Media>
@@ -159,4 +167,4 @@ class General extends React.Component {
   }
 }
 
-export default General
+export default withLocale(General)

@@ -43,7 +43,7 @@ class Login extends React.Component {
                 <Card className="rounded-0 mb-0 px-2 login-tabs-container">
                   <CardHeader className="pb-1">
                     <CardTitle>
-                      <h4 className="mb-0">Добро пожаловать в GIQ GROUP! 👋🏻</h4>
+                      <h4 className="mb-0">Добро пожаловать в GIQ GROUP! <span role="img" aria-label="welcome">👋🏻</span></h4>
                     </CardTitle>
                   </CardHeader>
                   <p className="px-2 auth-title">

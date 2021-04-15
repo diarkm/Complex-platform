@@ -3,6 +3,15 @@ import StatisticsCard from "../../../../components/@vuexy/statisticsCard/Statist
 import { Package } from "react-feather"
 import { ordersReceived, ordersReceivedSeries } from "./StatisticsData"
 
+import { useIntl } from "react-intl";
+
+function withLocale(Component) {
+  return function WrappedComponent(props) {
+    const intl = useIntl();
+    return <Component {...props} intl={intl} />;
+  };
+}
+
 class OrdersReceived extends React.Component {
   render() {
     return (
@@ -10,7 +19,7 @@ class OrdersReceived extends React.Component {
         icon={<Package className="warning" size={22} />}
         iconBg="warning"
         stat="0"
-        statTitle="Заказов сети"
+        statTitle={this.props.intl.formatMessage({id: "Заказов сети"})}
         options={ordersReceived}
         series={ordersReceivedSeries}
         type="area"
@@ -18,4 +27,4 @@ class OrdersReceived extends React.Component {
     )
   }
 }
-export default OrdersReceived
+export default withLocale(OrdersReceived)

@@ -1,31 +1,41 @@
-import React from "react"
-import { Card, CardHeader, CardTitle, CardBody } from "reactstrap"
-import Chart from "react-apexcharts"
-import { FormattedMessage, useIntl } from "react-intl"
+import React from "react";
+import { Card, CardHeader, CardTitle, CardBody } from "reactstrap";
+import Chart from "react-apexcharts";
+import { FormattedMessage, useIntl } from "react-intl";
+
+function withLocale(Component) {
+  return function WrappedComponent(props) {
+    const intl = useIntl();
+    return <Component {...props} intl={intl} />;
+  };
+}
 
 class ClientRetention extends React.Component {
-
+  constructor(props){
+    super(props);
+    this._isMounted = false;
+  }
   state = {
     options: {
       chart: {
         stacked: true,
-        toolbar: { show: false }
+        toolbar: { show: false },
       },
       plotOptions: {
         bar: {
-          columnWidth: "10%"
-        }
+          columnWidth: "10%",
+        },
       },
       colors: [this.props.primary, this.props.danger],
       dataLabels: {
-        enabled: false
+        enabled: false,
       },
       grid: {
         borderColor: this.props.labelColor,
         padding: {
           left: 0,
-          right: 0
-        }
+          right: 0,
+        },
       },
       legend: {
         show: true,
@@ -36,17 +46,17 @@ class ClientRetention extends React.Component {
         markers: {
           radius: 50,
           width: 10,
-          height: 10
-        }
+          height: 10,
+        },
       },
       xaxis: {
         labels: {
           style: {
-            colors: this.props.strokeColor
-          }
+            colors: this.props.strokeColor,
+          },
         },
         axisTicks: {
-          show: false
+          show: false,
         },
         categories: [
           "Янв",
@@ -60,54 +70,69 @@ class ClientRetention extends React.Component {
           "Сен",
           "Окт",
           "Ноя",
-          "Дек"
+          "Дек",
         ],
         axisBorder: {
-          show: false
-        }
+          show: false,
+        },
       },
       yaxis: {
         tickAmount: 5,
         labels: {
           style: {
-            color: this.props.strokeColor
-          }
-        }
+            color: this.props.strokeColor,
+          },
+        },
       },
       tooltip: {
-        x: { show: false }
-      }
+        x: { show: false },
+      },
     },
     series: [
       {
         name: "Доходы",
-        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       },
       {
         name: "Расходы",
-        data: [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ]
-      }
-    ]
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      },
+    ],
+  };
+
+  componentDidMount() {
+    this._isMounted = true;
+    if(this._isMounted) {
+      this.setState((state) => {
+        state.series[0].name = this.props.intl.formatMessage({ id: "Доходы" });
+        state.series[1].name = this.props.intl.formatMessage({id: 'Расходы'});
+        state.options.xaxis.categories[0] = this.props.intl.formatMessage({id: 'Янв'});
+        state.options.xaxis.categories[1] = this.props.intl.formatMessage({id: 'Фев'});
+        state.options.xaxis.categories[2] = this.props.intl.formatMessage({id: 'Мар'});
+        state.options.xaxis.categories[3] = this.props.intl.formatMessage({id: 'Апр'});
+        state.options.xaxis.categories[4] = this.props.intl.formatMessage({id: 'Май'});
+        state.options.xaxis.categories[5] = this.props.intl.formatMessage({id: 'Июн'});
+        state.options.xaxis.categories[6] = this.props.intl.formatMessage({id: 'Июл'});
+        state.options.xaxis.categories[7] = this.props.intl.formatMessage({id: 'Авг'});
+        state.options.xaxis.categories[8] = this.props.intl.formatMessage({id: 'Сен'});
+        state.options.xaxis.categories[9] = this.props.intl.formatMessage({id: 'Окт'});
+        state.options.xaxis.categories[10] = this.props.intl.formatMessage({id: 'Ноя'});
+        state.options.xaxis.categories[11] = this.props.intl.formatMessage({id: 'Дек'});
+      });
+    }
   }
-  
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   render() {
     return (
       <Card>
         <CardHeader>
-          <CardTitle><FormattedMessage id="Отчеты за год" /></CardTitle>
+          <CardTitle>
+            <FormattedMessage id="Отчеты за год" />
+          </CardTitle>
         </CardHeader>
         <CardBody>
           <Chart
@@ -119,7 +144,8 @@ class ClientRetention extends React.Component {
           />
         </CardBody>
       </Card>
-    )
+    );
   }
 }
-export default ClientRetention
+
+export default withLocale(ClientRetention);

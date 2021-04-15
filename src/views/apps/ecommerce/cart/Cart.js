@@ -1,36 +1,15 @@
 import React, {useState} from "react"
-import { toast } from "react-toastify"
 import {
   Card,
   CardBody,
   CardHeader,
-  Badge,
   Button,
   CardTitle,
   Row,
   Col,
-  Input,
-  Label,
-  FormGroup
 } from "reactstrap"
-import Radio from "../../../../components/@vuexy/radio/RadioVuexy"
-import NumericInput from "react-numeric-input"
-import {
-  Star,
-  X,
-  Heart,
-  ShoppingCart,
-  Home,
-  CreditCard,
-  PlusSquare
-} from "react-feather"
-import { mobileStyle } from "../../../forms/form-elements/number-input/InputStyles"
-import Breacrumbs from "../../../../components/@vuexy/breadCrumbs/BreadCrumb"
 import bankLogo from "./payment-logos/Smartpay.png"
 import bitcoinLogo from "../../../../assets/img/pages/eCommerce/Bitcoin_Logo.png"
-import Wizard from "../../../../components/@vuexy/wizard/WizardComponent"
-import { productsList } from "./cartData"
-import { AvInput, AvGroup, AvFeedback } from "availity-reactstrap-validation"
 
 import "../../../../assets/scss/pages/app-ecommerce-shop.scss"
 import "react-toastify/dist/ReactToastify.css"
@@ -63,7 +42,7 @@ const Checkout = () => {
   ]
 
   const currentTransactionKey = 'transactionCurrent'
-  if(localtrans.value == 0 && localStorage.getItem(currentTransactionKey)) {
+  if(localtrans.value === 0 && localStorage.getItem(currentTransactionKey)) {
     setlocaltrans(JSON.parse(
       localStorage.getItem(currentTransactionKey)
     ))
@@ -132,7 +111,7 @@ const Checkout = () => {
                       <span className="vx-radio--border"></span>
                       <span className="vx-radio--circle"></span>
                     </span>
-                    <img className="rounded-circle mx-1" src={require(`./payment-logos/${item[0]}.png`).default} alt="img-placeholder" width="35" />
+                    <img className="rounded-circle mx-1" src={require(`./payment-logos/${item[0]}.png`)} alt="img-placeholder" width="35" />
                     <span>{item[1]}</span>
                   </div>
                 })}
