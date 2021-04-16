@@ -120,8 +120,11 @@ export default function GeneralForm (props){
                 style={{display:  props.confirmed === 0 ? 'block' : 'none'}}
               >
                 <p className="mb-0">
-                <FormattedMessage id="Ваша почта не подтверждена. Мы выслали вам код с дальнейшей инструкцией по активации"/>.<br></br>
-                  <a href="#sendCode" className="text-primary" onClick={e => this.resendConfirmEmail()}><FormattedMessage id="Отправить код повторно"/></a>
+                  <FormattedMessage id='Ваша почта не подтверждена. Мы выслали вам код с дальнейшей инструкцией по активации'/>.<br></br>
+                  <a className="text-primary" onClick={e => props.resendConfirmEmail().then(() =>  {if(this.props.intl.locale === 'ru')
+          window.location.href = '/confirm';
+        else
+        window.location.href = '/en/confirm';} ).catch((er)=>console.log(er))}>Отправить код повторно</a>
                 </p>
               </Alert>
             </Col>
