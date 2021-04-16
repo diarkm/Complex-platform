@@ -64,7 +64,7 @@ class UserDataService {
       })
   }
 
-  async resendConfirmEmail() {
+   resendConfirmEmail = async () => {
     return this.client.post('/user/settings/resendConfirmEmail', {})
       .then(response => {
         return response.data

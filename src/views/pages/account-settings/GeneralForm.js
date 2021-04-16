@@ -119,7 +119,7 @@ export default function GeneralForm (props){
               >
                 <p className="mb-0">
                   Ваша почта не подтверждена. Мы выслали вам код с дальнейшей инструкцией по активации.<br></br>
-                  <a className="text-primary" onClick={e => this.resendConfirmEmail()}>Отправить код повторно</a>
+                  <a className="text-primary" onClick={e => props.resendConfirmEmail().then(() =>  window.location.href = '/confirm').catch((er)=>console.log(er))}>Отправить код повторно</a>
                 </p>
               </Alert>
             </Col>

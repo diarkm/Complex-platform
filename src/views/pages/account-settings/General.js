@@ -151,6 +151,7 @@ class General extends React.Component {
             dismissAlert={this.dismissAlert}
             refreshPage={this.refreshPage}
             schema={formSchema}
+            resendConfirmEmail={this.userDataService.resendConfirmEmail}
           />
           <ToastContainer/>
         </SkeletonTheme>
