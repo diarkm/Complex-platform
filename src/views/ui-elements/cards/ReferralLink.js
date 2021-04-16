@@ -6,6 +6,9 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 function onCopyRef(login) {
+  if (login === undefined){
+    return '';
+  }
   return `https://cabinet.giq-group.com/register/${login}`;
 }
 

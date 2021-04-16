@@ -94,7 +94,10 @@ class RegisterJWT extends React.Component {
         }}
         validationSchema={registerFormSchema}
         onSubmit={values => {
-          console.log(values);
+          if(this.state.referer){
+            values['referer'] = this.state.referer;
+            values['ref_id'] = this.state.ref_id;
+          }
           this.signup(values);
         }}
       >
@@ -237,7 +240,7 @@ class RegisterJWT extends React.Component {
                 required={false}
                 type="file"
                 accept="image/x-png,image/gif,image/jpeg"
-                label="Выберите файл"
+                label="Загрузить аватар"
                 id="exampleCustomFileBrowser"
                 name="avatar"
                 onChange={e => {
