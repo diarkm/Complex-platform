@@ -113,17 +113,6 @@ class General extends React.Component {
       this.onValidateSuccess('Данные успешно сохранены!')
   }
 
-  resendConfirmEmail() {
-    this.userDataService.resendConfirmEmail()
-      .then(res => {
-        if(this.props.intl.locale === 'ru')
-          window.location.href = '/confirm';
-        else
-        window.location.href = '/en/confirm';
-      })
-      .catch(err => console.log(err))
-  }
-
   render() {
     return (
       <React.Fragment>
