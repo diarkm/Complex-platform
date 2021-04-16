@@ -142,5 +142,8 @@
   "Введите код из приложения": "Enter the code from the application",
   "Закрыть": "Close",
   "Отключить": "Disable",
-  "2fa.off": "To disable two-factor authentication, enter the code from the application"
+  "2fa.off": "To disable two-factor authentication, enter the code from the application",
+  "Это поле должно быть заполнено": "This field must be filled",
+  "Пароль должен состоять минимум из 8 символов и одной буквы": "Password must be at least 8 characters and one letter",
+  "Пароли должны совпадать": "Passwords must match"
 }

@@ -15,111 +15,96 @@ class Sales extends React.Component {
   
   constructor(props){
     super(props);
-    this._isMounted = false;
-  }
-
-  state = {
-    options: {
-      chart: {
-        dropShadow: {
-          enabled: true,
-          blur: 8,
-          left: 1,
-          top: 1,
-          opacity: 0.2
+    this.state = {
+      options: {
+        chart: {
+          dropShadow: {
+            enabled: true,
+            blur: 8,
+            left: 1,
+            top: 1,
+            opacity: 0.2
+          },
+          toolbar: {
+            show: false
+          }
         },
-        toolbar: {
+        stroke: {
+          width: 0
+        },
+        colors: [this.props.primary, this.props.info],
+        plotOptions: {
+          radar: {
+            polygons: {
+              strokeColors: [
+                this.props.strokeColor,
+                "transparent",
+                "transparent",
+                "transparent",
+                "transparent",
+                "transparent"
+              ],
+              connectorColors: "transparent"
+            }
+          }
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            shade: "dark",
+            gradientToColors: ["#9f8ed7", this.props.infoLight],
+            shadeIntensity: 1,
+            type: "horizontal",
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 100, 100, 100]
+          }
+        },
+        markers: {
+          size: 0
+        },
+        legend: {
+          show: false
+        },
+        labels: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн"],
+        dataLabels: {
+          style: {
+            colors: [
+              this.props.strokeColor,
+              this.props.strokeColor,
+              this.props.strokeColor,
+              this.props.strokeColor,
+              this.props.strokeColor,
+              this.props.strokeColor
+            ]
+          }
+        },
+        yaxis: {
+          show: false
+        },
+        grid: {
           show: false
         }
       },
-      stroke: {
-        width: 0
-      },
-      colors: [this.props.primary, this.props.info],
-      plotOptions: {
-        radar: {
-          polygons: {
-            strokeColors: [
-              this.props.strokeColor,
-              "transparent",
-              "transparent",
-              "transparent",
-              "transparent",
-              "transparent"
-            ],
-            connectorColors: "transparent"
-          }
+      series: [
+        {
+          name: "Бонусы за депозит",
+          data: [0, 0, 0, 0, 0, 0]
+        },
+        {
+          name: "Бонусы за рефералов",
+          data: [0, 0, 0, 0, 0, 0]
         }
-      },
-      fill: {
-        type: "gradient",
-        gradient: {
-          shade: "dark",
-          gradientToColors: ["#9f8ed7", this.props.infoLight],
-          shadeIntensity: 1,
-          type: "horizontal",
-          opacityFrom: 1,
-          opacityTo: 1,
-          stops: [0, 100, 100, 100]
-        }
-      },
-      markers: {
-        size: 0
-      },
-      legend: {
-        show: false
-      },
-      labels: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн"],
-      dataLabels: {
-        style: {
-          colors: [
-            this.props.strokeColor,
-            this.props.strokeColor,
-            this.props.strokeColor,
-            this.props.strokeColor,
-            this.props.strokeColor,
-            this.props.strokeColor
-          ]
-        }
-      },
-      yaxis: {
-        show: false
-      },
-      grid: {
-        show: false
-      }
-    },
-    series: [
-      {
-        name: "Бонусы за депозит",
-        data: [0, 0, 0, 0, 0, 0]
-      },
-      {
-        name: "Бонусы за рефералов",
-        data: [0, 0, 0, 0, 0, 0]
-      }
-    ]
-  }
-
-  
-  componentDidMount() {
-    this._isMounted = true;
-    if(this._isMounted) {
-      this.setState((state) => {
-        state.series[0].name = this.props.intl.formatMessage({id: "Бонусы за депозит"});
-        state.series[1].name = this.props.intl.formatMessage({id: "Бонусы за рефералов"});
-        state.options.labels[0] = this.props.intl.formatMessage({id: "Янв"});
-        state.options.labels[1] = this.props.intl.formatMessage({id: "Фев"});
-        state.options.labels[2] = this.props.intl.formatMessage({id: "Мар"});
-        state.options.labels[3] = this.props.intl.formatMessage({id: "Апр"});
-        state.options.labels[4] = this.props.intl.formatMessage({id: "Май"});
-        state.options.labels[5] = this.props.intl.formatMessage({id: "Июн"});
-      });
+      ]
     }
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
+    this.state.series[0].name = this.props.intl.formatMessage({id: "Бонусы за депозит"});
+    this.state.series[1].name = this.props.intl.formatMessage({id: "Бонусы за рефералов"});
+    this.state.options.labels[0] = this.props.intl.formatMessage({id: "Янв"});
+    this.state.options.labels[1] = this.props.intl.formatMessage({id: "Фев"});
+    this.state.options.labels[2] = this.props.intl.formatMessage({id: "Мар"});
+    this.state.options.labels[3] = this.props.intl.formatMessage({id: "Апр"});
+    this.state.options.labels[4] = this.props.intl.formatMessage({id: "Май"});
+    this.state.options.labels[5] = this.props.intl.formatMessage({id: "Июн"});
   }
 
   render() {

@@ -16,17 +16,20 @@ function withLocale(Component) {
   };
 }
 
-const formSchema = Yup.object().shape({
-  oldpass:     Yup.string().required("Это поле должно быть заполнено")
-    .min(8, "Пароль должен состоять минимум из 8 символов и одной буквы")
-    .matches(/(?=.*[A-Za-z-яёА-ЯЁ])(?=.*\d)[A-Za-z-яёА-ЯЁ\d]{8,}$/i, "Пароль должен состоять минимум из 8 символов и одной буквы"),
-  newpass:     Yup.string().required("Это поле должно быть заполнено")
-    .min(8, "Пароль должен состоять минимум из 8 символов и одной буквы")
-    .matches(/(?=.*[A-Za-z-яёА-ЯЁ])(?=.*\d)[A-Za-z-яёА-ЯЁ\d]{8,}$/i, "Пароль должен состоять минимум из 8 символов и одной буквы"),
-  confirmpass: Yup.string()
-                 .oneOf([Yup.ref("newpass"), null], "Пароли должны совпадать")
-                 .required("Это поле должно быть заполнено")
-})
+function getSchema(intl){
+  const formSchema = Yup.object().shape({
+    oldpass:     Yup.string().required(intl.formatMessage({id: "Это поле должно быть заполнено"}))
+      .min(8, intl.formatMessage({id: "Пароль должен состоять минимум из 8 символов и одной буквы"}))
+      .matches(/(?=.*[A-Za-z-яёА-ЯЁ])(?=.*\d)[A-Za-z-яёА-ЯЁ\d]{8,}$/i, intl.formatMessage({id: "Пароль должен состоять минимум из 8 символов и одной буквы"})),
+    newpass:     Yup.string().required(intl.formatMessage({id: "Это поле должно быть заполнено"}))
+      .min(8, intl.formatMessage({id: "Пароль должен состоять минимум из 8 символов и одной буквы"}))
+      .matches(/(?=.*[A-Za-z-яёА-ЯЁ])(?=.*\d)[A-Za-z-яёА-ЯЁ\d]{8,}$/i, intl.formatMessage({id: "Пароль должен состоять минимум из 8 символов и одной буквы"})),
+    confirmpass: Yup.string()
+                  .oneOf([Yup.ref("newpass"), null], intl.formatMessage({id: "Пароли должны совпадать"}))
+                  .required(intl.formatMessage({id: "Это поле должно быть заполнено"}))
+  })
+  return formSchema;
+}
 
 class ChangePassword extends React.Component {
   constructor(props) {
@@ -76,7 +79,7 @@ class ChangePassword extends React.Component {
                   this.onValidationSuccess('Данные успешно сохранены!')
                 }).catch((err) => onValidationError(handleErrorFromBD(err.message)))
               }}
-              validationSchema={formSchema}
+              validationSchema={getSchema(this.props.intl)}
             >
               {({errors, touched}) => (
                 <Form>

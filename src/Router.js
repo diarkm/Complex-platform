@@ -12,7 +12,7 @@ import buyPackages from "./views/pages/MyPages/buyPackage"
 import myOrders from "./views/pages/MyPages/MyOrders"
 import { ContextLayout } from "./utility/context/Layout"
 import ConfirmEmail from './views/pages/authentication/ConfirmEmail'
-
+import ConfirmEmailENG from './views/pages/authentication-eng/ConfirmEmail'
 // Route-based code splitting
 import analyticsDashboard from "./views/dashboard/analytics/AnalyticsDashboard"
 import UserDataService from "./api/user-data-service"
@@ -34,6 +34,18 @@ const resetPassword = lazy(() =>
 const register = lazy(() =>
   import("./views/pages/authentication/register/Register")
 )
+// ENGLISH VERSION
+const LoginENG = lazy(() => import("./views/pages/authentication-eng/login/Login"))
+const forgotPasswordENG = lazy(() =>
+  import("./views/pages/authentication-eng/ForgotPassword")
+)
+const resetPasswordENG = lazy(() =>
+  import("./views/pages/authentication-eng/ResetPassword")
+)
+const registerENG = lazy(() =>
+  import("./views/pages/authentication-eng/register/Register")
+)
+
 // Set Layout and Component Using App Route
 const RouteConfig = ({ component: Component, fullLayout, ...rest }) => (
   <Route
@@ -80,6 +92,7 @@ const AuthRoutes = [
 
   {path: '/settings', component: accountSettings},
   {path: '/confirm', exact: true, fullLayout: true, component: ConfirmEmail},
+  {path: '/en/confirm', exact: true, fullLayout: true, component: ConfirmEmailENG},
   {path: '/checkout', component: checkout},
   {path: '/bitcoinCheckout', component: bitcoinCheckout}
 ]
@@ -115,6 +128,7 @@ class AppRouter extends React.Component {
       <Router history={history}>
         <Switch>
           <AppRoute exact path="/" component={Login} fullLayout />
+          <AppRoute exact path="/en" component={LoginENG} fullLayout />
           <AppRoute exact path="/register" component={register} fullLayout />
           <AppRoute path="/register/:referer" component={register} fullLayout />
           <AppRoute
@@ -130,6 +144,24 @@ class AppRouter extends React.Component {
           <AppRoute
             path="/reset-password/:token"
             component={resetPassword}
+            fullLayout
+          />
+
+          <AppRoute exact path="/en/register" component={registerENG} fullLayout />
+          <AppRoute path="/en/register/:referer" component={registerENG} fullLayout />
+          <AppRoute
+            path="/en/forgot-password"
+            component={forgotPasswordENG}
+            fullLayout
+          />
+          <AppRoute
+            path="/en/reset-password"
+            component={resetPasswordENG}
+            fullLayout
+          />
+          <AppRoute
+            path="/en/reset-password/:token"
+            component={resetPasswordENG}
             fullLayout
           />
 

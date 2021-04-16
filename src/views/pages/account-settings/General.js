@@ -18,15 +18,18 @@ function withLocale(Component) {
   };
 }
 
-const formSchema = Yup.object().shape({
-  firstName: Yup.string().required("Введите ваше имя").min(2, 'Имя должна состоять минимум из 2 букв')
-    .matches(/^[a-zA-Zа-яёА-ЯЁ]+$/u,'Неправильное имя'),
-  lastName: Yup.string().required("Введите вашу фамилию").min(2,'Фамилия должна состоять минимум из 2 букв')
-    .matches(/^[a-zA-Zа-яёА-ЯЁ]+$/u,'Фамилия неправильная'),
- email: Yup.string().email('Неправильная почта').required("Введите почту"),
- phoneNumber: Yup.string().required("Введите номер телефона")
-   .matches(/^\+(?:[0-9] ?){6,14}[0-9]$/,'Неправильный номер')
-});
+function getSchema(intl){
+  const formSchema = Yup.object().shape({
+    firstName: Yup.string().required(intl.formatMessage({id: "Введите ваше имя"})).min(2, intl.formatMessage({id: 'Имя должна состоять минимум из 2 букв'}))
+      .matches(/^[a-zA-Zа-яёА-ЯЁ]+$/u,intl.formatMessage({id: 'Неправильное имя'})),
+    lastName: Yup.string().required(intl.formatMessage({id: "Введите вашу фамилию"})).min(2,intl.formatMessage({id: 'Фамилия должна состоять минимум из 2 букв'}))
+      .matches(/^[a-zA-Zа-яёА-ЯЁ]+$/u,intl.formatMessage({id: 'Фамилия неправильная'})),
+  email: Yup.string().email(intl.formatMessage({id: 'Неправильная почта'})).required(intl.formatMessage({id: "Введите почту"})),
+  phoneNumber: Yup.string().required(intl.formatMessage({id: "Введите номер телефона"}))
+    .matches(/^\+(?:[0-9] ?){6,14}[0-9]$/,intl.formatMessage({id: 'Неправильный номер'}))
+  });
+  return formSchema;
+}
 
 class General extends React.Component {
   constructor(props) {
@@ -113,7 +116,10 @@ class General extends React.Component {
   resendConfirmEmail() {
     this.userDataService.resendConfirmEmail()
       .then(res => {
-        window.location.href = '/confirm';
+        if(this.props.intl.locale === 'ru')
+          window.location.href = '/confirm';
+        else
+        window.location.href = '/en/confirm';
       })
       .catch(err => console.log(err))
   }
@@ -158,7 +164,7 @@ class General extends React.Component {
             submit ={this.handleSubmit}
             dismissAlert={this.dismissAlert}
             refreshPage={this.refreshPage}
-            schema={formSchema}
+            schema={getSchema(this.props.intl)}
           />
           <ToastContainer/>
         </SkeletonTheme>
