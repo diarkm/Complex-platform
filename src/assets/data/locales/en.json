@@ -145,5 +145,7 @@
   "2fa.off": "To disable two-factor authentication, enter the code from the application",
   "Это поле должно быть заполнено": "This field must be filled",
   "Пароль должен состоять минимум из 8 символов и одной буквы": "Password must be at least 8 characters and one letter",
-  "Пароли должны совпадать": "Passwords must match"
+  "Пароли должны совпадать": "Passwords must match",
+  "Снятие средств": "Withdraw funds",
+  "Для снятия средств, пожалуйста обратитесь к администратору": "To withdraw funds, please contact the administrator"
 }
